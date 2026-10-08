@@ -17,7 +17,7 @@ Type `/code-review`, or the agent reaches for it automatically when you ask to r
 | The whole codebase has drifted, not one diff | [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) |
 | Something is broken and you do not know why | [diagnosing-bugs](https://aihero.dev/skills-diagnosing-bugs) |
 
-A branch or PR review needs a fixed point and pins both revisions before capturing its merge-base diff. Generic work in progress uses pinned HEAD and captures staged, unstaged and untracked additions separately. You can narrow it to staged-only or unstaged-only. Before dispatch, it checks refs and the selected scope, so an invalid ref or empty scope fails in front of you.
+A branch or PR review needs a fixed point and pins both revisions before capturing its merge-base diff. Its left snapshots, file modes and line citations come from the merge-base, even when the named base has advanced independently; the supplied base remains selection metadata. Generic work in progress uses pinned HEAD and captures staged, unstaged and untracked additions separately. You can narrow it to staged-only or unstaged-only. Before dispatch, it checks refs and the selected scope, so an invalid ref or empty scope fails in front of you.
 
 Missing refs or spec locations are requested through an available question tool when it supports the request, one focused question at a time. Otherwise the agent asks one concise question in chat and waits for the answer before dependent work.
 
