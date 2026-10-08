@@ -1,6 +1,6 @@
 ## What it does
 
-`retro` looks back over a coding [session](https://www.aihero.dev/ai-coding-dictionary/session) and suggests improvements to the agent's **[environment](https://www.aihero.dev/ai-coding-dictionary/environment)**, so the next run goes better. It reads the session's own record (the current one by default, or one you point it at in the session logs). It finds the moments where the agent struggled, and gives you a list of candidate fixes, most severe first.
+`retro` looks back over a coding [session](https://www.aihero.dev/ai-coding-dictionary/session) and suggests improvements to the agent's **[environment](https://www.aihero.dev/ai-coding-dictionary/environment)**, so the next run goes better. It uses the current chat context by default, or reads an explicitly selected other chat through the host's native tools when available. A narrowly selected session log is the fallback. It finds the moments where the agent struggled, and gives you a list of candidate fixes, most severe first.
 
 It changes the environment, not the code. Take the bug the agent shipped, the file it needed twenty [tool calls](https://www.aihero.dev/ai-coding-dictionary/tool-call) to find, or the rule the reviewer missed. `retro` does not fix any of them directly. It asks what in the repo let them happen, and proposes the check, pointer, or standard that prevents them next time. It also only proposes. Nothing changes until you pick a candidate.
 
@@ -30,7 +30,7 @@ Each candidate belongs to one category, and the category decides where the fix g
 
 The leading idea is that standards belong to the **reviewer**, not the implementer. The implementing agent has the most context pressure, because it explores, writes code, and debugs failures. The reviewing agent gets a diff and nothing else. So a new rule goes where there is room to apply it, which is review. It never goes in [AGENTS.md](https://www.aihero.dev/ai-coding-dictionary/agents-md), which loads into every session's [context window](https://www.aihero.dev/ai-coding-dictionary/context-window) whether it is relevant or not.
 
-Before `retro` writes any rule, it classifies the violation. A **mechanical** violation (a banned API, an import shape, a file-location rule) gets a deterministic check, because a check can fail and a sentence in a standards file can't. Only real judgement calls, which no linter can enforce, become prose. If the repo has no guardrail at all (no pre-commit hook, and no CI job that runs lint, typecheck, and tests), `retro` reports that as a finding of its own.
+Before `retro` proposes any rule, it classifies the violation. A **mechanical** violation (a banned API, an import shape, a file-location rule) gets a deterministic check, because a check can fail and a sentence in a standards file can't. Only real judgement calls, which no linter can enforce, become prose. If the repo has no guardrail at all (no pre-commit hook, and no CI job that runs lint, typecheck, and tests), `retro` reports that as a finding of its own.
 
 ## Common questions
 
@@ -48,7 +48,11 @@ This is the strongest criticism of it. One user found that "once the job is fini
 
 **My session is long. Run it now, or start fresh?**
 
-By default it reviews the current session. That is the best case, because the struggles are still in the context window. If the session has already moved out of the [smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone), [clear](https://www.aihero.dev/ai-coding-dictionary/clearing) it, and point a fresh `/retro` at the previous session in the session logs.
+By default it reviews the current context. If the relevant history is elsewhere, explicitly select that existing chat. The agent preserves its returned title, reads older pages through the returned cursors, and labels summaries, missing turns and truncated output. Finishing pagination does not turn clipped summaries into a complete transcript. Proposals based on incomplete evidence say so. When native history is unavailable, point it at the exact session log; it does not sweep unrelated logs.
+
+**Will it change or send a message to the chat it reads?**
+
+No. The history route is read-only. It does not create, message, rename, archive, mark read or unread, navigate or otherwise manage chats, or activate a goal or schedule. Its output remains a list of proposals for you to choose from.
 
 **The agent keeps making the same mistake. Should I add a line to `CLAUDE.md`?**
 
@@ -64,7 +68,8 @@ The input is different. [improve-codebase-architecture](https://aihero.dev/skill
 
 ## It's working if
 
-- Every candidate points back to a specific moment in the session, not a generic best practice.
+- Every candidate points back to a specific moment and evidence source, not a generic best practice.
+- Summaries and clipped output stay labeled, and uncertain proposals disclose the missing evidence.
 - Repeat mistakes turn into failing checks, and your `AGENTS.md` gets shorter over time, not longer.
 - If a check already existed but was not connected, the finding is to connect it, not a proposal to build a new one.
 - The next session on the same kind of task finds what it needs faster.

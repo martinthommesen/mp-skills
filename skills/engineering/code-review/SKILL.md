@@ -3,26 +3,26 @@ name: code-review
 description: "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \"review since X\"."
 ---
 
-Two-axis review of the diff between `HEAD` and a fixed point the user supplies:
+Two-axis review of a branch, PR, or explicitly scoped local work in progress:
 
 - **Standards**: does the code conform to this repo's documented coding standards?
 - **Spec**: does the code faithfully implement the originating issue / spec?
 
 Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings.
 
-The issue tracker should have been provided to you. If not, tell the user to run `/setup-matt-pocock-skills`.
+Use the configured tracker doc when fetching issue references. An explicitly supplied local spec works without a tracker; if issue fetching needs missing configuration, tell the human to invoke `/setup-matt-pocock-skills`.
 
 ## Process
 
 Use an available question tool for missing user input, one focused question per call, within its schema and eligibility. Keep required answers pending until the user responds; continue independent work while an async question waits. If no eligible tool supports the request, ask one concise question in chat.
 
-### 1. Pin the fixed point
+### 1. Choose scope and capture once
 
-Whatever the user said is the fixed point (a commit SHA, branch name, tag, `main`, `HEAD~5`, etc.). If they didn't specify one, ask for it.
+Read [REVIEW-SURFACES.md](REVIEW-SURFACES.md) before capture or native presentation. For a branch, PR, or "since X", resolve the supplied fixed point and HEAD to full SHAs and preserve three-dot merge-base semantics. Ask for the fixed point only when that history scope needs one.
 
-Capture the diff command once: `git diff <fixed-point>...HEAD` (three-dot, so the comparison is against the merge-base). Also note the list of commits via `git log <fixed-point>..HEAD --oneline`.
+For generic WIP, use pinned HEAD as the committed boundary and capture staged, unstaged, and untracked work separately. An explicit staged-only or unstaged-only request narrows that scope. Do not demand an interim commit or substitute `git diff HEAD` for both surfaces: a staged edit cancelled in the working file still has two reviewable transitions.
 
-Before going further, confirm the fixed point resolves (`git rev-parse <fixed-point>`) and the diff is non-empty. A bad ref or empty diff should fail here, not inside two parallel sub-agents.
+Capture the actual evidence files once, not just commands to rerun. Reject invalid refs or an empty selected scope before dispatch. Complete the bundle with the spec and standards sources from steps 2 and 3, then freeze it. Both axes consume that same bundle.
 
 ### 2. Identify the spec source
 
@@ -63,19 +63,21 @@ Issue both sub-agent calls together, in the foreground, and aggregate the report
 
 **Standards sub-agent prompt** should include:
 
-- The full diff command and commit list.
-- The list of standards-source files you found in step 3, **plus the smell baseline from step 3** pasted in full (the sub-agent has no other access to it).
+- The frozen bundle path/identifier, selected scope, pinned revisions, captured diffs, snapshots, untracked contents, and commit list. Review these files directly; do not rerun mutable Git commands or read live versions as replacement evidence.
+- The captured standards-source contents and original pointers from step 3, **plus the smell baseline from step 3** pasted in full (the sub-agent has no other access to it).
 - The brief: "Report, per file/hunk where relevant, (a) every place the diff violates a documented standard: cite the standard (file + the rule); and (b) any baseline smell you spot: name it and quote the hunk. Distinguish hard violations from judgement calls: documented-standard breaches can be hard, but baseline smells are always judgement calls, and a documented repo standard overrides the baseline. Skip anything tooling enforces. Under 400 words."
 
 **Spec sub-agent prompt** should include:
 
-- The diff command and commit list.
-- The path or fetched contents of the spec.
+- The identical frozen bundle path/identifier and captured evidence supplied to Standards. Review these files directly; do not recapture Git state.
+- The captured spec contents and original source pointer, or the explicit no-spec acknowledgement.
 - The brief: "Report: (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. Under 400 words."
 
-If the spec is missing, skip the Spec sub-agent and note this in the final report.
+Only after the user says no spec exists, skip the Spec sub-agent and note this in the final report. A missing or unreadable source alone is not that acknowledgement. Give each reviewer its own brief and word budget; neither sees the other's conclusions. Each performs its assigned axis directly without invoking code-review again or spawning further agents.
 
 ### 5. Aggregate
+
+Use the matching native review surface when available, following REVIEW-SURFACES.md. Verify the surface and each line anchor before an inline finding. Deleted files, unsupported surfaces, or stale anchors receive prose with the captured revision and location. Native panels supplement the frozen bundle; they do not replace it.
 
 Present the two reports under `## Standards` and `## Spec` headings, verbatim or lightly cleaned. Do **not** merge or rerank findings, because the two axes are deliberately separate (see _Why two axes_).
 

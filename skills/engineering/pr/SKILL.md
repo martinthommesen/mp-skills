@@ -9,6 +9,10 @@ metadata:
     url: "https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md"
 ---
 
+Writing a body is drafting only. It does not authorize pushing, publishing, creating or updating a PR. Use only observed validation evidence and state any unexecuted checks honestly.
+
+When the user has separately authorized PR work, use the host's exposed capabilities. After creating a PR, attach its returned URL to this task when supported, regardless of which tool created it. Also attach an existing PR the user asks you to review, update or continue. Do not attach examples, references, dependencies or comparison PRs merely because you read them. Open a matching native review panel when useful, verifying repository and revisions before linking findings. If those capabilities are absent, return the body and the actual PR URL when one exists.
+
 Use this template for writing the PR body:
 
 ```markdown

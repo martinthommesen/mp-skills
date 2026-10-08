@@ -43,4 +43,5 @@ Hold the bar the template sets: open the URL before asking for its value, use `a
 - `bash -n <script>`; run `shellcheck` if available.
 - `chmod +x <script>`.
 - Don't run it end-to-end yourself: it opens browsers and blocks on human input. Trace it statically instead: every value from step 1 is captured and lands where step 1 said, and every `set_secret` name exactly matches a `secrets.*` reference in CI.
-- Tell the user how to run it. If it's a repeatable setup path, commit it and link it from the README so the next person runs the script instead of asking an AI.
+- Give the saved script path and exact shell-quoted run command. If exposed tools can open a user-visible interactive terminal, verify its workspace, visibility and ability to accept the user's input before naming it as the handover surface. Opening a tab, `tty:true`, a session ID or readable stdout alone is insufficient. Otherwise give the command for the user's own terminal. The human starts and drives the wizard; do not agent-run it end to end or feed its answers. Do not read back secret entry or terminal output containing credentials.
+- If it's a repeatable setup path, commit it and link it from the README so the next person runs the script instead of asking an AI.

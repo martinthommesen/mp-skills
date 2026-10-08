@@ -38,6 +38,14 @@ Spend disproportionate effort here. **Be aggressive. Be creative. Refuse to give
 
 Build the right feedback loop, and the bug is 90% fixed.
 
+### Human-input terminal handover
+
+Save and syntax-check the adapted HITL script first. Before starting a human-input run, verify that the intended terminal is visible to the user, interactive, in the correct workspace, and accepts their input. Use exposed terminal-opening/reading capabilities when they can establish that surface; record the terminal identity and saved script path. A hidden exec PTY, `tty:true`, a process/session ID, or readable stdout alone proves none of this. Opening a terminal tab alone also does not establish that it is connected to that process or accepts user input.
+
+If a visible interactive terminal cannot be verified, hand over the exact shell-quoted command, such as `bash /absolute/path/to/saved-repro.sh`, for the user's terminal. Wait for the relevant redacted observations. Do not launch a hidden prompt and pretend the user can answer it, or supply the human's answers yourself. Captures must contain observations rather than credentials; signing in stays a manual step. Redact captured output before quoting it.
+
+This handover does not pass Phase 1 by itself. The adapted loop still needs the actual bug path, a sharp pass/fail assertion, and an observed run with redacted output before Phase 2. The template's example questions alone are not a regression verdict.
+
 ### Tighten the loop
 
 Treat the loop as a product. Once you have _a_ loop, **tighten** it:

@@ -2,7 +2,7 @@
 
 `wizard` generates an interactive bash script that walks a human, step by step, through a manual procedure: wiring up third-party services, running a one-off migration, moving a project from state A to state B. It opens each URL, says what to click and copy, captures what comes back, and writes it into `.env` files and GitHub Actions secrets.
 
-The [agent](https://www.aihero.dev/ai-coding-dictionary/agent) writes the script; it never runs it. You do, on your own machine. A wizard is a program, not a list of instructions. The script runs each step in order and keeps the values you enter. Your part is to click, paste, and press Enter.
+The [agent](https://www.aihero.dev/ai-coding-dictionary/agent) writes and checks the script; you start and drive the human procedure. It hands over the saved command for your terminal, or names a verified visible interactive terminal when the host can provide one. It never drives the wizard end to end or supplies your answers. A wizard is a program, not a list of instructions. The script runs each step in order and keeps the values you enter. Your part is to click, paste, and press Enter.
 
 ## When to reach for it
 
@@ -58,7 +58,7 @@ The agent that writes a wizard never runs it end to end, because the script open
 
 **Do my API keys end up in the model's context?**
 
-No. The agent writes a script; it doesn't run it. You run the script yourself, and it captures the key with hidden terminal entry and writes it straight to `.env` or `gh secret`. The wizard is a CLI, and the model is not connected to it. This holds only for values the wizard captures at runtime. If you paste a key into the chat while scoping the procedure, it's in the [context](https://www.aihero.dev/ai-coding-dictionary/context) like any other pasted text.
+The wizard captures keys through hidden terminal entry and writes them to `.env` or `gh secret`. The agent does not run the human wizard end to end or read back credential entry or sensitive terminal output. Hidden entry prevents echo; it is not a guarantee that every connected tool or terminal transcript excludes the value. Keep runtime secrets out of shared output. This guidance covers values captured at runtime. If you paste a key into the chat while scoping the procedure, it's in the [context](https://www.aihero.dev/ai-coding-dictionary/context) like any other pasted text.
 
 **Can I go back and fix a value I mistyped?**
 
@@ -89,6 +89,7 @@ It did. It's now model-invoked, so the agent reaches for it unprompted when it h
 - You're shown an ordered list of stages, and the values each one produces, and asked to confirm, before any script exists.
 - Every URL is opened before the value from that page is asked for. You're never asked to paste something you haven't been sent to fetch.
 - Secrets are typed blind. Nothing sensitive echoes into your scrollback.
+- You receive the saved command and a usable terminal handover; a hidden process is never presented as something you can answer.
 - Each stage fits one screen. Nothing you still need has scrolled away.
 - Ctrl-C and re-run picks up where you left off, offering the values already saved as defaults.
 - The final screen lists what it wrote, and separately lists what it couldn't do and you have to finish by hand.

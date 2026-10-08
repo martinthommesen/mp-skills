@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # Human-in-the-loop reproduction loop.
-# Copy this file, edit the steps below, and run it.
-# The agent runs the script; the user follows prompts in their terminal.
+# Copy this file, edit the steps below, and syntax-check it before handover.
+# Run only in a verified user-visible interactive terminal, or give the user
+# the saved command for their own terminal. A hidden PTY is not a handover.
+# Add a pass/fail assertion for the actual symptom; these questions alone
+# do not establish the red-capable diagnosis gate.
 #
 # Usage:
 #   bash hitl-loop.template.sh

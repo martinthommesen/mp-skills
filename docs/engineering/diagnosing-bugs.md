@@ -34,7 +34,7 @@ Phase 1 gets the most effort because it is the only hard phase. The skill lists 
 7. A property or fuzz loop, for "sometimes wrong output".
 8. A bisection harness you can hand to `git bisect run`.
 9. A differential loop: same input, old version against new.
-10. A [human-in-the-loop](https://www.aihero.dev/ai-coding-dictionary/human-in-the-loop) bash script, last resort. The skill ships `scripts/hitl-loop.template.sh` for this: the agent runs the script, you follow prompts in your terminal, and your answers come back as parseable output.
+10. A [human-in-the-loop](https://www.aihero.dev/ai-coding-dictionary/human-in-the-loop) bash script, last resort. The skill ships `scripts/hitl-loop.template.sh` for this: the script runs in a verified visible interactive terminal, or the agent gives you its saved command to run in your own terminal. Your observations come back as parseable output. A hidden PTY or session ID alone does not establish a terminal you can use.
 
 *A* loop is not the goal. **Tight** is: fast (seconds), deterministic (same verdict every run), sharp (asserts your exact symptom, not "didn't crash"), and runnable by the agent without you. A 30-second flaky loop is barely better than none. For a bug that only shows up sometimes, the target is not a clean repro but a **higher reproduction rate**: loop the trigger, parallelise, add stress, inject sleeps, until the flake rate is high enough to debug against.
 
@@ -71,7 +71,7 @@ No. Only Phase 3 has a human checkpoint: the ranked hypothesis list is shown to 
 Partly, and neither skill says so. As one reader put it: "Triage's step 3 is essentially a shallow, bounded instance of diagnosing-bugs Phase 1–2, but neither file mentions the other." Triage does a bounded "is this actually a bug, and what is the surface" pass; this skill does the thorough version. Running triage first is not wasted, because its verification often gives you most of Phase 1's raw material. But expect this skill to redo that work in full, and expect no cross-reference to tell you so.
 
 **Will the repro output it pastes leak secrets?**
-It might. The skill asks the agent to paste the invocation and its output, and to request artifacts like HAR files, log dumps, and core dumps. No instruction tells the agent to sanitise them. [Issue #674](https://github.com/mattpocock/skills/issues/674) raises exactly this (credentials, tokens, cookies, and personal data copied into a chat, an issue, or a PR) and proposes a redaction guardrail. It is open and unimplemented. Treat redaction as your job for now, particularly before the output goes anywhere public.
+The skill requires secrets to be replaced with `<REDACTED>` before commands, output or artifacts are quoted. Credentials stay in environment variables, and captured traces contribute only the lines carrying the diagnostic signal. The human-input template captures observations, while signing in remains a manual step. Redaction reduces exposure; inspect sensitive evidence before sharing it. If the redacted signal is insufficient, the agent asks for the missing safe evidence rather than pasting secrets.
 
 **My security scanner flagged this skill as high risk.**
 Snyk flags it, and the flag is a false positive. It is the only skill in the set that ships an executable shell script (`hitl-loop.template.sh`) alongside instructions to run it and to curl a dev server. A shipped `.sh` file, instructions to run it, and outbound HTTP together are enough to trigger a static scanner. The script itself is about 30 lines of `read -r -p` prompts that pause for human input. The scanner rates what the skill could do, not a proven exploit.
@@ -81,7 +81,8 @@ v1.0.0 renamed it to `/diagnosing-bugs`. The old name no longer exists. Anything
 
 ## It's working if
 
-- It shows you a command and its red output before it offers a single theory. If theory arrives first, the skill is not running.
+- It shows you a command and its redacted red output before it offers a single theory. If theory arrives first, the skill is not running.
+- A human-input loop names its saved script and verified visible terminal, or gives you the exact command for your own terminal. Saving a script alone never passes the red-capable gate.
 - The failure it reproduces is the one you reported, not a nearby one it found on the way.
 - It shrinks the repro before it starts guessing, and can tell you why it needs each remaining piece.
 - It shows you a ranked list of 3–5 hypotheses, each with a prediction you could falsify, before it tests any of them.

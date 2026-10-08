@@ -1,6 +1,6 @@
 ## What it does
 
-`code-review` reviews the diff between `HEAD` and a fixed point you name (a commit, a branch, a tag, `main`, `HEAD~5`) along two axes. **Standards** asks whether the code follows how this repo writes code. **Spec** asks whether the code does what the originating issue or [spec](https://www.aihero.dev/ai-coding-dictionary/spec) asked for. Each axis runs in its own [sub-agent](https://www.aihero.dev/ai-coding-dictionary/subagent) so neither sees the other's reasoning.
+`code-review` reviews a branch or PR against a fixed point you name, or your staged, unstaged and untracked work in progress, along two axes. It captures the selected evidence once and gives the same frozen bundle to both reviewers. **Standards** asks whether the code follows how this repo writes code. **Spec** asks whether the code does what the originating issue or [spec](https://www.aihero.dev/ai-coding-dictionary/spec) asked for. Each axis runs in its own [sub-agent](https://www.aihero.dev/ai-coding-dictionary/subagent) so neither sees the other's reasoning.
 
 The skill never merges or re-ranks the two axes. The report ends with a worst issue *per axis* and declines to name a single winner across them. A change can pass one axis and fail the other. Code that follows every convention but implements the wrong thing passes Standards and fails Spec. Code that does exactly what the [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket) asked but breaks the repo's conventions does the reverse. A blended verdict lets the passing axis hide the failing one.
 
@@ -17,7 +17,7 @@ Type `/code-review`, or the agent reaches for it automatically when you ask to r
 | The whole codebase has drifted, not one diff | [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) |
 | Something is broken and you do not know why | [diagnosing-bugs](https://aihero.dev/skills-diagnosing-bugs) |
 
-You must supply the fixed point. If you do not, the skill asks for one rather than guessing. Before it spawns anything, it checks that the ref resolves and that the diff is not empty, so a mistyped branch name fails in front of you instead of inside two sub-agents.
+A branch or PR review needs a fixed point and pins both revisions before capturing its merge-base diff. Generic work in progress uses pinned HEAD and captures staged, unstaged and untracked additions separately. You can narrow it to staged-only or unstaged-only. Before dispatch, it checks refs and the selected scope, so an invalid ref or empty scope fails in front of you.
 
 Missing refs or spec locations are requested through an available question tool when it supports the request, one focused question at a time. Otherwise the agent asks one concise question in chat and waits for the answer before dependent work.
 
@@ -60,7 +60,7 @@ One answer is to remove Claude Code's built-in skills entirely. That saves a lot
 
 **Its sub-agents keep invoking `/code-review` again and spawn more agents.**
 
-This is a known open bug. Several people have reproduced it, in more than one harness. The Standards and Spec prompts do not forbid delegation, so a sub-agent can find the skill again and fan out again. One report reached more than 50 agents. The fix people have applied on forks is one line appended to both sub-agent briefs: "Do not invoke `/code-review` or spawn additional agents: perform this review directly." Some prefer to handle it at the harness level so every skill inherits the guard. Neither is in the shipped skill yet. If you run this unattended, watch the agent count.
+Earlier versions left delegation open, and users reported reviewers spawning more reviewers. Each axis now performs its assigned review directly, without invoking code-review again or spawning more agents. Standards and Spec retain their separate contexts and word budgets.
 
 **Should I run it in the same [session](https://www.aihero.dev/ai-coding-dictionary/session) that wrote the code?**
 
@@ -72,7 +72,7 @@ Both work, and the skill does not decide for you. Per-ticket keeps each diff sma
 
 **Can I trust the findings?**
 
-Not without checking. Sub-agent output is a hypothesis, not evidence. One team reported a dozen breaking changes that prose-based reviews had missed. The skill combines the two reports as they are, or lightly cleaned. It does not re-verify each claim against the files, so a finding can cite the wrong location or overstate an impact. Read the citation on each finding before you act on it. The skill requires every finding to carry a citation (a standards rule, a smell plus its hunk, or a spec line), and that is what makes the findings checkable.
+Not without checking. Sub-agent output is a hypothesis, not evidence. One team reported a dozen breaking changes that prose-based reviews had missed. The skill keeps the two reports separate and checks location anchors before presenting inline findings. That verifies the citation surface, not every claimed behavioral impact, so a finding can still overstate an impact. Read the citation on each finding before you act on it. The skill requires every finding to carry a citation (a standards rule, a smell plus its hunk, or a spec line), and that is what makes the findings checkable.
 
 **Why does it find new problems every single time I run it?**
 
@@ -80,11 +80,17 @@ Each fix adds new code to review, and the judgement-call half of the Standards a
 
 **Does it review my uncommitted work?**
 
-No. It diffs `<fixed-point>...HEAD`. The three-dot form measures from the merge-base and excludes staged and working-tree changes. If `implement` has not made an interim commit, the review cannot see the work that is about to go into the next commit. Commit first, then review, then amend or add a fixup.
+Yes, when the scope is work in progress. It captures separate HEAD-to-index and index-to-working patches, the relevant versions of each file, and untracked names and contents. A staged edit restored in the working file is still two changes, even if `git diff HEAD` is empty. Ignored files stay outside normal untracked capture. Branch reviews retain the pinned three-dot committed-history scope.
+
+**Will the native review panel show exactly what was reviewed?**
+
+Only after its scope and revisions have been checked against the capture. Combined WIP may need separate staged and unstaged panels plus the captured untracked additions; no single panel is assumed to contain all three. Findings use inline locations only when the intended file, side and line still match. Deleted files, unsupported surfaces or stale anchors are reported in prose with the captured revision and location. The panel supplements the bundle, so later edits cannot silently change what the two axes reviewed.
 
 ## It's working if
 
-- It refuses to start on a bad ref or an empty diff, before any sub-agent is spawned.
+- It refuses to start on a bad ref or an empty selected scope, before any sub-agent is spawned.
+- Both reviewers receive the same captured evidence, including distinct index and working versions for partially staged work.
+- Inline findings match the captured surface; deleted or stale locations are identified in prose.
 - The report arrives as two separate blocks under `## Standards` and `## Spec`, not one merged list.
 - Every Standards finding names either a rule in one of your repo's files or one of the twelve smells, with the hunk quoted; every Spec finding quotes a line of the spec.
 - The closing summary gives a worst issue per axis and declines to pick an overall winner.
