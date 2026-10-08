@@ -24,6 +24,12 @@ A shared language, reached for only when a workflow calls for it: never a checkl
 - **Push right**: defer the checkpoint as far as it will go. Do maximal work before involving the human, so they are asked once, late, with everything prepared.
 - **Brief**: what a checkpoint presents, a tight, decision-ready summary (what was produced, why, and a link down to the asset itself), never the raw output. The user reads a brief, not a draft. Speed of review is imperative.
 
+## Capability boundary
+
+This skill produces specs only. A trigger, schedule or reminder described in `workflows/*.md` is not activated by writing the spec, and a suggestion does not authorize a native automation.
+
+Separate desired workflow behavior from implementation capabilities exposed by the current host. When a required trigger or integration is unsupported, name that requirement and the missing capability in the spec. Do not silently replace an event with polling or claim the workflow runs. Record a human-approved alternative if chosen. An implementer-ready spec can state an external prerequisite clearly without pretending it exists.
+
 ## Definition of done
 
 A workflow spec is done when an implementer agent could build it without asking a single question. Grill until then; nothing is done while a question remains.

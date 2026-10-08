@@ -62,6 +62,16 @@ Each lesson should recommend a primary source for the user to read or watch. Thi
 
 Each lesson should contain a reminder to ask followup questions to the agent. The agent is their teacher, and can assist with anything that's unclear.
 
+## Requested practice reminders
+
+Scheduling is optional. Designing a lesson around spacing does not activate review sessions. If the human asks for a reminder, check-back or future practice, use the current host's exposed native automation tool and schema when available. Prefer a heartbeat attached to this chat; use a standalone job only for explicit new-task-per-run or standalone project intent, resolving its project/destination through exposed discovery tools.
+
+Check for a matching existing automation before creating a duplicate. Save a clear prompt with the mission, absolute lesson/workspace pointers and the requested practice action. Preserve user-only invocation policy: a reminder to practice is not automatic invocation of `teach`. Confirm the schedule and activation only from a successful tool result, and record its runtime pointer in `NOTES.md`. If scheduling is unavailable, report that limit and leave a suggestion, not a claimed reminder.
+
+A reminder delivers at the requested times even when its topic is unchanged. A requested monitor instead stays quiet for unchanged or non-actionable state unless the human asked for periodic updates. Suggestions activate neither.
+
+Creating or delivering a reminder creates no learning evidence: do not add a learning record, mark a lesson complete or infer mastery from it. Record learning only from the user's demonstrated practice or responses.
+
 ## Assets
 
 Lessons are built from reusable **components**, stored in `./assets/`: stylesheets, quiz widgets, simulators, diagram helpers, and anything else a second lesson could reuse.

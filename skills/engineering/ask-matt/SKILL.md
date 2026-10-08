@@ -74,7 +74,7 @@ A **phase** is a chunk of work inside a session: the grilling, the implementatio
 
 - **Continue**: stay put. Costs nothing, loses nothing.
 - **`/clear`**: empty the window, when nothing here matters to what's next.
-- **`/handoff`** writes a portable markdown file. Narrow: only for a **new harness**, a **new directory**, a **colleague**, or forking a side task **mid-phase**. What it buys is portability.
+- **`/handoff`** writes a portable markdown file with decisions, evidence, pending work and resume checks. Narrow: only for a **new harness**, a **new directory**, a **colleague**, or a side task **mid-phase**. A plain invocation writes the file; an explicitly requested native fork retains history when available, and follow-up work in its child needs the human's request too.
 - **Subagent**: send a tightly-scoped task to its own window and get a report back.
 - **`/compact`** compresses this context and seeds a fresh session with it. The **default**, at the bottom of the tree rather than the first reach.
 
@@ -91,7 +91,10 @@ Off the main flow entirely.
 - **`/to-questionnaire`** comes in when the thing blocking you isn't in your head or the codebase but in **someone else's**, and it writes them a questionnaire to fill in. It's the inverse of `/grill-me`: instead of interviewing you about the subject, it interviews you about the **send** (who it's going to, what you need back) and aims the questions at the gap. The editable file handover preserves returned answers; it does not send the document. What comes back is material for `/grill-with-docs` or `/to-spec`.
 - **`/wizard`** is for the steps only a **human** can take: provisioning infrastructure, setting up credentials or CI secrets, clicking through an unfamiliar third-party dashboard, running a one-off migration or cutover. It generates an interactive bash script that opens each URL, captures each value, and writes it into `.env` and GitHub secrets, so the procedure stops being something you re-explain to an agent every time. It hands over the saved command for your terminal or a verified visible interactive terminal; you start and drive it. Model-invoked, so the agent reaches for it the moment it hits a wall only you can pass. If the agent could just do it itself, it should; this is for where a human is genuinely in the loop.
 - **`/wait-what`** is the corrective for a message that didn't land. Use it mid-conversation, inside any other skill, and the agent re-pitches what it just said with the context you were missing, in plain English, using the `GLOSSARY.md` vocabulary. It works after the fact; `/grill-with-docs` is the upfront cure, because a shared language agreed early is what stops the jargon arriving at all.
-- **`/teach`**: learn a concept over multiple sessions, using the current directory as a stateful workspace. Numbered HTML lessons and shared assets remain the learning artifacts, with rendered feedback checks when available.
+- **`/teach`**: learn a concept over multiple sessions, using the current directory as a stateful workspace. Numbered HTML lessons and shared assets remain the learning artifacts, with rendered feedback checks when available. Explicitly requested practice reminders use native scheduling when available, defaulting to this chat; reminders create no learning evidence.
+- **`/claude-handoff`** (beta): explicitly launch a Claude background agent via `claude --bg` with a portable resume summary. Use `/handoff` for a file alone or an explicitly requested native fork.
+- **`/chief-of-staff`** (beta): co-ordinate long-running work with persisted state and existing-owner reconciliation. Internal work uses collaboration agents; native goals and future runs require the human's explicit request.
+- **`/loop-me`** (beta): interview toward workflow specs in `workflows/*.md` and `NOTES.md`. Desired triggers and unsupported capabilities are documented; writing a spec activates nothing.
 - **`/writing-for-agents`** is the reference for writing documents agents consume: skills, AGENTS.md, pointed-at docs.
 
 ## Precondition

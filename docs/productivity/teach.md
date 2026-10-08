@@ -75,7 +75,10 @@ Several people have confirmed this on Sonnet, Opus and GLM, and it is still unfi
 This is the most common real complaint. There is no assessment step. `teach` infers your level from the mission and the learning records, and in session one there are no learning records. One user running it inside a wayfinder pipeline put it plainly: "It never did grilling to establish my starting point so it made lots of assumptions of what I already knew." Another reported lessons that used undefined jargon, and a lesson about their hardware that covered what the hardware could do but never said what it couldn't. Two things help: state your prior knowledge and your gaps in the first message, and correct the level out loud when a lesson misses, because the correction becomes a learning record and steers the next one. An explicit knowledge-assessment step is a standing feature request ([#725](https://github.com/mattpocock/skills/issues/725)), not shipped behaviour.
 
 **Does it do spaced repetition, and does it know when to stop teaching?**
-No to the first, and not reliably to the second. The skill designs lessons around spacing and interleaving, but nothing schedules a review, and there is no Anki or calendar integration. Users ask for both often. A related gap is exit criteria. As one user put it, `teach` "is good at making the next lesson, but not as good at knowing when to stop and switch to review or real practice." If you want review or drilling instead of new material, ask for it; the skill will not propose the switch on its own.
+Lessons use spacing and interleaving, and you can explicitly request a practice reminder when the host supports native scheduling. That reminder defaults to this chat; a standalone job needs your explicit request. A suggested review schedule activates nothing, and this is not an Anki or calendar integration. Exit criteria still need your direction: if you want review or drilling instead of new material, ask for it.
+
+**Does registering a reminder mean I finished the lesson?**
+No. Creating or delivering a reminder is not practice or proof of understanding. Learning records come from demonstrated practice and your responses. Periodic reminders still arrive when the topic is unchanged; a monitor stays quiet for unchanged state unless you requested periodic updates.
 
 **Is it only useful for code?**
 No. Most reported use is outside coding: Korean, Japanese formal register, piano, guitar, board game design, OpenSCAD, film plots, Azure and CCNA certifications, university exams, and children of eight and ten getting printable books on escape rooms and fire salamanders. Nothing in the skill is specific to programming. Mission, resources, zone of proximal development and drill work the same way in any domain. Within code, users report the most value from getting oriented in an unfamiliar codebase or a new team's stack, more than from learning a language from scratch.
@@ -90,7 +93,8 @@ There is no canonical answer, and the reported differences are large. Users repo
 - Claims in a lesson carry links out. A lesson with no citations is the skill teaching from memory.
 - A lesson takes one sitting and leaves you able to do one thing you couldn't before.
 - Opening a fresh session in the folder and saying "next lesson" continues the course instead of restarting it.
-- `learning-records/` grows, and lessons stop re-teaching what you have already demonstrated.
+- `learning-records/` grows from demonstrated learning, and registering a reminder does not claim a completed lesson.
+- An explicitly requested practice reminder has a confirmed schedule and a pointer in `NOTES.md`, or the agent tells you scheduling is unavailable.
 - The lessons look like one course: they link the stylesheet in `assets/` rather than each carrying its own.
 - A question that needs judgement gets you pointed at a forum, subreddit or class, not just an answer.
 
