@@ -24,12 +24,28 @@ If you want to keep up with changes to these skills, and any new ones I create, 
 
 ## Installation (30-second setup)
 
-Two ways in, two philosophies. **The [Claude Code plugin](https://code.claude.com/docs/en/plugins)** installs the whole set as a managed, read-only bundle that updates when Anthropic's marketplace picks up my releases, so you subscribe rather than fork. **[skills.sh](https://skills.sh/mattpocock/skills)** copies editable skill files into your project, so you can hack on them and make them your own. Pick one: installing both leaves you with every skill twice.
+Choose one installation route per harness: the native Codex plugin, the [Claude Code plugin](https://code.claude.com/docs/en/plugins), or editable [skills.sh](https://skills.sh/mattpocock/skills) files. Installing the same set through both a plugin and standalone files creates duplicate skills.
 
 ### 1. Get the skills
 
 <details>
-<summary><strong>Claude Code</strong></summary>
+<summary><strong>Codex: native checkout preview</strong></summary>
+
+This fork's native Codex package is unreleased. Use an absolute path to a checkout containing these changes; a GitHub URL does not include unpublished local work. The source fork is [martinthommesen/mp-skills](https://github.com/martinthommesen/mp-skills), with upstream authorship retained. No public Codex directory listing or upstream native release is claimed.
+
+```bash
+codex plugin marketplace add /absolute/path/to/mp-skills --json
+codex plugin marketplace list --json
+codex plugin list --marketplace mattpocock --available --json
+codex plugin add mattpocock-skills@mattpocock --json
+```
+
+Codex CLI 0.161.0 installed and enumerated exactly 27 promoted skills from this checkout in a disposable container on 2026-10-08. Desktop picker invocation and onboarding with and without a selected repository remain unverified. See the [validation results](./docs/superpowers/validation/2026-10-08-codex-native-skills-results.md) for the exact source and evidence limits.
+
+</details>
+
+<details>
+<summary><strong>Claude Code: upstream release</strong></summary>
 
 ```bash
 claude plugins install mattpocock-skills
@@ -41,7 +57,7 @@ Or, from inside a session:
 /plugin install mattpocock-skills
 ```
 
-It's in Claude Code's official marketplace, so there's nothing to add first. If it says the plugin isn't found, run `claude plugins marketplace update` and retry. Updates reach you when Anthropic's marketplace moves its pin to a new release, which can lag behind this repo by days or weeks.
+It's in Claude Code's official marketplace, so there's nothing to add first. Updates reach you when Anthropic's marketplace moves its pin to a new release, which can lag behind this repo by days or weeks.
 
 **Stuck on an old version?** `claude plugin list` shows what you have, and [CHANGELOG.md](./CHANGELOG.md) shows the latest release. To track this repo directly instead, switch to its own marketplace and turn on auto-update for it under `/plugin` → Marketplaces (it's off by default for marketplaces outside Anthropic's):
 
@@ -54,40 +70,27 @@ claude plugin install mattpocock-skills@mattpocock
 </details>
 
 <details>
-<summary><strong>Codex, and other agents</strong></summary>
+<summary><strong>Standalone files: upstream source</strong></summary>
+
+These commands target upstream source; they do not install this fork's unpublished changes. The installer writes ordinary files you own and can edit.
 
 ```bash
 npx skills@latest add mattpocock/skills
 ```
 
-Pick the skills you want, and which coding agents to install them on. **The installer lets you choose which skills to take, so make sure `setup-matt-pocock-skills` is one of them.**
-
-A native Codex plugin is on the roadmap (see [`.agents/adr/0002-ship-as-a-claude-code-plugin.md`](./.agents/adr/0002-ship-as-a-claude-code-plugin.md)).
+Pick the skills you want, and which coding agents to install them on. **Include `ask-matt` for orientation and `setup-matt-pocock-skills` for repository configuration.**
 
 </details>
 
-<details>
-<summary><strong>For tinkerers</strong></summary>
+### 2. Start with `ask-matt`
 
-Use the same installer, on any agent, including Claude Code:
+Ask which skill or flow fits your situation. On Codex, use the installed plugin's namespaced skill identity, such as `$mattpocock-skills:ask-matt`; on Claude Code, use `/ask-matt`. Orientation names your next step and waits for you to invoke it.
 
-```bash
-npx skills@latest add mattpocock/skills
-```
+### 3. Configure the repository when needed
 
-It writes the skills into your repo as ordinary files you own and can edit. Nothing updates behind your back; pull my latest changes when you want them with `npx skills update`.
+Before tracker-dependent engineering work, invoke `setup-matt-pocock-skills` in the selected repository if its configuration is missing or stale. It proposes the issue tracker, triage labels, and domain-doc layout for your review, then makes the shared configuration discoverable from both `AGENTS.md` and `CLAUDE.md`.
 
-</details>
-
-### 2. Run `/setup-matt-pocock-skills`
-
-In your agent, run it once per repo. It will:
-
-- Ask you which issue tracker you want to use (GitHub, GitLab, Gitea, local files, or anything else you describe)
-- Ask you what labels you apply to tickets when you triage them (`/triage` uses labels)
-- Ask you where you want to save any docs we create
-
-### 3. Bam - you're ready to go.
+Without a selected repository, orientation can recommend stateless work; select a repository before running setup. Existing configuration is inspected rather than replaced just because a plugin was installed. Then invoke the skill your route calls for.
 
 ## Why These Skills Exist
 
@@ -201,11 +204,11 @@ Skills I use daily for code work.
 
 **User-invoked**
 
-- **[ask-matt](./skills/engineering/ask-matt/SKILL.md)**: Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.
+- **[ask-matt](./skills/engineering/ask-matt/SKILL.md)**: Ask which skill or flow fits your situation. A router over the skills and flows in this repo, starting with orientation before workspace setup.
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)**: Grilling session that also builds your project's domain model, sharpening terminology and updating `GLOSSARY.md` and ADRs inline.
 - **[triage](./skills/engineering/triage/SKILL.md)**: Move issues through a state machine of triage roles.
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)**: Scan a codebase for deepening opportunities, compare them in conversation with Visualize, then grill through whichever one you pick.
-- **[setup-matt-pocock-skills](./skills/engineering/setup-matt-pocock-skills/SKILL.md)**: Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout). Run once per repo before using the other engineering skills.
+- **[setup-matt-pocock-skills](./skills/engineering/setup-matt-pocock-skills/SKILL.md)**: Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout). Run when repository configuration is needed before tracker-dependent engineering work.
 - **[to-spec](./skills/engineering/to-spec/SKILL.md)**: Turn the current conversation into a spec and publish it to the issue tracker. No interview, just synthesizes what you've already discussed.
 - **[to-tickets](./skills/engineering/to-tickets/SKILL.md)**: Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges, written as text in a local file, or as native blocking links on a real tracker.
 - **[implement](./skills/engineering/implement/SKILL.md)**: Build the work described by a spec or set of tickets, driving `/tdd` at pre-agreed seams and closing out with `/code-review` before committing.
@@ -232,7 +235,7 @@ General workflow tools, not code-specific.
 **User-invoked**
 
 - **[grill-me](./skills/productivity/grill-me/SKILL.md)**: Get relentlessly interviewed about a plan or design until every branch of the design tree is resolved.
-- **[handoff](./skills/productivity/handoff/SKILL.md)**: Compact the current conversation into a handoff document so another agent can continue the work.
+- **[handoff](./skills/productivity/handoff/SKILL.md)**: Write a portable resume document; an explicitly requested native fork can retain chat history.
 - **[teach](./skills/productivity/teach/SKILL.md)**: Teach the user a new skill or concept over multiple sessions, using the current directory as a stateful teaching workspace.
 - **[to-questionnaire](./skills/productivity/to-questionnaire/SKILL.md)**: Turn a decision you can't answer alone into a Markdown questionnaire for the one person who can, filled in async, or together over a meeting. It grills you about the send (who it's for, what you need back), not the subject.
 - **[wait-what](./skills/productivity/wait-what/SKILL.md)**: Fire this the moment a message doesn't land. The agent re-pitches it with the context you're missing, in plain English, using your `GLOSSARY.md` vocabulary.

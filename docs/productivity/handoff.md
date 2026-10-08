@@ -25,7 +25,9 @@ The skill's description reads like session resumption: write a summary, end here
 
 That is what the detour through [prototype](https://aihero.dev/skills-prototype) uses. You are deep in a design conversation, you hit a question that only running code will settle, and you do not want to spend the thread you built on finding out. Hand off to a prototype session, get the answer, hand the answer back, and reference it from the original thread. The work crosses over twice, your original conversation stays live, and you re-explain nothing.
 
-Three of the five options at a phase boundary preserve different things: `/compact` preserves your intent, `/clear` preserves nothing, `/handoff` preserves the work's ability to move.
+The ordinary context options and an explicitly requested history-retaining native fork are separate choices. Internal decomposition uses collaboration agents; a chat/Git move targets another chat and cannot move the calling chat itself. The current host schema governs those operations.
+
+Three of the five ordinary options at a phase boundary preserve different things: `/compact` preserves your intent, `/clear` preserves nothing, `/handoff` preserves the work's ability to move.
 
 ## What travels, and what doesn't
 

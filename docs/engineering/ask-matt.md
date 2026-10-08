@@ -4,27 +4,27 @@
 
 If a detail changes which route fits, it asks one focused question through the harness's question tool before recommending the route. The interview skills it points to use the same tool to collect one decision at a time.
 
-It recommends and stops. It does not grill, write a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), open a file or fire the skill it just named; what you get back is the next thing to type, and you type it. It is also a hand-written map of the skills in this repo rather than a scan of what you have installed, so it will not route you over your own skills or another author's.
+It reads a skill before making an actionable claim about it, then recommends and stops. It does not grill, write a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), open a work artifact or fire the skill it just named; what you get back is the next thing to type, and you type it. It is also a hand-written map of the skills in this repo rather than a scan of what you have installed, so it will not route you over your own skills or another author's.
 
 The interview wrappers require the installed [grilling](https://aihero.dev/skills-grilling) primitive. The agent reports a missing prerequisite before starting; it can load an eligible installed skill through the host mechanism or its catalog file.
 
 ## When to reach for it
 
-You invoke this by typing `/ask-matt`; the agent won't reach for it on its own.
+You invoke this by typing `/ask-matt` in Claude Code, or the installed identity such as `$mattpocock-skills:ask-matt` in Codex; the agent won't reach for it on its own.
 
 | Your situation | What the router gives back |
 | --- | --- |
 | An idea, and no idea where to start | The head of the main flow, and whether the build is small enough to skip the spec |
 | Bugs and requests arriving from other people | The [triage](https://aihero.dev/skills-triage) on-ramp, and why [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) you generated yourself don't belong on it |
 | Two skills that look interchangeable | The line between them, and it is usually one concrete test rather than a matter of taste. [grill-me](https://aihero.dev/skills-grill-me) or [grill-with-docs](https://aihero.dev/skills-grill-with-docs) turns on whether you are in a working directory; [grill-with-docs](https://aihero.dev/skills-grill-with-docs) or [wayfinder](https://aihero.dev/skills-wayfinder) turns on whether the effort fits one session |
-| A long session and a decision about the [context](https://www.aihero.dev/ai-coding-dictionary/context) | The ordered tree over the five options at a phase boundary |
+| A long session and a decision about the [context](https://www.aihero.dev/ai-coding-dictionary/context) | The ordered tree over the five ordinary context options, with separate native fork and chat/Git move boundaries |
 | A skill you have already picked | Nothing useful. Invoke that skill directly. |
 
 ## Prerequisites
 
-The router names skills; it does not install them. Everything it points at has to be installed for the recommendation to be actionable, and it only knows the promoted skills in this repo.
+The router names skills; it does not install them. Everything it points at has to be installed for the recommendation to be actionable, and it maps this repo's promoted set plus individually installed beta and misc tools. Those extra tools remain outside both promoted plugins.
 
-The tracker-dependent routes (triage, `to-spec`, `to-tickets`, `implement`) assume [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) has already configured an issue tracker in the repo. The router recommends them even before that has happened.
+Orientation comes before workspace setup. With no selected repository, it can recommend stateless work such as [grill-me](https://aihero.dev/skills-grill-me). With a repository, it checks whether the intended route has usable configuration. Tracker-dependent routes (triage, `to-spec`, `to-tickets`, `implement`) need the issue tracker and domain pointers that [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) configures. If those pointers are missing or stale, it asks you to invoke setup before that work. Recommending setup does not run it.
 
 ## Flows, not skills
 
@@ -50,6 +50,17 @@ The skill's other key idea is the **phase boundary**. A phase is a chunk of work
 
 People often get two of these wrong, which is why the router gives the order and not only the list. `/handoff` looks like the general way to move between context windows, but it is not. All it gives you is portability. `/compact` is the last option in the tree, not the first, because each of the four options above it is cheaper or more precise.
 
+Native continuity operations sit alongside that tree:
+
+| You want | Boundary |
+| --- | --- |
+| Internal reading or implementation that reports back | Use collaboration agents rather than creating user-owned chats |
+| A portable resume summary | [handoff](https://aihero.dev/skills-handoff) writes the file |
+| A history-retaining child chat | Explicitly request a native fork; request continuing work there separately when needed |
+| Another chat and its Git state moved between checkouts or hosts | Use the exposed chat/Git handoff capability; it cannot move the calling chat itself |
+
+A native fork retains history. The summary's primary-to-secondary source cost does not describe that operation. Actual capabilities and returned identifiers come from the current host's tool schemas.
+
 ## Common questions
 
 **Isn't there just a list of the skills in the right order?**
@@ -58,11 +69,11 @@ People keep asking for one in the README. This skill is that list. A static tabl
 
 **It told me half the skills aren't installed.**
 
-This is a known bug, and it is not fixed. Most of the skills the router routes you through set `disable-model-invocation: true`, which means the harness leaves them out of the skill list it injects into the agent's context. The agent reads that list as exhaustive and reports them missing. In one reported session, it declared the whole spec-and-tickets flow absent and rerouted to bare `/grilling` and `/tdd`. Sixteen of the plugin's twenty-seven skills carry the flag, so this is the common case rather than an edge. They are installed. Type the slash command anyway, or check `.claude-plugin/plugin.json`, which is the authority on what is present.
+A model-reachable skill list can hide explicit-only skills, so it is not an exhaustive inventory. This caused a reported route to be declared absent ([#740](https://github.com/mattpocock/skills/issues/740)). The router now checks the installed catalog or plugin manifest before saying a skill is missing. Native CLI enumeration of this fork reports all 27 promoted skills, including the 16 explicit-only ones, with the `mattpocock-skills:` namespace. That is discovery evidence; desktop picker invocation is still unverified. A hidden skill still needs your invocation, and a genuinely missing prerequisite stops the dependent step.
 
 **It described a skill's behaviour, and the skill doesn't do that.**
 
-This is also a real bug, and also not fixed. The router answers from its own one-line summary of each skill rather than from the skill. One detailed report tracked three instances in a single session, including a recommendation to skip [to-spec](https://aihero.dev/skills-to-spec) based only on the summary "turn the thread into a spec". The router never opened `to-spec/SKILL.md`. In every case it verified only after the user pushed back, and never on its own initiative. Skipping `to-spec` there cost a real seam check, and the tickets that came out undercounted the work. When the router states something about another skill that you will act on, ask it to open that `SKILL.md` first. The same applies to questions the map does not cover at all, such as whether to use [plan mode](https://www.aihero.dev/ai-coding-dictionary/agent-mode): that answer is the [model](https://www.aihero.dev/ai-coding-dictionary/model)'s inference, not something written down here.
+Earlier reports described recommendations made from the router's summary alone, including skipping [to-spec](https://aihero.dev/skills-to-spec) without reading its seam checks. The router now requires reading the target `SKILL.md` before stating actionable behavior or skipping a step. Its one-line summaries orient you; the target skill remains authoritative. Reading a user-only skill to verify a description does not invoke it. Questions outside the map, such as whether to use [plan mode](https://www.aihero.dev/ai-coding-dictionary/agent-mode), still need clearly labeled inference.
 
 **Why is it prose instead of a numbered checklist?**
 
@@ -74,7 +85,7 @@ No. Three separate proposals have asked for a router that reads your local `skil
 
 **It told me to edit a SKILL.md.**
 
-That advice is often correct, but the edit rarely lasts. Someone asked it how to make [implement](https://aihero.dev/skills-implement) close tickets, was told to add a line to the skill, and saw the problem at once. `npx skills update` overwrites the file, and the plugin install is read-only. Put standing behaviour in your own `CLAUDE.md` or `AGENTS.md`, or say it in the invocation. Changes you make in the prompt survive updates. People point the flow at Linear instead of GitHub this way, or ask it which open tickets could run in parallel.
+That advice is often correct, but the edit rarely lasts. Someone asked it how to make [implement](https://aihero.dev/skills-implement) close tickets, was told to add a line to the skill, and saw the problem at once. A standalone installer update can overwrite the file, and a managed plugin copy is not the source you maintain. Put standing behaviour in your own `CLAUDE.md` or `AGENTS.md`, or say it in the invocation. Changes you make in the prompt survive updates. People point the flow at Linear instead of GitHub this way, or ask it which open tickets could run in parallel.
 
 **It named a skill I don't have, or missed one I do.**
 
@@ -83,7 +94,7 @@ Check the changelog for a rename before assuming it is gone. `writing-great-skil
 ## It's working if
 
 - It ends by naming what to type and stops there, instead of starting the work itself.
-- The route it gives back mentions where to clear or compact context and where you are expected to review, not just a list of skill names.
+- It orients you before workspace setup, then names context boundaries and the decisions you are expected to review.
 - Where two skills are close, it says which one and why the other is wrong for you.
 - Any claim it makes about another skill's behaviour shows up in the trace as it reading that skill's `SKILL.md`.
 - You recognise your own situation in what it hands back, rather than the nearest generic scenario.

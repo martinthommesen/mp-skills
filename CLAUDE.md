@@ -6,9 +6,11 @@ Skills are organized into bucket folders under `skills/`:
 - `in-progress/`: beta: public on purpose, feedback wanted, not shipped in the plugin
 - `deprecated/`: no longer used
 
-Every skill in `engineering/` or `productivity/` (the **promoted** buckets) must have a reference in the top-level `README.md` and an entry in `.claude-plugin/plugin.json`'s `skills` array (the Claude Code plugin ships exactly the promoted set). Skills in `misc/`, `in-progress/`, and `deprecated/` must not appear in either.
+Every skill in `engineering/` or `productivity/` (the **promoted** buckets) must have a reference in the top-level `README.md` and an entry in the `skills` arrays of both `.claude-plugin/plugin.json` and `.codex-plugin/plugin.json` (both plugins ship exactly the promoted set). Skills in `misc/`, `in-progress/`, and `deprecated/` must not appear in the top-level README or either plugin's skills array.
 
-Install commands are copied verbatim from [.agents/install-block.md](./.agents/install-block.md). `.claude-plugin/marketplace.json` makes the repo its own single-plugin marketplace (a fallback the install block explains, not the documented route). Run `claude plugin validate . --strict` after touching either manifest. Why a Claude plugin but not (yet) a Codex one lives in [.agents/adr/0002-ship-as-a-claude-code-plugin.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
+Install commands are copied verbatim from [.agents/install-block.md](./.agents/install-block.md). `.claude-plugin/marketplace.json` retains the Claude fallback marketplace; `.agents/plugins/marketplace.json` supplies the native Codex local-checkout catalog. The current decision and historical experiments live in [.agents/adr/0002-ship-as-a-claude-code-plugin.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.md). Native examples use an explicit checkout containing the unreleased changes, or a verified fork release, and never imply an upstream release or public Codex listing.
+
+Run `claude plugin validate . --strict` after touching either Claude manifest. Run `npm run check-plugin-catalog` after changing either plugin/catalog, promoted membership, or referenced assets; it validates both curated sets and native onboarding/resources. Run `npm run check-plugin-version` before release; both plugin versions must match `package.json`. `npm run test:plugin` exercises the catalog and version guards. Release versions come from a changeset followed by `npm run version`, which synchronizes both manifests; do not manually bump them.
 
 Each skill entry in the top-level `README.md` must link the skill name to its `SKILL.md`.
 

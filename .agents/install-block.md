@@ -30,9 +30,26 @@ claude plugin install mattpocock-skills@mattpocock
 
 </canonical-block>
 
-## Codex, and other agents: skills.sh
+## Codex: native plugin from an explicit checkout
 
-The plugin is Claude Code only. Everywhere else, [skills.sh](https://skills.sh/mattpocock/skills) copies editable skill files into the project. Use the whole-set form on `README.md`:
+<canonical-block name="codex-native-checkout">
+
+This fork's native Codex package is unreleased. Use an absolute path to a checkout containing these changes; a GitHub URL does not include unpublished local work. The source fork is [martinthommesen/mp-skills](https://github.com/martinthommesen/mp-skills), with upstream authorship retained. No public Codex directory listing or upstream native release is claimed.
+
+```bash
+codex plugin marketplace add /absolute/path/to/mp-skills --json
+codex plugin marketplace list --json
+codex plugin list --marketplace mattpocock --available --json
+codex plugin add mattpocock-skills@mattpocock --json
+```
+
+Codex CLI 0.161.0 installed and enumerated exactly 27 promoted skills from this checkout in a disposable container on 2026-10-08. Desktop picker invocation and onboarding with and without a selected repository remain unverified. See the [validation results](../docs/superpowers/validation/2026-10-08-codex-native-skills-results.md) for the exact source and evidence limits.
+
+</canonical-block>
+
+## Standalone files: skills.sh
+
+[skills.sh](https://skills.sh/mattpocock/skills) copies editable skill files into the project across supported agents, including Codex and Claude Code. These commands target upstream source; they do not install this fork's unpublished changes. Use the whole-set form on `README.md`:
 
 <canonical-block name="skills-sh-whole-set">
 
@@ -40,7 +57,7 @@ The plugin is Claude Code only. Everywhere else, [skills.sh](https://skills.sh/m
 npx skills@latest add mattpocock/skills
 ```
 
-Pick the skills you want, and which coding agents to install them on. **The installer lets you choose which skills to take: make sure `setup-matt-pocock-skills` is one of them.**
+Pick the skills you want, and which coding agents to install them on. **Include `ask-matt` for orientation and `setup-matt-pocock-skills` for repository configuration.**
 
 </canonical-block>
 
@@ -60,9 +77,11 @@ npx skills@latest update <name>
 
 `skills@latest` is the pinned spelling in all three. The pages under `docs/` used to carry their own copy of these commands; those blocks are now deleted rather than corrected, because the site renders the install commands itself.
 
-## The two routes are exclusive
+## Choose one route per harness
 
-The plugin is a managed, read-only bundle you subscribe to. skills.sh writes files you own and edit. Installing both leaves the user with every skill twice: always say "pick one".
+Choose the native Codex plugin, the Claude Code plugin, or standalone skill files for each harness. Plugins manage their installed copies; skills.sh writes files you own and edit. Installing the same set through both routes creates duplicate skills. A native local-checkout install is a snapshot, not a promise of automatic updates. Rerun discovery after an authorized update and inspect the reported manifest version; a cache directory called `local` is not version evidence.
+
+Orientation comes first: invoke `ask-matt` to find your route. A selected repository needs `setup-matt-pocock-skills` before tracker-dependent work if its configuration is missing or stale. Without a selected repository, orientation can recommend stateless work and wait for a repository before setup. Naming setup never authorizes another user-only skill to run it.
 
 ## Not the install story
 

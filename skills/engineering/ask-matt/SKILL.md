@@ -12,6 +12,20 @@ Before stating what a skill does or recommending a step be skipped, read that sk
 
 If a routing decision is missing, use an available question tool to ask one focused question within its schema and eligibility. Wait for the answer before choosing that route. If no eligible tool supports the request, ask one concise question in chat.
 
+The injected model-reachable skill list is not an exhaustive installed inventory. Before reporting a recommendation missing, inspect the installed catalog or selected plugin manifest, preserving its exact namespace and invocation policy. Reading a user-only skill to verify a description does not authorize following its workflow. Recommend a skill and stop; the human chooses and invokes it.
+
+## Orientation before workspace setup
+
+Start here after installation, including onboarding with no selected repository. Establish the situation before recommending workspace changes:
+
+| Situation | Route |
+| --- | --- |
+| No repository selected | Orient to a stateless flow such as `/grill-me`; select a repository before setup or tracker-dependent work |
+| Selected repository with usable tracker/domain pointers | Recommend the matching flow using its existing configuration |
+| Selected repository whose required configuration is missing or stale | Recommend the human invoke `/setup-matt-pocock-skills`, then return to the intended flow |
+
+On Codex, use the catalog's exact namespaced identity; native CLI discovery currently reports `mattpocock-skills:ask-matt` and the matching prefix for sibling skills. Claude slash labels below are readable route names, not permission to invoke user-only siblings.
+
 A **flow** is a path through the skills. Most paths run along one **main flow**, and two **on-ramps** merge onto it. Everything else is standalone, or a vocabulary layer that runs underneath.
 
 ## The main flow: idea → ship
@@ -70,13 +84,15 @@ Two model-invoked references that run *beneath* the other skills, each the singl
 
 ## Phase boundaries
 
-A **phase** is a chunk of work inside a session: the grilling, the implementation, the QA. At the **boundary** between two of them you have five options, and picking between them is the fuzziest decision in this whole map:
+A **phase** is a chunk of work inside a session: the grilling, the implementation, the QA. At the **boundary** between two of them you have five ordinary context options, and picking between them is the fuzziest decision in this whole map:
 
 - **Continue**: stay put. Costs nothing, loses nothing.
 - **`/clear`**: empty the window, when nothing here matters to what's next.
 - **`/handoff`** writes a portable markdown file with decisions, evidence, pending work and resume checks. Narrow: only for a **new harness**, a **new directory**, a **colleague**, or a side task **mid-phase**. A plain invocation writes the file; an explicitly requested native fork retains history when available, and follow-up work in its child needs the human's request too.
 - **Subagent**: send a tightly-scoped task to its own window and get a report back.
 - **`/compact`** compresses this context and seeds a fresh session with it. The **default**, at the bottom of the tree rather than the first reach.
+
+Internal decomposition uses collaboration agents. A user-owned chat is created or messaged only at the human's explicit request. A native chat/Git handoff moves another chat and its Git state between checkouts or hosts; its exposed schema governs the operation, and it cannot move the calling chat itself. A portable handoff file travels independently of either tool.
 
 Read [PHASE-BOUNDARIES.md](PHASE-BOUNDARIES.md) for the ordered tree: the five questions, the reasoning behind each branch, and why the primary-source cost makes **Continue** the one to rule out first. Make the decision **at** a boundary; mid-phase, continue or split the rest into subagents.
 
@@ -95,8 +111,14 @@ Off the main flow entirely.
 - **`/claude-handoff`** (beta): explicitly launch a Claude background agent via `claude --bg` with a portable resume summary. Use `/handoff` for a file alone or an explicitly requested native fork.
 - **`/chief-of-staff`** (beta): co-ordinate long-running work with persisted state and existing-owner reconciliation. Internal work uses collaboration agents; native goals and future runs require the human's explicit request.
 - **`/loop-me`** (beta): interview toward workflow specs in `workflows/*.md` and `NOTES.md`. Desired triggers and unsupported capabilities are documented; writing a spec activates nothing.
+- **`/writing-beats`** (beta): shape an article one approved beat at a time in the selected Markdown file. Use it when the journey matters more than a finished outline.
+- **`/writing-fragments`** (beta): mine raw writing material through an interview and append fragments to the selected file. Use `/writing-shape` when the pile is ready to become an article.
+- **`/writing-shape`** (beta): turn a raw material file into an article one approved block at a time, preserving manual edits and the input file.
+- **`/setup-ts-deep-modules`** (beta): wire dependency-cruiser and package pointers into a TypeScript repo so each module is reachable through its entrypoints and tests. It supplements repository setup when that TypeScript structure is needed.
 - **`/writing-for-agents`** is the reference for writing documents agents consume: skills, AGENTS.md, pointed-at docs.
+
+The frozen misc tools are individually installable and excluded from both promoted plugins: `/git-guardrails-claude-code` configures Claude hooks, `/migrate-to-shoehorn` replaces test-only assertions, `/scaffold-exercises` builds course exercise directories, and `/setup-pre-commit` configures Husky/lint-staged checks. Recommend them only for those specific tasks; they retain their existing host and project requirements.
 
 ## Precondition
 
-**`/setup-matt-pocock-skills`**: run before your first engineering flow to configure the issue tracker, triage labels, and doc layout the other skills assume. Custom issue trackers also work.
+**`/setup-matt-pocock-skills`**: after orientation, invoke it in the selected repository when tracker/domain configuration is needed for the intended flow. It proposes changes for review and preserves both instruction entrypoints. The router never runs this user-only skill for the human. Custom issue trackers also work.

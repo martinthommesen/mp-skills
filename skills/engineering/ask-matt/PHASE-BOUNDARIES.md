@@ -4,7 +4,7 @@ A **phase** is a chunk of work inside a session: the grilling, the implementatio
 
 The **phase boundary** is the gap between two phases, and it is the only place this decision belongs. Mid-phase there is no decision to make: continue, or split the work that's left into subagents. Compacting mid-phase makes the agent lose the thread.
 
-## The five options
+## The five ordinary context options
 
 | Option       | What it does                                                    |
 | ------------ | --------------------------------------------------------------- |
@@ -39,9 +39,20 @@ That list is the whole clause. What `/handoff` buys is **portability**: a file t
 
 `/compact` is the **default, not the first reach**. It sits at the bottom because the four questions above it are all cheaper or more precise. The failure mode when people start here is a fresh session that is confidently wrong about a decision the summary flattened.
 
+## Native forks, chat moves, and internal agents
+
+| Requested outcome | Mechanism and boundary |
+| --- | --- |
+| A scoped internal task reports back | Collaboration agent; no user-owned chat is created or messaged |
+| A portable summary for another harness, directory, or colleague | `/handoff` writes the file and returns its path |
+| A history-retaining child chat | Explicitly requested native fork when exposed; continuing work there also requires the human's request |
+| Move another chat and its Git state between checkouts or hosts | Exposed chat/Git handoff capability; it cannot move the calling chat itself |
+
+Use the current host's tool schema and returned IDs/paths. A missing native fork is not a reason to create a fresh chat. Forking retains history rather than converting it into a summary; the ordinary source-cost comparison below applies to context summaries and delegated briefs. Neither a summary nor an internal agent authorizes messaging another user-owned chat.
+
 ## Primary and secondary sources
 
-Every move except **Continue** turns a **primary source** into a **secondary source**: the session as it happened, replaced by a summary of it. The trade is always the same shape:
+In the ordinary tree, every move except **Continue** trades direct access to a **primary source** for a **secondary source**: the session as it happened, replaced by a summary of it. The trade is always the same shape:
 
 | Source                            | Information | Noise | Room to move |
 | --------------------------------- | ----------- | ----- | ------------ |
