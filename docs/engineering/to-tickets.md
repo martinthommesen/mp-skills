@@ -55,6 +55,8 @@ One shape breaks the tracer-bullet rule. A **wide refactor** is a single mechani
 
 Where even the batches can't stay green alone, they share an integration branch and all block a final integrate-and-verify ticket. CI only has to be green at that ticket.
 
+Local tickets come back as absolute links, with a useful starting ticket opened in an available native panel. Tracker issues come back as issue links. Existing ticket edits survive revisions, and the breakdown still needs your approval before publication.
+
 ## Common questions
 
 **It produced twelve tickets for a three-line change.**

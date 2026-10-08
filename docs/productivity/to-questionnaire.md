@@ -40,6 +40,8 @@ The document is a **discovery questionnaire**, because you lack the context and 
 
 The document is deliberately not two things. It isn't **branching**. The questions are a flat, grouped list, not a tree that skips section D if you answered A. It isn't **multi-recipient** either. One run produces one document for one person.
 
+The saved document comes back as an absolute file link and can open in an available native panel. Revisions reread the file and preserve your edits and the recipient's answers. Opening it does not send it, and the recipient's questions remain in the document.
+
 ## Common questions
 
 **Does it read my grilling session and extract the questions from it?**

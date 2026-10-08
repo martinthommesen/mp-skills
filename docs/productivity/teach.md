@@ -55,6 +55,8 @@ You rarely go back to a lesson, but you do go back to reference documents. So th
 
 Lessons are built from **components** in `assets/`: stylesheets, quiz widgets, simulators, diagram helpers. Reuse is the default. The agent reads `assets/` before authoring a lesson and builds from what is there. It writes anything new that a second lesson could use as a component, not inline. The shared stylesheet is the first component in every workspace, and it makes the lessons look like one course instead of many unrelated pages.
 
+The numbered lesson can open in an available native panel and comes back as an absolute file link. When browser inspection is available, the agent checks the rendered stylesheet, shared assets, reference links and interactive feedback. It reports source-only checks honestly, and a working quiz alone does not establish that you learned the topic. Your edits survive later lesson and record revisions.
+
 ## Common questions
 
 **Where does it put the files? Mine ended up in `~/.claude/skills`.**

@@ -70,6 +70,8 @@ When choosing how to render a block, weigh these tradeoffs out loud with the use
 
 ## Writing rhythm
 
+After the first write, open the selected article once with `open_in_codex` when exposed, following its current schema, and return an absolute Markdown file link. Otherwise hand over the link. Keep that file as the evolving source and report queued opening accurately; do not reopen for every append.
+
 Append to the article file as each block is agreed. Re-read the file from disk before every write: the user may have edited between turns. Never overwrite blindly. If the user wants a paragraph rewritten, edit that specific paragraph in place; leave the rest alone.
 
 ## Out of scope

@@ -51,6 +51,8 @@ When you state how something works, the skill checks the code and points out any
 
 It cross-references **code** and the committed `GLOSSARY.md` and ADRs, and nothing else. It does not search your issue tracker. If your team argued out a naming collision and settled it in a closed issue months ago, the skill raises it again as if it were new. There is [an open request](https://github.com/mattpocock/skills/issues/717) to fix this. Until then, the workaround is to put the instruction in your own `docs/agents/domain.md`, which the skills already read.
 
+Saved glossaries and ADRs can open in a native source panel and come back as absolute file links. Before revisions, the agent rereads disk so your edits survive alongside the agreed terminology change.
+
 ## Common questions
 
 **My `GLOSSARY.md` is 500 lines. 1,000. 3,000. What do I do?**

@@ -93,6 +93,8 @@ Put the switcher in a single shared component so both sub-shapes can reuse it. L
 
 ### 5. Hand it over
 
+Use the presentation step in [SKILL.md](SKILL.md). Inspect the running route when browser inspection is available: view each structural variant, exercise mouse and arrow-key cycling with wraparound, check the input-focus guard, and reload to confirm the URL preserves the selected variant.
+
 Surface the URL (and the `?variant=` keys). The user will flip through whenever they get to it. The interesting feedback is usually **"I want the header from B with the sidebar from C"**, which is the actual design they want.
 
 For any needed clarification of a live variant choice, use an available question tool within its schema and eligibility, one focused question per call. If no eligible tool supports the request, ask one concise question in chat. Keep the choice pending until the user responds before folding in a winner, and continue independent work while an async question waits.

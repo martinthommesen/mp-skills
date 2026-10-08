@@ -35,6 +35,15 @@ It reuses seams you already agreed. Any unresolved seam choice gets one focused 
 
 Other skills use those agreed seams later. [tdd](https://aihero.dev/skills-tdd) works only at seams you agreed in advance. [code-review](https://aihero.dev/skills-code-review) reviews the diff against the spec, so a seam nobody agreed to shows up as a review finding. Both connections go through this document. That is why you should take the seam conversation seriously here, and not leave it for implementation.
 
+Presentation follows the configured tracker:
+
+| Tracker output | Handover |
+| --- | --- |
+| Published issue | The issue link |
+| Locally saved spec | An absolute file link and an available native source panel |
+
+Revisions reread the saved spec and preserve your edits.
+
 ## Common questions
 
 **Where did `/to-prd` go?**

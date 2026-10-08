@@ -52,7 +52,9 @@ A lesson should be **beautiful**, with clean, readable typography and layout, si
 
 The lesson should be short, and completable very quickly. Learners' working memory is very small, and we need to stay within it. But each lesson should give the user a single tangible win that they can build on. It should be directly tied to the mission, and should be in the user's zone of proximal development.
 
-If possible, open the lesson file for the user by running a CLI command.
+Open the saved lesson once with `open_in_codex` when exposed, following its current schema; otherwise use an available file-opening CLI command or hand over the file. Return an absolute Markdown link to the numbered lesson. When browser inspection is available, inspect the rendered lesson, shared stylesheet, asset loads and reference navigation, and exercise a quiz or simulator to check visible feedback. An accepted or queued open request alone does not prove rendering. State what was checked or that only source was checked when rendering is unavailable. This verifies the lesson artifact, not learner understanding.
+
+Before revising an existing lesson, asset or teaching record, re-read its current disk contents and preserve user edits outside the intended change.
 
 Each lesson should link via HTML anchors to other lessons and reference documents.
 

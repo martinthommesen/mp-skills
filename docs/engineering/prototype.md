@@ -31,6 +31,8 @@ You record the **answer** (the verdict plus the question it settled) somewhere p
 
 The **prototype** is the runnable evidence the answer came from, and you do not delete it. It doesn't belong in main either, because nobody maintains it and it goes stale fast. So you commit it to a throwaway `prototype/<name>` branch out of main, never merge it, and leave a [context pointer](https://www.aihero.dev/ai-coding-dictionary/context-pointer) to that branch on the implementation issue. Main stays clean, and whoever picks the work up next can find and re-run the prototype.
 
+The handover includes an absolute link to the saved artifact and the running URL for UI variants. An available native panel opens it once. Browser checks exercise state transitions or variant controls; the result says when only source was checked.
+
 ## Common questions
 
 **Wait, isn't the prototype supposed to be deleted?**

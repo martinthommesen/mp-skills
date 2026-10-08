@@ -44,6 +44,8 @@ Load `visualize:visualize` from the **Visualize** plugin through the loading con
 
 If Visualize is unavailable, retain the findings and ask the user to enable the plugin. Resume this step once it is available.
 
+Native source panels are supplementary: open a useful code file once with `open_in_codex` when exposed and return absolute Markdown source links alongside the report. Follow the tool's current schema and report queued opening accurately. Keep Visualize's direct inline rendering contract, including its content reference when required; never substitute a link to its HTML fragment or produce a standalone export without the user's request.
+
 Give each candidate a stable title and a **before/after visualisation** showing what the deepening changes. Keep the candidate explanations in the response alongside the visuals:
 
 - **Files**: which files/modules are involved

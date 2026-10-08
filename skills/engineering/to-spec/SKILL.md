@@ -18,7 +18,9 @@ Reuse seam agreements already in the conversation. Ask only if the proposed seam
 
 For that seam check, use an available question tool within its schema and eligibility, one focused question per call. Keep the required answer pending until the user responds; continue independent work while an async question waits. If no eligible tool supports the request, ask one concise question in chat.
 
-3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage.
+3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage. If revising a saved spec, re-read it before writing and preserve user edits outside the intended revision.
+
+4. Hand over the published issue link. If the configured tracker writes a local file, open that saved spec once with `open_in_codex` when exposed and return its absolute Markdown file link. Use the tool's current schema and report queued or unavailable opening accurately. Native presentation supplements the configured publishing behavior.
 
 <spec-template>
 

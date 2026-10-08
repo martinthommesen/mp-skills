@@ -72,6 +72,8 @@ Fragments are separated by a horizontal rule (`\n---\n`). No headings inside the
 
 ## Writing rhythm
 
+After the first write, open the selected fragment document once with `open_in_codex` when exposed, following its current schema, and return an absolute Markdown file link. Otherwise hand over the link. Keep that file as the evolving source and report queued opening accurately; do not reopen for every append.
+
 Append silently. Don't ask permission for each fragment. Mention what you added in passing ("adding that"), but don't interrupt the conversation with save dialogs.
 
 Before every write: re-read the file from disk. The user may have edited, reordered, or deleted fragments between turns, so preserve their changes. Never overwrite the file; only append (or, if the user asks, edit a specific fragment in place).

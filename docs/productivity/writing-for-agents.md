@@ -31,6 +31,8 @@ Once you think in these two loads, most authoring decisions (split or don't, inl
 - **Leading words**: a compact concept already in the model's pretraining (*tight*, *red*, *tracer bullet*) that the agent thinks with while running the document. It works in two places. In the body it guides execution, and in the pointer it triggers invocation.
 - **Pruning**: single source of truth, relevance, and the no-op test applied sentence by sentence, against **duplication**, **sediment** and **sprawl**.
 
+When this reference guides an edit, the agent rereads the current file and preserves your manual changes outside the intended revision. The saved source can open in an available native panel and comes back as an absolute file link; the reference adds no paragraph-by-paragraph approval loop.
+
 ## Common questions
 
 **Where did `/writing-great-skills` go?**

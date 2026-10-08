@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 <what-to-do>
 
-The user has passed (or will pass) a markdown file of raw material. This is **exploit**: the exploring is done, the pile is fixed. Commit to a path through it and mine the pile to fill each beat.
+The user has passed (or will pass) a markdown file of raw material. This is **exploit**: the exploring is done, the pile is fixed. Read the raw material in full and keep that input file read-only, including its original bytes. Save the article to a separate file. Commit to a path through it and mine the pile to fill each beat.
 
 If the user did not say where to save the article, ask once and remember the path.
 
@@ -60,6 +60,8 @@ Pull material from the raw pile to populate each beat. You can paraphrase, split
 The article ends when the journey is complete, not when the pile is empty. Most piles will have leftover fragments that don't make it in. That is fine; that is the point of having more raw material than you need.
 
 ## Writing rhythm
+
+After the first write, open the selected article once with `open_in_codex` when exposed, following its current schema, and return an absolute Markdown file link. Otherwise hand over the link. Keep that file as the evolving source and report queued opening accurately; do not reopen for every append.
 
 - Append one beat at a time. Never write ahead.
 - Re-read the article file from disk before every write. Preserve user edits absolutely.

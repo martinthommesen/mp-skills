@@ -40,6 +40,8 @@ That third row is the one that catches people out. `GLOSSARY.md` is only a gloss
 
 The glossary is the main output. This skill builds domain language: the project's own words, agreed once, so you, the agent and your colleagues do not have to work them out again. Not everyone agrees that this improves agent performance. The strongest objection is that a term and its plain-English expansion get the same result from the [model](https://www.aihero.dev/ai-coding-dictionary/model), and that the vocabulary mainly shortens communication between the humans who share it. On that view the glossary is still valuable, but the value goes to the humans.
 
+The glossary and ADRs remain editable files. The handover opens a useful record in an available native source panel and links the changed files; later revisions preserve your edits.
+
 ## Common questions
 
 **Should I use this or `/wayfinder`?**

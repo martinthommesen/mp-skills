@@ -61,6 +61,8 @@ When you pick a candidate, a [grilling](https://aihero.dev/skills-grilling) sess
 
 The interview presents one ready question at a time through the question tool and uses your answer to choose the next question.
 
+Native source panels and absolute code links can help you inspect the modules behind a candidate. The before/after comparisons still appear directly in the conversation through Visualize; a source panel or HTML fragment link does not replace them. Standalone export needs your request.
+
 ## Common questions
 
 **It grilled me for an hour about one idea instead of showing me options. Can I turn that off?**

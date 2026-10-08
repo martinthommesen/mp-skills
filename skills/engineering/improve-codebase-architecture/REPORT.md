@@ -20,3 +20,5 @@ Show the proposed responsibilities and where tests would enter.
 Keep both views available for comparison and label them **Before** and **After**. Each diagram uses its candidate's title from the response. A static relationship diagram is enough when nodes and edges explain the change; use interaction when exploring a collapse or another change makes the deepening easier to understand.
 
 Keep architecture explanations beside the visuals in the response. The diagram should show the structural change without needing a paragraph inside it.
+
+Source links or an optional native source panel help locate the candidate's modules. They supplement the before/after visuals and explanations; they do not replace Visualize's inline output or bypass its prerequisite.

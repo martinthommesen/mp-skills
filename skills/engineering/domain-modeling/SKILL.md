@@ -61,6 +61,8 @@ When the user states how something works, check whether the code agrees. If you 
 
 ### Update GLOSSARY.md inline
 
+Before changing an existing glossary or ADR, re-read its current disk contents and preserve user edits outside the agreed change.
+
 When a term is resolved, update `GLOSSARY.md` right there. Don't batch these up: capture them as they happen. Use the format in [GLOSSARY-FORMAT.md](./GLOSSARY-FORMAT.md).
 
 `GLOSSARY.md` should be totally devoid of implementation details. Do not treat `GLOSSARY.md` as a spec, a scratch pad, or a repository for implementation decisions. It is a glossary and nothing else.
@@ -74,3 +76,7 @@ Only offer to create an ADR when all three are true:
 3. **The result of a real trade-off**: there were genuine alternatives and you picked one for specific reasons
 
 If any of the three is missing, skip the ADR. Use the format in [ADR-FORMAT.md](./ADR-FORMAT.md).
+
+## Present the records
+
+After useful glossary or ADR changes, open the relevant saved file once with `open_in_codex` when exposed, following its current schema. Keep capturing terms inline without reopening the panel for each term. Return absolute Markdown file links to changed records; when native opening is unavailable, the links are the handover. A queued open request means queued, not visibly reviewed.

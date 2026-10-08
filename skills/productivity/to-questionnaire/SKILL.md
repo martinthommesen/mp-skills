@@ -14,7 +14,7 @@ Ask one focused live question per tool call, preferring `request_user_input_asyn
 
 2. **What do you need back?** Ask, in one exchange, the specific decisions or facts the user can't resolve alone and needs from this person. Done when you have a concrete list of what the user must walk away able to do or decide.
 
-3. **Write the questionnaire.** Draft questions aimed at the gap from steps 1–2, following the Document structure below. Write it to `to-questionnaire-<slug>.md` in the current directory (slug from the topic) and report the path. Done when the file exists and every item the user named in step 2 is covered by a question.
+3. **Write the questionnaire.** Draft questions aimed at the gap from steps 1–2, following the Document structure below. Write it to `to-questionnaire-<slug>.md` in the current directory (slug from the topic) and return an absolute Markdown file link. Before revising an existing questionnaire, re-read the saved file and preserve user and recipient edits, including answers, outside the intended change. Open the useful saved document once with `open_in_codex` when exposed, following its current schema; otherwise hand over the link. Report queued opening accurately. Recipient questions stay in the document; creating or opening it does not authorize sending it. Done when the file exists and every item the user named in step 2 is covered by a question.
 
 ## Document structure
 
