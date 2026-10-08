@@ -288,3 +288,8 @@ The scoped reviewer independently inspected all six correction files, baseline/g
 The actual presentation request targeted this results file with placement right and returned `queued`, threadId `01a11aed-99b4-7281-9ea9-ea6be1c45358`, isError false. The handover uses the absolute results-file path `/Users/t979259/.codex/worktrees/codex-native-skills/mp-skills/docs/superpowers/validation/2026-10-08-codex-native-skills-results.md`. No visible panel opening is claimed. Original checkout remains at `7059f047b445a8a628a33b2524315ff2ae56af7a` with clean status.
 
 All five rulings and nine declined-behavior dispositions above remain binding evidence boundaries. Native runtime checks remain pending, Claude strict validation unavailable, aggregate Plugin Eval limited by its string-path parser, wizard lint diagnostics and 18 dependency advisories preserved. Completion establishes the implemented source, bounded checks and independent review; it does not establish the unexecuted runtime/account behaviors. No merge, push, publication, normal-profile installation or account workflow was performed.
+
+
+## Authorized fork publication follow-up
+
+The user subsequently requested committing everything, pushing to their fork and installing/enabling the plugin in their normal Codex profile. GitHub rejected the initial push under its private-email protection. The 15 unpublished commits were re-signed with the owner GitHub noreply address; source trees, messages, author/committer names and dates stayed identical. The [commit identity map](./2026-10-08-github-commit-map.json) maps every historical validation SHA above to its public equivalent. The original local history remains recoverable. This metadata correction does not rerun or upgrade any validation evidence.

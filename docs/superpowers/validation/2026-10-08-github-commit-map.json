@@ -1,0 +1,98 @@
+{
+  "reason": "GitHub email-privacy protection rejected unpublished commits. They were re-signed with the owner GitHub noreply address.",
+  "source_trees_messages_author_names_and_dates_preserved": true,
+  "old_delivery_head": "0cf89872acc0d95055526db22d984133f5f2007f",
+  "public_delivery_head_before_this_provenance_record": "3c042ca6bcdd87da7b1adbfaaf003cb291905e34",
+  "commits": [
+    {
+      "old": "15be78c4792e534a346706671d28895872954f7c",
+      "new": "83e490c576d65985199d27c2476d4a07695d785a",
+      "tree": "df25809d870f0530dea1671cc28de25c3a6ad920",
+      "re_signed": true
+    },
+    {
+      "old": "c6b4aa85aee8cb5c0981d0cee2845466c2c23570",
+      "new": "ad5d90aae3de9fa72e97e494273361830bd4f6cb",
+      "tree": "315ca4fbe49316b57dbdd8627e65b894e045cf5e",
+      "re_signed": true
+    },
+    {
+      "old": "7059f047b445a8a628a33b2524315ff2ae56af7a",
+      "new": "0ef3d336c02d9718e559458176bfd2f7b0f634fa",
+      "tree": "43e9f27e454c75a58b6186f217495c18e8ffc671",
+      "re_signed": true
+    },
+    {
+      "old": "40eb6d8d5e1e354596b398eed63f8f0418db5c07",
+      "new": "848394eaaf282eedd285bfc719490a25a01f63fa",
+      "tree": "03aa5eb99d3a5e39317376fce9e2f842ef760ca4",
+      "re_signed": true
+    },
+    {
+      "old": "d426350a3d74e3e5e476c523d22ca6c8a9ea38c8",
+      "new": "818d9394495461ab0c30a4ec010b95b1006fd4c1",
+      "tree": "c7eb69117f1686735653eacdf9352450614dea22",
+      "re_signed": true
+    },
+    {
+      "old": "300e2541286c450cfb3c86d8e8db6bc01858b41f",
+      "new": "82b64eaddef6eff94be206e57436c7770f848df1",
+      "tree": "0e2dbfea48f5e7546f0435dc2fd8ec47540dd4dd",
+      "re_signed": true
+    },
+    {
+      "old": "d52a27c088460d6d42b8e91d55c22bea2d3d2173",
+      "new": "7a080a783f143886808d7126081f25d1377abe8d",
+      "tree": "a03c3b3cc51cc34104f4bcf5274a3bb07aeb7e4e",
+      "re_signed": true
+    },
+    {
+      "old": "9e9a34d86400fbbada2bea2abae06c5189da246f",
+      "new": "88fffb9d8427b995dbab795c8e72511ca9c79b6a",
+      "tree": "9b847a27ddee5ee5eac8fc0a88753de3aa53882e",
+      "re_signed": true
+    },
+    {
+      "old": "9606945c10e735451c4f891ef61e55eb04cf1a76",
+      "new": "e4f40dc66a9e504afcee152631ebedaf88934001",
+      "tree": "3d4711dcef8494abab38cd9a6790b600bf3b2e0f",
+      "re_signed": true
+    },
+    {
+      "old": "6819c13954afd1603c4f579a9cdcff05802bf202",
+      "new": "953b978fee1e133c6e84f85048e9ac7c151fbcce",
+      "tree": "eac458bc046b4f1ebef7bbc7d4f82e938f25c99d",
+      "re_signed": true
+    },
+    {
+      "old": "90f23524c0dbd09104b05a34ed664c9eacd631ef",
+      "new": "09c8d953e500e1db1374886203409efe82509022",
+      "tree": "221fd5c05ea1651c2fe442db7abfbe2f36cee18d",
+      "re_signed": true
+    },
+    {
+      "old": "3a841f6da7752356527ba6df4044fb34ebbeaff6",
+      "new": "4266639e05c4255dfbbd5c3f41a3672fb775122b",
+      "tree": "36861222885bfa698ef27ebdc50297edb6086cb9",
+      "re_signed": true
+    },
+    {
+      "old": "cb1963c913dd73398e2e0688d2222fb3d8389473",
+      "new": "dd7fcd918dde04b0656f00294616dcd0894d5cb8",
+      "tree": "949613e8410ecba03a0a9f13c212d19713deacd7",
+      "re_signed": true
+    },
+    {
+      "old": "b275efb8f63b75b26dc4becc9f510f0ddee9e5b3",
+      "new": "014d088910ae02e78f7a91720060fc58fa2d5617",
+      "tree": "238d311ced69e732c56987a9403a64b9cdf5ca66",
+      "re_signed": true
+    },
+    {
+      "old": "0cf89872acc0d95055526db22d984133f5f2007f",
+      "new": "3c042ca6bcdd87da7b1adbfaaf003cb291905e34",
+      "tree": "89e7c8356503324afc9fbf5619a3fa202c84761d",
+      "re_signed": true
+    }
+  ]
+}
