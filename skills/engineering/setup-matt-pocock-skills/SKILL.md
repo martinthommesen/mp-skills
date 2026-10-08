@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Scaffold the per-repo configuration that the engineering skills assume:
 
-- **Issue tracker**: where issues live (GitHub by default; local markdown is also supported out of the box)
+- **Issue tracker**: where issues live (GitHub, GitLab, Gitea, or local markdown out of the box)
 - **Triage labels**: the strings used for the five canonical triage roles
 - **Domain docs**: where `GLOSSARY.md` and ADRs live, and the consumer rules for reading them
 
@@ -20,7 +20,7 @@ This is a prompt-driven skill, not a deterministic script. Explore, present what
 
 Look at the current repo to understand its starting state. Read whatever exists; don't assume:
 
-- `git remote -v` and `.git/config`: is this a GitHub repo? Which one?
+- `git remote -v` and `.git/config`: which host and repo do they identify? Look for existing tracker docs or repo instructions identifying GitHub, GitLab, or Gitea. An unfamiliar hostname alone doesn't identify a self-hosted forge.
 - `AGENTS.md` and `CLAUDE.md` at the repo root: does either exist? Is there already an `## Agent skills` section in either?
 - `GLOSSARY.md` and `GLOSSARY-MAP.md` at the repo root
 - `docs/adr/` and any `src/*/docs/adr/` directories
@@ -33,20 +33,25 @@ Look at the current repo to understand its starting state. Read whatever exists;
 
 Summarise what's present and what's missing. Then take the sections in order. One section, one answer, then the next.
 
+Use an available question tool for these choices and draft review, one focused question per call, within its schema and eligibility. Keep required answers pending until the user responds; continue independent work while an async question waits. If no eligible tool supports the request, ask one concise question in chat.
+
 Lead each section with the recommended answer so the user can accept it in a word. Give a one-line explainer only when the choice genuinely branches; skip the section entirely when exploration already settled it (Section B when `triage` isn't installed, Section C when there's no monorepo).
 
 **Section A: Issue tracker.**
 
 > Explainer: The "issue tracker" is where issues live for this repo. Skills like `to-tickets`, `triage`, and `to-spec` read from and write to it. They need to know whether to call `gh issue create`, write a markdown file under `.scratch/`, or follow some other workflow you describe. Pick the place you actually track work for this repo.
 
-Default posture: these skills were designed for GitHub. If a `git remote` points at GitHub, propose that. If a `git remote` points at GitLab (`gitlab.com` or a self-hosted host), propose GitLab. Otherwise (or if the user prefers), offer:
+Propose the tracker matching the remote and existing repo instructions: GitHub, GitLab (`gitlab.com` or a known self-hosted instance), or Gitea (`gitea.com` or a known self-hosted instance). If the provider is unknown, ask which tracker they use. Offer these choices within the question tool's limits, or let the user name their tracker:
 
 - **GitHub**: issues live in the repo's GitHub Issues (uses the `gh` CLI)
 - **GitLab**: issues live in the repo's GitLab Issues (uses the [`glab`](https://gitlab.com/gitlab-org/cli) CLI)
+- **Gitea**: issues live in the repo's Gitea Issues, including self-hosted instances (uses the official [`tea`](https://about.gitea.com/products/tea/) CLI)
 - **Local markdown**: issues live as files under `.scratch/<feature>/` in this repo (good for solo projects or repos without a remote)
 - **Other** (Jira, Linear, etc.): ask the user to describe the workflow in one paragraph; the skill will record it as freeform prose
 
-Record the choice in `docs/agents/issue-tracker.md`. The GitHub and GitLab templates carry a "PRs as a request surface" flag, defaulted **off**. Leave it off and don't raise it: a user who wants external PRs in the triage queue can flip the flag in the file later.
+Record the choice in `docs/agents/issue-tracker.md`. For Gitea, read the seed's **Connection** section, fill its instance/repo/login fields, and verify read-only access before label writes. Ask for any missing connection detail through one focused question; report missing CLI or login as an outstanding prerequisite.
+
+The GitHub, GitLab, and Gitea templates carry a "PRs as a request surface" flag, defaulted **off**. Leave it off and don't raise it: a user who wants external PRs in the triage queue can flip the flag in the file later.
 
 **Section B: Triage label vocabulary.** Skip this section entirely if the `triage` skill isn't installed (exploration told you), since an uninstalled skill needs no labels.
 
@@ -101,12 +106,13 @@ The block:
 
 Include the `### Triage labels` sub-block, and write `docs/agents/triage-labels.md`, only when `triage` is installed and Section B ran. When it isn't, both are omitted.
 
-When Section B ran on GitHub or GitLab, create each configured label the tracker lacks (`gh label create` / `glab label create`).
+When Section B ran on GitHub, GitLab, or Gitea, list existing labels and create only the configured names the tracker lacks (`gh label create` / `glab label create` / `tea labels create`). For Gitea, follow the seed's label commands and confirmed login/repo context. Preserve existing labels and their colors. Report any failed creation instead of claiming labels are ready.
 
 Then write the docs files using the seed templates in this skill folder as a starting point:
 
 - [issue-tracker-github.md](./issue-tracker-github.md): GitHub issue tracker
 - [issue-tracker-gitlab.md](./issue-tracker-gitlab.md): GitLab issue tracker
+- [issue-tracker-gitea.md](./issue-tracker-gitea.md): Gitea issue tracker, including self-hosted instances
 - [issue-tracker-local.md](./issue-tracker-local.md): local-markdown issue tracker
 - [triage-labels.md](./triage-labels.md): label mapping (only if `triage` is installed)
 - [domain.md](./domain.md): domain doc consumer rules + layout
@@ -115,4 +121,4 @@ For "other" issue trackers, write `docs/agents/issue-tracker.md` from scratch us
 
 ### 5. Done
 
-Tell the user the setup is complete and which engineering skills will now read from these files. Mention they can edit `docs/agents/*.md` directly later; re-running this skill is only necessary if they want to switch issue trackers or restart from scratch.
+Report the files written and which engineering skills will read them, plus any outstanding tracker prerequisite or failed label creation. Call setup complete only when the tracker is usable and any required labels are confirmed present. Mention they can edit `docs/agents/*.md` directly later; re-running this skill is only necessary if they want to switch issue trackers or restart from scratch.

@@ -27,7 +27,7 @@ What accumulates in that directory:
 
 | Path | What it holds |
 | --- | --- |
-| `MISSION.md` | Why you are learning this. Every other file depends on it. If it is missing, the first thing `teach` does is interview you until it isn't |
+| `MISSION.md` | Why you are learning this. Every other file depends on it. If it is missing, `teach` interviews you through the available question controls |
 | `RESOURCES.md` | The vetted sources it teaches from, split into Knowledge and Wisdom (communities) |
 | `lessons/*.html` | The numbered lessons: the primary unit of teaching |
 | `reference/*.html` | Compressed cheat-sheets, algorithms, glossaries: the documents you return to |
@@ -42,6 +42,8 @@ Two notes on that list. A glossary suits most topics, but the skill ships a `GLO
 The word to think with is **storage strength**: long-term retention, as opposed to **fluency**, the in-the-moment recall that feels like mastery while you are reading and is gone a week later. `teach` builds the former through desirable difficulty: retrieval practice, spacing, interleaving. Knowledge comes first. At that stage difficulty works against you, because it uses up the working memory you need to understand. Then `teach` drills the skill through a tight feedback loop, and at that stage difficulty is the tool.
 
 Two things decide what you get taught. The **mission** (the concrete real-world reason you want this) is the basis of every lesson. Without it the lessons become abstract and nothing decides what comes next. From the mission and the learning records, `teach` picks the next lesson inside your **zone of proximal development**: hard enough to take effort, but not so far ahead that you cannot learn it.
+
+Live questions about your mission and preferences arrive one at a time through question controls, with a concise chat fallback when no suitable tool supports the question. Assessment prompts ask you to recall what you know without revealing the answer; lesson quizzes stay in the generated HTML.
 
 Storage strength is also why the skill pushes back instead of agreeing. A question that needs **wisdom** (real-world judgement) gets an attempted answer and then a pointer to a community where you can test it. The skill does not let you skip a quiz. One user reported saying "thanks a lot" and being told the drill was not finished.
 
@@ -81,7 +83,7 @@ There is no canonical answer, and the reported differences are large. Users repo
 
 ## It's working if
 
-- The first thing it does in an empty directory is interview you about why you want this, rather than produce a lesson.
+- The first thing it does in an empty directory is ask through a question control why you want this, then wait for your answer before producing a lesson.
 - `RESOURCES.md` fills up before the lessons do, and each lesson names one primary source worth reading yourself.
 - Claims in a lesson carry links out. A lesson with no citations is the skill teaching from memory.
 - A lesson takes one sitting and leaves you able to do one thing you couldn't before.

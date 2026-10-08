@@ -74,6 +74,8 @@ Every lesson should be tied into the mission - the reason that the user is inter
 
 If the user is unclear about the mission, or the `MISSION.md` is not populated, your first job should be to question the user on why they want to learn this.
 
+Ask one focused live question per eligible tool call, preferring `request_user_input_async`. Use `request_user_input` or `AskUserQuestion` as its current schema, mode, and request type permit. Await actual answers; use one concise chat question if no suitable tool supports it. Recommend preference choices; assessment prompts should elicit recall without revealing answers. Keep lesson quizzes in HTML.
+
 Failing to understand the mission will mean knowledge acquisition is not grounded in real-world goals. Lessons will feel too abstract. You will have no way of judging what the user should do next.
 
 Missions may change as the user develops more skills and knowledge. This is normal - make sure to update the `MISSION.md` and add a learning record to capture the change. Confirm with the user before changing the mission.

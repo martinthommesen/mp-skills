@@ -8,8 +8,9 @@ Turn something the user can't answer alone into a **questionnaire**: a Markdown 
 
 **Grill the send, not the subject.** Interview the user only about the _send_, which they can always answer: who it goes to, and what they need back. The questions in the document then target the **gap** between what the recipient knows and what the user needs.
 
+Ask one focused live question per tool call, preferring `request_user_input_async`. Use `request_user_input` or `AskUserQuestion` only when its current schema, mode, and request type permit it. Await actual answers. If no suitable tool supports the question, ask one concise question in chat. Keep the Markdown questionnaire as the output artifact.
 
-1. **Who is it going to?** Ask, in one exchange, the recipient's role, expertise, and relationship to the user. This fixes the questionnaire's tone and how much context it must carry. Done when you know who the recipient is and what they know that the user doesn't.
+1. **Who is it going to?** Start by identifying the recipient and their role. Follow up on their expertise or relationship to the user only where still needed to set the tone and context, one focused question at a time. Done when you know who the recipient is and what they know that the user doesn't.
 
 2. **What do you need back?** Ask, in one exchange, the specific decisions or facts the user can't resolve alone and needs from this person. Done when you have a concrete list of what the user must walk away able to do or decide.
 

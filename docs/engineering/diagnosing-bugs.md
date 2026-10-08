@@ -40,6 +40,8 @@ Phase 1 gets the most effort because it is the only hard phase. The skill lists 
 
 When the agent cannot build one, the skill tells it to stop and say so, list what it tried, and ask you for [environment](https://www.aihero.dev/ai-coding-dictionary/environment) access, a captured artifact, or permission to add temporary instrumentation. It must not go on to form hypotheses anyway.
 
+Live questions use an available question tool when it supports the request, one focused question at a time, with a concise chat question as the fallback. Artifact uploads and permission requests use their appropriate mechanisms. The hypothesis checkpoint remains optional and does not block debugging when you are away.
+
 ## The gates between phases
 
 The phases are gates, not a checklist. The agent cannot enter a phase until a specific condition is true.

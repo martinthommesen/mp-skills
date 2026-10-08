@@ -21,6 +21,8 @@ The question picks the branch, and the branches produce different artifacts:
 
 Both keep state in memory, start with no setup, and show you the full state after every step. The moment you find yourself hardening one (adding a test, wiring the real database, generalising for a case you might want later), you have stopped prototyping.
 
+When a branch clarification or variant choice needs your input, the agent uses an available question tool that supports the request, one focused question at a time, or one concise chat question otherwise. It can assume a branch from the surrounding code when you are unreachable; folding in a winning variant waits for your choice.
+
 ## The prototype is a primary source
 
 A finished prototype leaves two things, and they go to different places.

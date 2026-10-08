@@ -19,6 +19,8 @@ Type `/code-review`, or the agent reaches for it automatically when you ask to r
 
 You must supply the fixed point. If you do not, the skill asks for one rather than guessing. Before it spawns anything, it checks that the ref resolves and that the diff is not empty, so a mistyped branch name fails in front of you instead of inside two sub-agents.
 
+Missing refs or spec locations are requested through an available question tool when it supports the request, one focused question at a time. Otherwise the agent asks one concise question in chat and waits for the answer before dependent work.
+
 ## Prerequisites
 
 The Standards axis needs nothing. It reads whatever the repo documents (`CODING_STANDARDS.md`, `CONTRIBUTING.md`, and the like) and falls back on a built-in baseline when the repo documents nothing.

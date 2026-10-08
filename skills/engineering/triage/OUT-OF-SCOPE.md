@@ -75,6 +75,8 @@ During triage (Step 1: Gather context), read all files in `.out-of-scope/`. When
 - Matching is by concept similarity, not keyword: "night theme" matches `dark-mode.md`
 - If there's a match, surface it to the maintainer: "This is similar to `.out-of-scope/dark-mode.md`. We rejected this before because [reason]. Do you still feel the same way?"
 
+Ask that one focused question through an available question tool within its schema and eligibility. If no eligible tool supports the request, ask one concise question in chat. Keep the decision pending until the maintainer responds, and continue independent work while an async question waits.
+
 The maintainer may:
 
 - **Confirm**: the new issue gets added to the existing file's "Prior requests" list, then closed

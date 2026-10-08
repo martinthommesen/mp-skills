@@ -104,7 +104,7 @@ getUser(fromAny({ body: { id: 123 } }));
 
 ## Workflow
 
-1. **Gather requirements** - ask user:
+1. **Gather requirements** - interview the user about these requirements through an available question tool, one focused question per call, within its schema and eligibility. Keep required answers pending until the user responds; continue independent work while an async question waits. If no eligible tool supports the request, ask one concise question in chat.
    - What test files have `as` assertions causing problems?
    - Are they dealing with large objects where only some properties matter?
    - Do they need to pass intentionally wrong data for error testing?

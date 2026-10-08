@@ -23,6 +23,8 @@ When blocked, Claude sees a message telling it that it does not have authority t
 
 Ask the user: install for **this project only** (`.claude/settings.json`) or **all projects** (`~/.claude/settings.json`)?
 
+Use an available question tool for live user input, one focused question per call, within its schema and eligibility. Keep required answers pending until the user responds; continue independent work while an async question waits. If no eligible tool supports the request, ask one concise question in chat.
+
 ### 2. Copy the hook script
 
 The bundled script is at: [scripts/block-dangerous-git.sh](scripts/block-dangerous-git.sh)

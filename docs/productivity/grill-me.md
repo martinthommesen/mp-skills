@@ -1,6 +1,6 @@
 ## What it does
 
-`grill-me` takes a **loose idea** and interviews you until you can commit to it. You do not need a worked-out plan to start, because the [session](https://www.aihero.dev/ai-coding-dictionary/session) exists to produce one. It asks in **rounds**. Each round is the whole **frontier**, which is every question whose prerequisites you have already settled. So it never asks you something that depends on an answer it hasn't heard yet.
+`grill-me` takes a **loose idea** and interviews you until you can commit to it. You do not need a worked-out plan to start, because the [session](https://www.aihero.dev/ai-coding-dictionary/session) exists to produce one. It keeps the **frontier** of ready decisions internally and asks one focused question at a time through the available question controls. Each answer changes what it can ask next, so dependent questions wait for their prerequisites.
 
 It is **[stateless](https://www.aihero.dev/ai-coding-dictionary/stateless)**. It writes no files and leaves no workspace behind. The only result is a clearer version of the idea, in your own head.
 
@@ -36,27 +36,16 @@ Some questions can be answered by talking. Others can't, and no amount of grilli
 
 Sessions grow too long when you try to talk through an ungrillable question. The agent keeps rephrasing, you keep guessing, and the scope grows with the uncertainty.
 
-## It's working if
-
-- You disagree with something. A session with no pushback from you is a session you didn't need.
-- Questions arrive in a few rounds, not one at a time for a long time, and later rounds clearly build on what you said earlier.
-- You end up somewhere you didn't expect, because a question showed you a decision you had been making without noticing.
-- At the end you could defend each choice to someone who wasn't there.
-
 ## Common questions
 
 **How many questions should I expect, and how do I know when it ends?**
-Count rounds, not questions. Forty-six questions across four rounds is an ordinary session. It ends when the frontier is empty: it has visited every branch, and nothing is left as an unstated assumption.
+There is no fixed question count. It covers every branch, then asks you to confirm the shared understanding. An unanswered decision stays pending, even when the question control has already returned or displayed a default.
 
 **It asked me two hundred questions. What went wrong?**
 Usually the scope was too large. Ask the agent to break the work into smaller pieces first, then grill each one. Very long sessions also drift into the **[dumb zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**, where the [context window](https://www.aihero.dev/ai-coding-dictionary/context-window) is full enough that the questions get worse.
 
 **Can I go back to one question at a time?**
-Yes. Add this to your global `CLAUDE.md`:
-
-```
-When grilling, ask one question at a time.
-```
+That is now the default. The shared grilling skill delivers one focused question per question-tool call and recomputes the frontier after your actual answer.
 
 **What if I genuinely don't know the answer?**
 Say so. "I don't know" is a real answer, and a question you can't answer is usually a sign to prototype rather than to guess.
@@ -66,6 +55,13 @@ No. The value of the session is the [context](https://www.aihero.dev/ai-coding-d
 
 **Does the model matter?**
 More than for most skills. Grilling depends on the [model](https://www.aihero.dev/ai-coding-dictionary/model)'s own knowledge of how systems break, so use your best one. Implementation mostly follows context, so a cheaper model is fine there.
+
+## It's working if
+
+- You disagree with something. A session with no pushback from you is a session you didn't need.
+- Questions arrive individually through question controls, and later questions clearly build on what you said earlier.
+- You end up somewhere you didn't expect, because a question showed you a decision you had been making without noticing.
+- At the end you could defend each choice to someone who wasn't there.
 
 ## Where it fits
 

@@ -8,6 +8,8 @@ disable-model-invocation: true
 
 This is pure **explore**: widen the space of what could be written without committing to structure. Committing is _exploit_, a separate skill's job. Run a grilling session that produces fragments, interviewing the user relentlessly about whatever they want to write about. Imposing phases, outlines, or article structure is out of scope here.
 
+Use an available question tool for live user input, one focused question per call, within its schema and eligibility. Keep required answers pending until the user responds; continue independent work while an async question waits. If no eligible tool supports the request, ask one concise question in chat.
+
 As fragments emerge from either side of the conversation, append them to a single markdown file.
 
 If the user did not pass a path, ask once where to save the document, then remember it for the rest of the session.

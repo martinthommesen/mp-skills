@@ -24,3 +24,9 @@ This whole convention only holds when the named skill is **model-invoked**. A us
 ## Passive vs active domain work
 
 Merely _reading_ `GLOSSARY.md` for vocabulary is a one-line prose pointer, not the `domain-modeling` skill. Only the active build/sharpen discipline (challenge terms, edge-case scenarios, write ADRs, update `GLOSSARY.md` inline) is `domain-modeling`.
+
+## Live questions
+
+Direct live user questions through an available question tool, one focused question per call. The harness's current tool schema decides eligibility, supported inputs, and how skipped optional questions are handled. Examples include `request_user_input_async`, `request_user_input`, and `AskUserQuestion`; name only tools the harness actually provides. Keep required answers pending until the user responds, and continue independent work while an asynchronous question waits. If no eligible tool supports the request, ask one concise question in chat.
+
+Keep the delivery instruction inside each standalone skill that asks for input: a single-skill installation carries only that skill's directory. A wrapper that invokes `grilling` inherits its interview delivery. Generated questionnaires, issue-comment templates, lesson quizzes, and script prompts retain their own formats.

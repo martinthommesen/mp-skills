@@ -6,6 +6,8 @@ It is only for issues **you didn't create**. That means raw bug reports, incomin
 
 It also differs from labelling by hand because it recommends and then waits. It gives you its category and state call with reasoning, plus what it found in the codebase, and applies nothing until you tell it to.
 
+Live maintainer decisions use an available question tool when it supports the request, one focused question at a time, with one concise chat question as the fallback. Required decisions stay open until you answer. Questions written into needs-info comments remain reporter-facing artifacts.
+
 ## When to reach for it
 
 You invoke this by typing `/triage` and then describing what you want in plain language. The [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own. Examples: "Show me anything that needs my attention", "let's look at #42", "move #42 to ready-for-agent".
@@ -106,4 +108,4 @@ Yes. The tracker is config, not a hard-coded assumption. People run it against L
 
 ## Where it fits
 
-`triage` is an **on-ramp**, not a step in the main chain. The main flow starts from an idea you had (grill, spec, tickets, implement, review). `triage` is the parallel lane for work that came from someone else. Both lanes end at the same place: an issue labelled `ready-for-agent` with a brief on it. [implement](https://aihero.dev/skills-implement) picks that up the same way it picks up a ticket from [to-tickets](https://aihero.dev/skills-to-tickets). When a request needs more detail before `triage` can brief it, `triage` runs [grilling](https://aihero.dev/skills-grilling) and [domain-modeling](https://aihero.dev/skills-domain-modeling) together, one round of questions at a time, so it records decisions in `GLOSSARY.md` and the ADRs as you make them. When you're not sure which lane you are in, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.
+`triage` is an **on-ramp**, not a step in the main chain. The main flow starts from an idea you had (grill, spec, tickets, implement, review). `triage` is the parallel lane for work that came from someone else. Both lanes end at the same place: an issue labelled `ready-for-agent` with a brief on it. [implement](https://aihero.dev/skills-implement) picks that up the same way it picks up a ticket from [to-tickets](https://aihero.dev/skills-to-tickets). When a request needs more detail before `triage` can brief it, `triage` runs [grilling](https://aihero.dev/skills-grilling) and [domain-modeling](https://aihero.dev/skills-domain-modeling) together, following the interview rules and asking one focused question at a time, so it records decisions in `GLOSSARY.md` and the ADRs as you make them. When you're not sure which lane you are in, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.

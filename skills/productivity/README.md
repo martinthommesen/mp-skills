@@ -1,5 +1,7 @@
 # Productivity
 
+Live choices and interviews use the harness's available question tool, one question per call.
+
 General workflow tools, not code-specific.
 
 ## User-invoked

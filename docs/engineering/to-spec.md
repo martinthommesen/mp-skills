@@ -31,6 +31,8 @@ So the spec does not validate or decide anything. It records what you decided, i
 
 Before it writes anything, `to-spec` sketches the **seams** where the feature will be tested, and checks them with you. It prefers existing seams to new ones, and picks the highest seam it can. The ideal number of seams for a change is one.
 
+It reuses seams you already agreed. Any unresolved seam choice gets one focused question through an available question tool that supports the request, or one concise chat question otherwise, and stays pending before dependent work. This check does not reopen the wider interview.
+
 Other skills use those agreed seams later. [tdd](https://aihero.dev/skills-tdd) works only at seams you agreed in advance. [code-review](https://aihero.dev/skills-code-review) reviews the diff against the spec, so a seam nobody agreed to shows up as a review finding. Both connections go through this document. That is why you should take the seam conversation seriously here, and not leave it for implementation.
 
 ## Common questions

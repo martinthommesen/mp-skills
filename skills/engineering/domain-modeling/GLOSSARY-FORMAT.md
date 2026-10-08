@@ -57,4 +57,4 @@ The skill infers which structure applies:
 - If only a root `GLOSSARY.md` exists, single context
 - If neither exists, create a root `GLOSSARY.md` lazily when the first term is resolved
 
-When multiple contexts exist, infer which one the current topic relates to. If unclear, ask.
+When multiple contexts exist, infer which one the current topic relates to. Ask only if the context is unclear. Use an available question tool within its schema and eligibility for that one focused context question. If no eligible tool supports the request, ask one concise question in chat. Wait for the user's answer before writing into a context.

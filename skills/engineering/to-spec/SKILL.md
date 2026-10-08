@@ -14,7 +14,9 @@ The issue tracker and triage label vocabulary should have been provided to you. 
 
 2. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one.
 
-Check with the user that these seams match their expectations.
+Reuse seam agreements already in the conversation. Ask only if the proposed seams remain unconfirmed.
+
+For that seam check, use an available question tool within its schema and eligibility, one focused question per call. Keep the required answer pending until the user responds; continue independent work while an async question waits. If no eligible tool supports the request, ask one concise question in chat.
 
 3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage.
 

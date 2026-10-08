@@ -95,6 +95,8 @@ Put the switcher in a single shared component so both sub-shapes can reuse it. L
 
 Surface the URL (and the `?variant=` keys). The user will flip through whenever they get to it. The interesting feedback is usually **"I want the header from B with the sidebar from C"**, which is the actual design they want.
 
+For any needed clarification of a live variant choice, use an available question tool within its schema and eligibility, one focused question per call. If no eligible tool supports the request, ask one concise question in chat. Keep the choice pending until the user responds before folding in a winner, and continue independent work while an async question waits.
+
 ### 6. Capture the answer and clean up
 
 Once a variant has won, capture the answer (which variant and why), then capture the prototype the way the [SKILL](SKILL.md) describes. Fold the winner into the real code and move the rest onto the throwaway branch, not into main:

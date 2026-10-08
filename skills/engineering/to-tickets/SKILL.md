@@ -47,7 +47,9 @@ Present the proposed breakdown as a numbered list. For each ticket, show:
 - **Blocked by**: which other tickets (if any) must complete first
 - **What it delivers**: the end-to-end behaviour this ticket makes work
 
-Ask the user:
+Use an available question tool for the quiz, one focused question per call, within its schema and eligibility. Keep required answers pending until the user responds; continue independent work while an async question waits. If no eligible tool supports the request, ask one concise question in chat.
+
+Ask these questions in sequence, using earlier answers to skip anything already settled:
 
 - Does the granularity feel right? (too coarse / too fine)
 - Are the blocking edges correct: does each ticket only depend on tickets that genuinely gate it?

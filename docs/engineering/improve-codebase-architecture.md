@@ -1,10 +1,10 @@
 ## What it does
 
-`improve-codebase-architecture` surveys a codebase for **deepening opportunities**. These are places where a shallow module (an interface nearly as complex as the thing it hides) could become a deep one. It writes them up as a self-contained HTML report, and then [grills](https://www.aihero.dev/ai-coding-dictionary/grilling) you through the one you pick.
+`improve-codebase-architecture` surveys a codebase for **deepening opportunities**. These are places where a shallow module (an interface nearly as complex as the thing it hides) could become a deep one. It compares them in conversation using the Visualize plugin, and then [grills](https://www.aihero.dev/ai-coding-dictionary/grilling) you through the one you pick.
 
-It never changes the code. The whole run produces a conversation and one HTML file in your OS temp directory. You do the refactor later, in a separate [session](https://www.aihero.dev/ai-coding-dictionary/session), through the normal build flow. This makes it a survey, not a refactoring tool, so you can run it on a codebase you are not ready to touch yet.
+It leaves the surveyed source code unrefactored. The report and the decision about which candidate to explore happen in the conversation. During grilling, it may update your domain glossary and ADRs as decisions crystallize. You do the refactor later, in a separate [session](https://www.aihero.dev/ai-coding-dictionary/session), through the normal build flow. This makes it a survey, not a refactoring tool, so you can run it on a codebase you are not ready to touch yet.
 
-Two filters stop the report from becoming generic cleanup advice. First, every candidate must pass the **deletion test**: if you removed this module, would its complexity move behind a smaller interface, or spread across the callers? Only the first case gets a card. Second, unless you point it at a specific area, it reads recent commit history first and focuses the scan on paths that change often. A deepening in code that nobody touches is a refactor that never pays back.
+Two filters stop the report from becoming generic cleanup advice. First, every candidate must pass the **deletion test**: if you removed this module, would its complexity move behind a smaller interface, or spread across the callers? Only the first case becomes a candidate. Second, unless you point it at a specific area, it reads recent commit history first and focuses the scan on paths that change often. A deepening in code that nobody touches is a refactor that never pays back.
 
 ## When to reach for it
 
@@ -27,9 +27,11 @@ Where it is confusable with siblings:
 
 ## Prerequisites
 
-None to run it. If `GLOSSARY.md` or ADRs in `docs/adr/` exist, it reads them and uses your domain's own nouns. A candidate then reads as "deepen the Order intake module," not "refactor the FooBarHandler."
+The Visualize plugin must be installed and available to present the report. If it is unavailable, the agent retains its findings and asks you to enable it, then resumes the report when the plugin is available.
 
-It writes in two places. The report goes to `<tmpdir>/architecture-review-<timestamp>.html`, outside the repo. During the grilling loop it adds or sharpens terms in `GLOSSARY.md`, and creates that file if it does not exist. It also offers to record a rejected candidate as an ADR, so a future run does not suggest it again.
+If `GLOSSARY.md` or ADRs in `docs/adr/` exist, it reads them and uses your domain's own nouns. A candidate then reads as "deepen the Order intake module," not "refactor the FooBarHandler."
+
+During the grilling loop it adds or sharpens terms in `GLOSSARY.md`, and creates that file if it does not exist. It also offers to record a rejected candidate as an ADR, so a future run does not suggest it again.
 
 ## Depth, and the report that hunts for it
 
@@ -41,19 +43,21 @@ The skill rests on one idea: **depth**. A deep module puts a lot of behaviour be
 
 For each one, it proposes the deepening that fixes it.
 
-Each candidate is a card with the files involved, the friction, a plain-English solution, the benefit in terms of **locality** and **leverage**, a before/after diagram, and a strength badge.
+Each candidate has a stable title, a before/after visual, and an explanation beside it in the response: the files involved, the friction, a plain-English solution, the benefit in terms of **locality** and **leverage**, how tests improve, and a recommendation strength. Any conflict with an existing ADR is called out beside the candidate.
 
-| Badge | What it means for you |
+| Strength | What it means for you |
 | --- | --- |
 | `Strong` | The deletion test passes clearly and the friction is real. Take these seriously. |
 | `Worth exploring` | Plausible deepening, but the payoff depends on where the code is going next. |
 | `Speculative` | Included for completeness. You can ignore most of these. |
 
-The report ends with a **Top recommendation**, the candidate it would do first. Then the skill stops and asks which candidate you want to explore. At that point you have decided nothing, and no code has changed.
+The report shows every candidate before ending with a **Top recommendation**, the candidate it would do first. You review the completed report and answer its candidate-choice question through the harness's question tool. It waits for your choice before proposing concrete interface signatures or starting the grilling loop. At that point you have decided nothing, and the surveyed source code has not changed.
 
 ## What happens after you pick one
 
 When you pick a candidate, a [grilling](https://aihero.dev/skills-grilling) session starts on it. It covers the constraints, what goes behind the seam, which tests survive, and what the deepened interface should look like. The output of that session is a decision, not a diff. From there the normal flow applies: take the decision into [to-spec](https://aihero.dev/skills-to-spec), then [to-tickets](https://aihero.dev/skills-to-tickets), then [implement](https://aihero.dev/skills-implement).
+
+The interview presents one ready question at a time through the question tool and uses your answer to choose the next question.
 
 ## Common questions
 
@@ -61,13 +65,13 @@ When you pick a candidate, a [grilling](https://aihero.dev/skills-grilling) sess
 
 Yes. Say so when you invoke it ("don't grill me, just show the report"). This is the most common complaint about the skill. One user liked it as "a convenient way to get a thorough analysis of improvements," but after the grilling loop was added, found it "borderline unusable." In their sessions it proposed a single solution and then asked "10's or 100's of questions." The design intent is that the report comes first, and the grilling starts only on a candidate you chose. But weaker [models](https://www.aihero.dev/ai-coding-dictionary/model) skip straight to an interview about the first idea they had. Results in that thread vary a lot by model. It is an open issue, and the skill does not yet have a documented no-grill mode.
 
-**The report opened as unstyled raw HTML with no diagrams. What happened?**
+**Where does the report appear?**
 
-The report loads Tailwind and Mermaid from CDNs, so it needs network access when you open it. If something blocks those scripts, the page breaks with no error. In the reported case, a security hook required SRI hashes. The agent added them, but the CDN served different bytes to the browser than to the `curl` that computed the hash, so the browser blocked the script. Offline and locked-down environments have the same problem. The agent cannot see it, because it never renders the page. As a workaround, ask for inline CSS and hand-built SVG diagrams instead of the CDN setup. This is an open issue.
+It appears directly in the conversation, with each candidate's explanation beside its before/after visual. Visualize handles rendering, storage, styling, and accessibility. You compare the candidates where you will choose one and discuss it.
 
 **It gave me twelve candidates. Do I work through them in the same session or start a new one?**
 
-Use one candidate per session. If you work through several in one conversation, the [context window](https://www.aihero.dev/ai-coding-dictionary/context-window) fills with the report, the grilling, the domain-model edits and the code changes all at once. The report is only a temp file, so carry the candidate forward, not the file. Pick one, grill it, and take the decision into `/to-spec`. Turn the rest into [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) that you can pick up separately later. Put the chosen improvement into a spec instead of going straight to implementation. People ask this often, and the skill itself documents no workflow for it.
+Use one candidate per session. If you work through several in one conversation, the [context window](https://www.aihero.dev/ai-coding-dictionary/context-window) fills with the report, the grilling, the domain-model edits and the code changes all at once. Pick one, grill it, and carry its explanation and decision into `/to-spec`. Turn the rest into [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) that you can pick up separately later. Put the chosen improvement into a spec instead of going straight to implementation. People ask this often, and the skill itself documents no workflow for it.
 
 **How should I prompt it?**
 
@@ -83,11 +87,11 @@ Partly. It works well on big existing codebases that lack consistent structure, 
 
 **Will it ever tell me the codebase is fine?**
 
-Rarely, so know that before you start. The skill exists to output findings, so it tends to produce candidates instead of concluding that nothing is wrong. Use the strength badges to correct for this. If every candidate in a report is `Speculative`, the skill found nothing.
+Rarely, so know that before you start. The skill exists to output findings, so it tends to produce candidates instead of concluding that nothing is wrong. Use the recommendation strengths to correct for this. If every candidate in a report is `Speculative`, the skill found nothing.
 
 **Does it work in Codex or another harness?**
 
-Partly. The exploration step names Claude Code's `Agent` tool with `subagent_type=Explore` directly. A [harness](https://www.aihero.dev/ai-coding-dictionary/harness) without that tool may skip the parallel exploration instead of using its own equivalent. The skill still runs, but the scan is less thorough. Someone has proposed a harness-neutral rewrite, but it is not merged.
+The exploration instruction is harness-neutral: it asks for a [subagent](https://www.aihero.dev/ai-coding-dictionary/subagent) to walk the codebase. Your [harness](https://www.aihero.dev/ai-coding-dictionary/harness) needs subagent support for that step and access to the Visualize plugin for the report. If Visualize is unavailable, enable it so the agent can resume presenting the findings.
 
 **How do I actually implement deep modules in TypeScript?**
 
@@ -97,9 +101,10 @@ The skill does not ship a good answer. People often ask for a `TYPESCRIPT.md` wi
 
 - The candidates name your domain's concepts, not invented class names: "the Order intake module," not "the FooBarHandler."
 - The candidates are in files you edited recently, not in parts of the repo nobody touches.
-- No code changed during the run. The only new file is the HTML report in your temp directory.
-- It stops after the report and asks which candidate you want. It does not continue on its own.
-- Each card explains the payoff as locality or leverage, and says which tests get simpler, not just "this is cleaner."
+- The surveyed source code stays unrefactored; glossary and ADR changes reflect decisions made during grilling.
+- Every candidate has a titled before/after visual and an explanation in the conversation, followed by a top recommendation.
+- Your candidate choice is collected through the question tool, and it waits for that choice before proposing concrete interface signatures or grilling you.
+- Each candidate explains the payoff as locality or leverage, and says which tests get simpler, not just "this is cleaner."
 - When you reject a candidate for a lasting reason, it offers to record an ADR, so the next run does not suggest it again.
 
 ## Where it fits

@@ -41,6 +41,8 @@ Create files lazily: only when you have something to write. If no `GLOSSARY.md` 
 
 ## During the session
 
+Use an available question tool for live questions about terms, scenarios, contexts, or ADRs, one focused question per call, within its schema and eligibility. Keep required answers pending until the user responds; continue independent work while an async question waits. If no eligible tool supports the request, ask one concise question in chat.
+
 ### Challenge against the glossary
 
 When the user uses a term that conflicts with the existing language in `GLOSSARY.md`, call it out immediately. "Your glossary defines 'cancellation' as X, but you seem to mean Y. Which is it?"

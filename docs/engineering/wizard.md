@@ -29,6 +29,8 @@ A **stage** is one focused task on one screen. The script clears the terminal be
 
 The [skill](https://www.aihero.dev/ai-coding-dictionary/skill) scopes the procedure before it writes any script. It reads the repo instead of asking cold: `.env*`, `docker-compose*`, framework config, and every `secrets.*` / `vars.*` reference in `.github/workflows/`. Each of those references is a value the wizard has to produce. It then shows you the ordered stage list to confirm. Only after you confirm does it map each stage to the exact path a human follows ("Dashboard → Developers → API keys → Reveal test key → copy"). Where it doesn't know the current UI, it asks you or checks the docs rather than inventing clicks.
 
+Live planning questions use an available question tool when it supports the request, one focused question at a time, or one concise chat question otherwise. The generated script keeps its own prompts, hidden secret entry, and confirmation gates.
+
 For each captured value, scoping decides where it goes:
 
 | Destination | When |

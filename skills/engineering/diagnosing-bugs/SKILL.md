@@ -15,6 +15,8 @@ This skill has you show commands, outputs and captured artifacts. **Redact every
 
 If the redacted output is not enough to diagnose the bug, say so and ask the user.
 
+Use an available question tool for live user input, one focused question per call, within its schema and eligibility. Keep required answers pending until the user responds; continue independent work while an async question waits. If no eligible tool supports the request, ask one concise question in chat. Request artifacts through a supported upload path and permissions through the appropriate approval mechanism.
+
 ## Phase 1: Build a feedback loop
 
 **This is the skill.** Everything else is mechanical. If you have a **tight** pass/fail signal for the bug (one that goes red on _this_ bug), you will find the cause; bisection, hypothesis-testing, and instrumentation all just consume it. If you don't have one, no amount of staring at code will save you.

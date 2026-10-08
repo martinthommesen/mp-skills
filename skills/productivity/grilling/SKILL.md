@@ -5,26 +5,22 @@ description: Grill the user relentlessly about a plan, decision, or idea. Use wh
 
 Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
 
-Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled: the questions you can ask _now_ without guessing at answers you haven't heard yet. Ask the whole frontier in one round: number each question and give your recommended answer. Then wait for the user's answers before the next round.
+Keep the **frontier** internal: every decision whose prerequisites are already settled. Choose one ready decision and ask one focused question. Wait for its actual answer, then recompute the frontier before choosing the next question. A decision whose prerequisites are pending belongs later.
 
-Format a round like so:
+## Live questions
 
-```
-❓ **Q1** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
+Use an available question tool whose current schema permits the question:
 
-➡️ <your recommended answer>
+- Prefer `request_user_input_async` when available and eligible.
+- Use `request_user_input` only when its current schema, mode, and request type permit it.
+- On other harnesses, use `AskUserQuestion` or an equivalent as permitted by its contract.
 
----
+Put one short question, your recommended answer with a brief reason, and meaningful alternatives where suitable into the tool payload. Follow its schema for freeform answers or choices. Word the question so "yes" accepts the recommendation where the interface allows it. If no suitable tool supports the question, ask one concise question in chat with the recommendation.
 
-❓ **Q2** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
+An async submission returning, a displayed default, or elapsed time is not the user's answer. Keep required decisions and confirmations pending until the user answers. Handle a skipped optional clarification according to the tool's contract. While an async question is pending, continue useful independent work; keep dependent decisions blocked and use the tool's documented mechanism to receive the answer.
 
-➡️ <your recommended answer>
-```
+## Facts and completion
 
-Word each question so "yes" accepts your recommended answer.
+Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment (filesystem, tools, etc.), dispatch a sub-agent to find it. A running exploration is an unsettled prerequisite: keep the questions downstream of it pending, and choose another ready decision while it runs. The _decisions_ are the user's: put each to them and wait.
 
-Each round the user answers reshapes the tree: settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a _later_ round, not this one.
-
-Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment (filesystem, tools, etc.), dispatch a sub-agent to find it; don't ask the user for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only the questions downstream of it wait for the sub-agent to report; ask the rest of the frontier now. The _decisions_ are the user's: put each to them and wait.
-
-The session is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Do not act on it until the user confirms you have reached a shared understanding.
+The tree is resolved when every branch has been visited, the frontier is empty, and no decision or prerequisite remains pending. Ask the user to confirm the shared understanding through an eligible question tool, or the single-question chat fallback. Act on it only after their confirmation.

@@ -42,6 +42,8 @@ Layering (which packages may depend on which) is a *different* concern and is le
 - **Packages root**: if `src/` exists use `src/packages`, else `packages`. Confirm the choice with the user if the repo already has a different obvious convention.
 - **Existing config**: check for a `.dependency-cruiser.*` file. If one exists, do **not** overwrite it: merge the four rules and the options in, and tell the user what you added.
 
+Use an available question tool for live user input, one focused question per call, within its schema and eligibility. Keep required answers pending until the user responds; continue independent work while an async question waits. If no eligible tool supports the request, ask one concise question in chat.
+
 **Done when:** package manager, packages root, and existing-config status are all known.
 
 ### 2. Install dependency-cruiser

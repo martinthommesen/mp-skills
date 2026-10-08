@@ -29,6 +29,8 @@ You commit all of it as markdown. There is no user-level or global mode. The con
 
 It starts each section with the recommended answer, and skips any question its exploration already answered. Most runs need only two confirmations.
 
+Choices and draft review use an available question tool when it supports the request, one focused question at a time. Otherwise the agent asks one concise question in chat. Required answers stay pending before the related edits, while the agent can continue independent work.
+
 | Decision | What it proposes | When it asks |
 | --- | --- | --- |
 | **Issue tracker** | the one matching your `git remote` | always, because this is the one real choice |
@@ -41,18 +43,21 @@ The tracker options:
 | --- | --- | --- |
 | **GitHub** | the repo's GitHub Issues | the `gh` CLI |
 | **GitLab** | the repo's GitLab Issues | the `glab` CLI |
+| **Gitea** | the repo's Gitea Issues, including self-hosted instances | the official `tea` CLI |
 | **Local markdown** | files under `.scratch/<feature>/` in this repo | nothing, not even a remote |
 | **Other** | wherever you say | one paragraph from you describing the workflow |
 
-The first three ship as templates in the skill and work out of the box. Local markdown is a full option, not a fallback. The skill supports a solo project with no remote. One caveat: don't use local markdown if you use GitHub. They are alternatives, so pick one.
+The first four ship as templates in the skill and work out of the box. Gitea setup records the instance's web base URL, repository, and `tea` login, then checks read-only access. It proposes Gitea when the remote or repo instructions identify it; a generic Git host alone does not. You can also select it yourself. Local markdown is a full option, not a fallback. The skill supports a solo project with no remote. One caveat: don't use local markdown if you use GitHub. They are alternatives, so pick one.
 
-"Other" is a full option too. It is how Jira, Linear, Azure DevOps and Beads all work. You describe the workflow, the skill records your prose in `docs/agents/issue-tracker.md`, and the downstream skills follow the prose. Users have already built this: a Jira-over-[MCP](https://www.aihero.dev/ai-coding-dictionary/mcp) variant, a Gitea CLI shaped like `gh`, a hand-built local dashboard.
+The Gitea template uses native `tea` commands, keeps map-to-child relationships as links in issue text, and uses native blockers where available, with `Blocked by` links as a fallback. The GitHub, GitLab and Gitea templates all leave the "PRs as a request surface" flag off by default. Enable it in `docs/agents/issue-tracker.md` if you want external pull requests in the triage queue.
+
+"Other" is a full option too. It is how Jira, Linear, Azure DevOps and Beads all work. You describe the workflow, the skill records your prose in `docs/agents/issue-tracker.md`, and the downstream skills follow the prose. Users have already built this: a Jira-over-[MCP](https://www.aihero.dev/ai-coding-dictionary/mcp) variant and a hand-built local dashboard.
 
 ## Common questions
 
 **Do I have to use GitHub?**
 
-No. GitHub, GitLab and local markdown under `.scratch/` all ship as ready-made templates, and anything else works through the "other" path. This is the most-repeated question, in roughly these words: *"hard locked to github"*, *"can I use GitLab / Jira"*, *"what about Azure DevOps"*. The answer is always the same: setup chooses the tracker, not the skill.
+No. GitHub, GitLab, Gitea and local markdown under `.scratch/` all ship as ready-made templates, and anything else works through the "other" path. This is the most-repeated question, in roughly these words: *"hard locked to github"*, *"can I use GitLab / Jira"*, *"what about Azure DevOps"*. The answer is always the same: setup chooses the tracker, not the skill.
 
 **Do I need to re-run it after updating the skills?**
 
@@ -64,10 +69,9 @@ This is a known gap, and still open. The file-selection rule is "edit `CLAUDE.md
 
 **It didn't create my triage labels.**
 
-It doesn't. `docs/agents/triage-labels.md` is a *mapping*: it tells `/triage` which strings in your tracker correspond to the five canonical roles. It does not run `gh label create`. On a fresh GitHub repo the labels do not exist yet, and users have filed this as a bug more than once. Two consequences:
+When `triage` is installed, setup creates any missing configured triage labels on GitHub, GitLab or Gitea and preserves labels that already exist. `docs/agents/triage-labels.md` records the *mapping*: which strings in your tracker correspond to the five canonical roles. If you use custom names, setup creates only the missing labels from that mapping. Without `triage`, it skips both the mapping and label creation. Missing CLI access, authentication, or failed label creation stays outstanding in the closing report.
 
-- If your tracker already uses the canonical names, the mapping is an identity table and there is nothing to configure. That is the intended common case, not a missing step.
-- This skill does not create [wayfinder](https://aihero.dev/skills-wayfinder)'s `wayfinder:map` and `wayfinder:<type>` labels either, and `gh issue create --label <missing>` fails instead of creating the label. Create them by hand before the first wayfinder run on a GitHub repo.
+[Wayfinder](https://aihero.dev/skills-wayfinder)'s `wayfinder:map` and `wayfinder:<type>` labels are separate. Setup does not create them. They must exist before publishing maps and children; the Gitea template includes creation as part of wayfinding.
 
 **Can I configure the other skills' behaviour here ([grilling](https://www.aihero.dev/ai-coding-dictionary/grilling) cadence, question format, tone)?**
 
