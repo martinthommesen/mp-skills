@@ -18,6 +18,10 @@ Which of the three grilling skills you want depends on what is in front of you:
 
 Leave [plan mode](https://www.aihero.dev/ai-coding-dictionary/agent-mode) off. Plan mode makes the agent hurry to produce a plan, when you want it to keep asking questions.
 
+## Prerequisites
+
+[grilling](https://aihero.dev/skills-grilling) must be installed as the interview prerequisite. The agent loads it through the available skill mechanism or reads its installed file. If it is missing, the agent names it and stops instead of guessing at the interview.
+
 ## It's a conversation, not an interview
 
 The skill asks the questions, but **you** own the scope. People often miss this. It is the difference between a session that turns an idea into decisions and one that produces confident nonsense.

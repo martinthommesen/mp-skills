@@ -12,6 +12,8 @@ Type `/writing-for-agents`, or the agent reaches for it on its own when you're c
 
 Reach for it by hand for everything else an agent reads: your docs, specs and [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket), system and [AFK](https://www.aihero.dev/ai-coding-dictionary/afk) prompts. The test is one question: does an agent read this? It does not matter how the agent gets the document: a pointer names it, a human pastes it, or it is in the repo. To find out what a codebase contains, use [grill-with-docs](https://aihero.dev/skills-grill-with-docs). This reference controls how a document reads, not what it knows.
 
+Required operational references travel inside each copied skill directory. A shared model-invoked reference can be an explicit installed prerequisite; a user-only skill cannot invoke another user-only skill to borrow its material. The skill mechanics reference includes both Claude and Codex invocation controls and the installed-file loading fallback.
+
 ## The two loads
 
 The central idea is two budgets that every document and pointer spends:

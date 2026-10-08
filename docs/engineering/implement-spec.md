@@ -21,6 +21,8 @@ You invoke this by typing `/implement-spec`, and the agent won't reach for it on
 - **Tickets with blocking edges**, as [to-tickets](https://aihero.dev/skills-to-tickets) writes them. Without edges the graph is flat and every ticket starts at once.
 - **A [harness](https://www.aihero.dev/ai-coding-dictionary/harness) that runs subagents in the background and gives each one a git worktree.** The skill exists to run tickets at the same time, so on a harness that runs subagents one at a time, it is only a slower `implement`.
 
+Implementers load [tdd](https://aihero.dev/skills-tdd), and the final review loads [code-review](https://aihero.dev/skills-code-review). Both must be installed. An eligible skill mechanism or installed-file read can load them; a missing prerequisite stops the dependent step and is reported by name.
+
 ## The integration branch
 
 Everything lands on one branch. Each implementer:

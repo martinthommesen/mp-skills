@@ -1,5 +1,6 @@
 interface:
   display_name: "Chief Of Staff"
   short_description: "Pursue a long-running goal in a single session by co-ordinating subagents"
+  default_prompt: "Use $chief-of-staff to coordinate subagents toward this long-running objective."
 policy:
   allow_implicit_invocation: false

@@ -26,6 +26,8 @@ You invoke this by typing `/triage` and then describing what you want in plain l
 
 The tracker config also decides whether external pull requests count as a request surface, and who counts as external. That flag is off by default, and setup no longer asks about it. To bring PRs into scope, turn it on in `docs/agents/issue-tracker.md`.
 
+When a request needs an interview, [grilling](https://aihero.dev/skills-grilling) and [domain-modeling](https://aihero.dev/skills-domain-modeling) must be installed. The agent loads them individually through its eligible skill mechanism or installed file paths, and names a missing prerequisite before stopping the dependent interview.
+
 ## The state machine
 
 Every triaged item ends with exactly one category role and one state role. There are two categories: `bug` (something is broken) and `enhancement` (new feature or improvement). There are five states:

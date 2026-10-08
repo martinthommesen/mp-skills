@@ -26,6 +26,8 @@ The map and its tickets live on the repo's issue tracker, so wayfinder needs the
 
 The tracker does real work. Its native blocking links show the frontier in the tracker's own UI. On a tracker without native dependency links (a self-hosted Gitea, say), wayfinder infers blockers from the map text. That works, but you must supervise it more closely.
 
+Ticket types load their named skills from the installed catalog: [grilling](https://aihero.dev/skills-grilling) and [domain-modeling](https://aihero.dev/skills-domain-modeling) for interviews, [research](https://aihero.dev/skills-research) for research, and [prototype](https://aihero.dev/skills-prototype) for prototypes. The agent uses an eligible skill mechanism or reads installed files, and names a missing prerequisite before stopping that ticket step. A user-only skill named in a map is a suggestion for you to invoke, not authorization for the agent to start it.
+
 ## The map, the fog, and the frontier
 
 The **map** is a single issue labelled `wayfinder:map`, and its tickets are its child issues. It is an **index, not a store**. A decision lives in exactly one place, its ticket, and the map only gives a one-line summary and a link. A session loads the map at low resolution and opens individual tickets when it needs them. This lets a map keep growing without every session loading its whole history.

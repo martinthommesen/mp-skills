@@ -1,5 +1,6 @@
 interface:
   display_name: "Triage"
   short_description: "Move issues through triage roles"
+  default_prompt: "Use $triage to assess this issue or external PR and prepare the next triage action."
 policy:
   allow_implicit_invocation: false

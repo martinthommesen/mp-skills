@@ -29,6 +29,8 @@ Where it is confusable with siblings:
 
 The Visualize plugin must be installed and available to present the report. If it is unavailable, the agent retains its findings and asks you to enable it, then resumes the report when the plugin is available.
 
+[codebase-design](https://aihero.dev/skills-codebase-design) supplies the survey vocabulary; [grilling](https://aihero.dev/skills-grilling) and [domain-modeling](https://aihero.dev/skills-domain-modeling) support the interview after your choice. The agent loads prerequisites through its eligible skill mechanism or installed catalog files. A missing prerequisite is named and stops the dependent step.
+
 If `GLOSSARY.md` or ADRs in `docs/adr/` exist, it reads them and uses your domain's own nouns. A candidate then reads as "deepen the Order intake module," not "refactor the FooBarHandler."
 
 During the grilling loop it adds or sharpens terms in `GLOSSARY.md`, and creates that file if it does not exist. It also offers to record a rejected candidate as an ADR, so a future run does not suggest it again.

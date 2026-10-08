@@ -6,6 +6,8 @@ If a detail changes which route fits, it asks one focused question through the h
 
 It recommends and stops. It does not grill, write a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), open a file or fire the skill it just named; what you get back is the next thing to type, and you type it. It is also a hand-written map of the skills in this repo rather than a scan of what you have installed, so it will not route you over your own skills or another author's.
 
+The interview wrappers require the installed [grilling](https://aihero.dev/skills-grilling) primitive. The agent reports a missing prerequisite before starting; it can load an eligible installed skill through the host mechanism or its catalog file.
+
 ## When to reach for it
 
 You invoke this by typing `/ask-matt`; the agent won't reach for it on its own.

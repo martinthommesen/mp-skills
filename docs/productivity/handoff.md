@@ -33,6 +33,8 @@ The document carries the live thread (what's in flight, why, and what's next) pl
 
 It deliberately does not carry anything already written down. The document references specs, plans, ADRs, issues, commits and diffs by path or URL, and never copies them. That keeps the file small, and it keeps the settled detail in one place instead of two copies that drift apart.
 
+The suggested-skills section distinguishes model-invoked skills the next agent can load from user-only skills you must invoke yourself. It includes the eligible skill mechanism and installed-file loading fallback, so the handoff travels between hosts without assuming one tool name.
+
 ## Common questions
 
 **Handoff or compact?**

@@ -28,6 +28,8 @@ The same-session case is worth naming because the skill's own first line doesn't
 
 If the tickets came from [to-tickets](https://aihero.dev/skills-to-tickets), [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) configured the tracker they live on. `code-review` reads the same configuration to find the originating spec at close-out.
 
+[tdd](https://aihero.dev/skills-tdd) and [code-review](https://aihero.dev/skills-code-review) must be available for their respective steps. The agent uses its eligible skill mechanism or reads the installed catalog file; a missing prerequisite stops that step with its name reported.
+
 ## What one run does
 
 A run has five steps, in order:
@@ -77,7 +79,7 @@ The agent resolved `#2` against another numbered list in context, such as a todo
 ## It's working if
 
 - The session opens by reading the ticket or spec and restating what it will build, rather than asking you what to build.
-- You can see an actual `tdd` Skill tool call in the trace, not just tests appearing in the diff.
+- The trace shows `tdd` loaded through the skill mechanism or read from its installed file, and the tests follow its red-green loop.
 - Typechecks and single test files run repeatedly during the run, and the full suite runs once near the end.
 - The run reaches a commit on your current branch without you prompting it to carry on.
 - The diff is one ticket's worth of change: a vertical slice through every layer, not several tickets swept together.

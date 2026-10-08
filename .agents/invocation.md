@@ -7,19 +7,23 @@ Every `SKILL.md` in this repo is a skill. The one axis that splits them is **inv
 
 Each harness excludes a user-invoked skill from the model's reach in its own way, so nothing but the human can fire it: no other skill can. A user-invoked skill may invoke model-invoked skills, but it can never reach another user-invoked skill.
 
-Every skill also carries an `agents/openai.yaml` beside its `SKILL.md`. It holds Codex UI metadata: `interface.display_name` and `interface.short_description` for the skill picker, and, for user-invoked skills, the `policy.allow_implicit_invocation: false` that pairs with `disable-model-invocation`. Keep the two in sync: a skill is user-invoked in both harnesses or neither.
+Every skill also carries an `agents/openai.yaml` beside its `SKILL.md`. It holds Codex UI metadata: `interface.display_name` and `interface.short_description` for the skill picker, and, for user-invoked skills, a useful single-string `interface.default_prompt` containing `$<skill-name>` plus the `policy.allow_implicit_invocation: false` that pairs with `disable-model-invocation`. Keep the two in sync: a skill is user-invoked in both harnesses or neither.
 
 Bucket `README.md`s and the top-level `README.md` group entries into **User-invoked** and **Model-invoked**.
 
 ## Dependencies between them
 
-Dependencies are expressed as an explicit instruction to **call the Skill tool** with the named skill (`Call the Skill tool with "grilling"`), not deep `../other-skill/FILE.md` cross-references, and not a bare `/skill`-style mention left for the model to interpret. Naming the tool is what gets it fired: most harnesses expose skill invocation as a tool the model calls, and spelling that out gets a higher hit rate than dropping a `/name` into prose and hoping it's read as a command. Dropping the leading `/` also keeps this harness-neutral rather than less: a skill name on its own carries no assumption about which harness's trigger syntax it belongs to. Shared reference docs live inside the skill that owns them; other skills reach that material by calling the Skill tool with it, not by linking across folders.
+Express dependencies as explicit instructions to **load the named skill**, not a bare `/skill` mention or a deep `../other-skill/FILE.md` reference. Keep this short loading contract inside every standalone skill that composes other skills:
 
-This is about **operative** instructions: a skill's own steps telling the agent to go run another skill right now. Router prose that just names skills for a human to pick from (`ask-matt`, bucket `README.md`s) isn't invoking anything, so it keeps `/skill`-style names as plain labels.
+> Load each named prerequisite by its installed-catalog identity through an eligible skill mechanism exposed by the current host. If none is available, locate it in the installed skill catalog and read its `SKILL.md`, resolving resources from that skill's directory. Check invocation policy before following it: a user-only prerequisite needs the human's explicit invocation. If a prerequisite is missing or inaccessible, report its name and stop the dependent step.
 
-The Skill tool takes one skill per call. A step that needs two skills is two calls, not one call with two names: say so (`Call the Skill tool twice, for "grilling" and "domain-modeling"`), not "call it with X and Y," which reads as a single call taking both.
+Use the installed catalog's exact identity, including its plugin namespace where supplied, to select the intended skill. Do not substitute a same-named built-in or invent a tool. A Claude Code host with an eligible `Skill` tool can use it; a host without one can read the catalog's installed file. Loading by file does not bypass invocation policy.
 
-This whole convention only holds when the named skill is **model-invoked**. A user-invoked skill can never be reached this way, full stop: per the invariant above, no other skill can call it, including by naming it to the Skill tool. When a step's precondition is a user-invoked skill (e.g. `setup-matt-pocock-skills`), phrase it as an instruction for the human to act on: "tell the user to run `/setup-matt-pocock-skills`", never as a Skill tool call.
+Load prerequisites individually in the stated order. A step needing `grilling` and `domain-modeling` loads `grilling`, then `domain-modeling`, before starting the interview. Dependencies that must complete before the next step stay sequential.
+
+This is about **operative** instructions: a skill's steps telling the agent to run another skill now. Router prose that names skills for a human to pick (`ask-matt`, bucket `README.md`s) keeps `/skill` labels and never authorizes their invocation. When a prerequisite is user-only (for example `setup-matt-pocock-skills`), tell the human to invoke it; invoking the wrapper is not invocation of that prerequisite.
+
+Required operational references and assets belong inside the individually copied skill's directory. A model-invoked reference skill can own shared material when consumers explicitly require that installed prerequisite. Otherwise bundle required reference material with each consumer; a repository-root file cannot be a runtime dependency. Project artifacts such as a workspace glossary remain inputs discovered in the user's project.
 
 ## Passive vs active domain work
 

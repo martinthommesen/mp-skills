@@ -32,7 +32,7 @@ A document is built from two content types: **steps** (the ordered actions the a
 
 1. **In-file step** is the primary tier: what the agent does, in order.
 2. **In-file reference** is consulted on demand. Often a legitimately flat peer-set (every rule of a review on one rung), which is a fine arrangement, not a smell.
-3. **Disclosed reference** is pushed out into a separate file, reached by a context pointer, loaded only when the pointer fires. Spans a sibling file in the same folder through fully external reference that lives anywhere and any document can point at.
+3. **Disclosed reference** is pushed out into a separate file, reached by a context pointer, loaded only when the pointer fires. For ordinary project documents this can span sibling files through external reference. An individually copied skill must carry its required operational references inside its own directory; project artifacts such as a workspace glossary remain discovered inputs.
 
 Push too little down and the top bloats; push too much and you hide material the agent actually needs. That tension is the whole decision.
 
