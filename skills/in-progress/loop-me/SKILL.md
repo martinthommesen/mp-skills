@@ -28,6 +28,8 @@ A shared language, reached for only when a workflow calls for it: never a checkl
 
 This skill produces specs only. A trigger, schedule or reminder described in `workflows/*.md` is not activated by writing the spec, and a suggestion does not authorize a native automation.
 
+For each dimension the proposed workflow uses, resolve and record its trigger; runtime and execution environment; destination (chat, project, or recipient); durable state location and resume/deduplication rules; permission boundaries for reads, writes, and external actions; and actionable notification behavior. A monitor stays quiet on unchanged or non-actionable state unless periodic reports were requested; a reminder still delivers at its promised cadence. Keep irrelevant dimensions out rather than adding a schedule, checkpoint, AI, automation, or state store the workflow does not need.
+
 Separate desired workflow behavior from implementation capabilities exposed by the current host. When a required trigger or integration is unsupported, name that requirement and the missing capability in the spec. Do not silently replace an event with polling or claim the workflow runs. Record a human-approved alternative if chosen. An implementer-ready spec can state an external prerequisite clearly without pretending it exists.
 
 ## Definition of done

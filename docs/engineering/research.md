@@ -1,6 +1,6 @@
 ## What it does
 
-`research` answers a question by reading the sources that own the answer, then leaves a cited Markdown file in the repo. It works only from **[primary sources](https://www.aihero.dev/ai-coding-dictionary/primary-source)**: official docs, source code, specs, first-party APIs. It follows every claim back to the source that owns it, so it will not repeat a blog post's account of an API when the API's own docs are reachable.
+`research` answers a question by reading the sources that own the answer, then leaves a cited Markdown file in the selected workspace. It works only from **[primary sources](https://www.aihero.dev/ai-coding-dictionary/primary-source)**: official docs, source code, specs, first-party APIs. It follows every claim back to the source that owns it, so it will not repeat a blog post's account of an API when the API's own docs are reachable.
 
 It does not answer you in the conversation. The output is a file, written where the repo already keeps such notes, with a link on each claim. You get a document you can react to, hand to another agent, or throw away, rather than an answer that is gone when the [session](https://www.aihero.dev/ai-coding-dictionary/session) ends.
 
@@ -24,9 +24,9 @@ The line between `research` and `grill-with-docs` is the **shelf life of what co
 
 The reading runs as a **background agent**. You keep working while it follows each claim to its primary source, writes one Markdown file, and reports back. Research is legwork you delegate, not thinking you outsource. You get a document to grill, plan, or design against, and you still make the decision.
 
-The caller schedules the work within available capacity, while the assigned researcher performs the reading in the supplied owned workspace. An unavailable slot queues the work. If the host cannot delegate, the same research can run serially. In Git repos, the recorded starting revision and owned checkout keep unrelated local work intact.
+The caller schedules the work within available capacity, while the assigned researcher performs the reading in the supplied owned workspace. An unavailable slot queues the work. If the host cannot delegate, the same research can run serially. Ordinary standalone research uses the selected workspace, including a folder without Git or a new repo with no commit. It needs no branch, worktree, push, or tracker. If you choose an isolated checkout, its recorded revision and ownership keep unrelated local work intact.
 
-The repo decides where the file goes, not the skill. It follows whatever convention already exists for notes. If there is none, it picks a sensible place and tells you where. It writes one file per run.
+The workspace decides where the file goes, not the skill. It follows whatever convention already exists for notes. If there is none, it picks a sensible place and tells you where. It writes one file per run.
 
 ## Common questions
 
@@ -36,7 +36,7 @@ The caller and researcher now have separate jobs: the caller schedules one resea
 
 **Where should the file live, and should I commit it?**
 
-The note follows the repo's convention and is returned at an accessible path. Standalone research leaves committing or publishing to your authorized scope. A note records facts at a particular revision or time; feed it into a decision or archive it when it stops being useful.
+The note follows the repo's convention and is returned at an accessible path. Standalone research needs no Git preparation and leaves committing or publishing to your authorized scope. A note records facts at a particular revision or time; feed it into a decision or archive it when it stops being useful.
 
 Wayfinder has a different evidence contract: each ticket retains a committed and verified pushed note on a `research/<name>` branch, with a context pointer pinned to the commit. That branch and its checkout stay available, without a research PR or integration merge.
 
