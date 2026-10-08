@@ -1,41 +1,62 @@
 #!/usr/bin/env node
-// Copies package.json's version into .claude-plugin/plugin.json.
-// Runs as part of `npm run version`, immediately after `changeset version`.
-// With --check it changes nothing and exits 1 if the two versions differ.
+// Copies package.json's version into both plugin manifests.
+// Runs after changeset version. Check mode reports all mismatches without writes.
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
-const pluginPath = join(repo, ".claude-plugin", "plugin.json");
+const manifestPaths = [".claude-plugin/plugin.json", ".codex-plugin/plugin.json"];
+const errors = [];
 
-const { version } = JSON.parse(readFileSync(join(repo, "package.json"), "utf8"));
-const source = readFileSync(pluginPath, "utf8");
-const plugin = JSON.parse(source);
-
-if (plugin.version === version) {
-  console.log(`plugin.json version is ${version} (already in sync)`);
-  process.exit(0);
+function readVersion(path) {
+  try {
+    const source = readFileSync(join(repo, path), "utf8");
+    const parsed = JSON.parse(source);
+    if (typeof parsed?.version !== "string" || !parsed.version.trim()) {
+      throw new Error("missing or invalid version field");
+    }
+    return { path, source, version: parsed.version };
+  } catch (error) {
+    errors.push(`${path}: ${error.message}`);
+  }
 }
 
-if (process.argv.includes("--check")) {
-  console.error(
-    `plugin.json version is ${plugin.version}, package.json is ${version}. Run \`node scripts/sync-plugin-version.mjs\`.`,
-  );
+// Locate the root property, even when an unrelated nested version precedes it.
+function replaceVersion(source, version) {
+  const tokens = [...source.matchAll(/"(?:\\.|[^"\\])*"|[{}\[\]:,]|[^\s{}\[\]:,]+/g)];
+  let depth = 0;
+  let value;
+  for (let i = 0; i < tokens.length; i++) {
+    const token = tokens[i][0];
+    if (depth === 1 && token.startsWith('"') && JSON.parse(token) === "version" && tokens[i + 1]?.[0] === ":") {
+      value = tokens[i + 2];
+    }
+    if (token === "{" || token === "[") depth++;
+    if (token === "}" || token === "]") depth--;
+  }
+  if (!value) throw new Error("could not locate root version field");
+  return source.slice(0, value.index) + JSON.stringify(version) + source.slice(value.index + value[0].length);
+}
+
+const pkg = readVersion("package.json");
+const manifests = manifestPaths.map(readVersion);
+if (errors.length) {
+  console.error(errors.join("\n"));
   process.exit(1);
 }
 
-// Rewrite only the version line, to keep the key order and the formatting.
-const updated = source.replace(
-  /("version"\s*:\s*")[^"]*(")/,
-  `$1${version}$2`,
-);
-
-if (JSON.parse(updated).version !== version) {
-  console.error(`Could not find a version field to replace in ${pluginPath}.`);
+const stale = manifests.filter(manifest => manifest.version !== pkg.version);
+if (process.argv.includes("--check") && stale.length) {
+  for (const manifest of stale) {
+    console.error(`${manifest.path}: version is ${manifest.version}, package.json is ${pkg.version}. Run \`node scripts/sync-plugin-version.mjs\`.`);
+  }
   process.exit(1);
 }
 
-writeFileSync(pluginPath, updated);
-console.log(`plugin.json version ${plugin.version} -> ${version}`);
+for (const manifest of stale) {
+  writeFileSync(join(repo, manifest.path), replaceVersion(manifest.source, pkg.version));
+  console.log(`${manifest.path}: version ${manifest.version} -> ${pkg.version}`);
+}
+if (!stale.length) console.log(`Both plugin manifests are in sync at ${pkg.version}.`);
