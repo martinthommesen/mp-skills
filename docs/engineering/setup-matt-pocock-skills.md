@@ -4,7 +4,7 @@
 
 Those files are the only thing that varies between repos. The skills themselves are identical everywhere. They read `docs/agents/issue-tracker.md` at run time and do what it says. That is why the set is not tied to GitHub, and why you never edit a skill file to point it at another tracker. Invoking it with "link the skills to a custom issue tracker" works with anything you can connect to programmatically, with no changes to the skills.
 
-It is a prompt-driven skill, not a deterministic script. It reads your `git remote`, `CLAUDE.md` and `GLOSSARY.md`, proposes what it found, and waits for you to confirm before it writes anything.
+It is a prompt-driven skill, not a deterministic script. It reads your `git remote`, `AGENTS.md`, `CLAUDE.md` and `GLOSSARY.md`, proposes what it found, and waits for you to confirm before it writes repo files. Temporary drafts open in native panels when the host supports them, or appear in chat. Opening them does not approve the changes.
 
 ## When to reach for it
 
@@ -21,7 +21,7 @@ It writes into the repo you run it in:
 | `issue-tracker.md` | `docs/agents/` |
 | `domain.md` | `docs/agents/` |
 | `triage-labels.md` | `docs/agents/`, only when the `triage` skill is installed |
-| An `## Agent skills` block | whichever of `CLAUDE.md` or `AGENTS.md` already exists |
+| Short configuration pointers | `AGENTS.md` and `CLAUDE.md`, directly or through a preserved bridge or symlink |
 
 You commit all of it as markdown. There is no user-level or global mode. The config lives in the repo, so every repo gets its own copy.
 
@@ -65,7 +65,17 @@ The direct answer after v1.1 was yes. The skill's own closing message is softer.
 
 **It wrote to `CLAUDE.md`, but I'm on Codex.**
 
-This is a known gap, and still open. The file-selection rule is "edit `CLAUDE.md` if it exists, else `AGENTS.md`". It checks which file exists, not which [harness](https://www.aihero.dev/ai-coding-dictionary/harness) is running. In a repo with a `CLAUDE.md` left over from Claude Code, the skill writes its `## Agent skills` block to a file Codex never reads. Users have two workarounds: move the block to `AGENTS.md` by hand, or keep `AGENTS.md` canonical and make `CLAUDE.md` a one-line pointer at it. If neither file exists, the skill asks you which to create instead of picking one. This has confused people who expected it to decide.
+Setup now gives each [harness](https://www.aihero.dev/ai-coding-dictionary/harness) an entrypoint to the same configuration. It proposes the changes for your review before editing them.
+
+| What your repo has | What setup proposes |
+| --- | --- |
+| Neither file | `AGENTS.md` with the configuration pointers, plus a minimal Claude bridge |
+| Only `AGENTS.md` | Preserve it and add a Claude bridge |
+| Only `CLAUDE.md` | Preserve it and add a Codex bridge |
+| Two independent files | Preserve each file's instructions and add explicit pointers to the same docs in both |
+| A symlink or explicit bridge in either direction | Update the canonical file once and preserve the link or bridge |
+
+The configuration stays in `docs/agents/`. Rerunning with the same choices updates existing pointers in place, without adding duplicate blocks. An existing `CLAUDE.md` containing only `@AGENTS.md` remains a bridge; setup edits `AGENTS.md`.
 
 **It didn't create my triage labels.**
 
@@ -75,7 +85,7 @@ When `triage` is installed, setup creates any missing configured triage labels o
 
 **Can I configure the other skills' behaviour here ([grilling](https://www.aihero.dev/ai-coding-dictionary/grilling) cadence, question format, tone)?**
 
-No. It configures three things: tracker, labels, doc layout. Users have asked to make it the place for per-user preferences. The answer is that skills stay opinionated and take no per-user config. Preferences belong in your `CLAUDE.md` as plain instructions, which every skill already reads.
+No. It configures three things: tracker, labels, doc layout. Users have asked to make it the place for per-user preferences. The answer is that skills stay opinionated and take no per-user config. Preferences belong in your repo instruction files as plain instructions.
 
 **Can I keep the config in `~/.claude` instead of committing it to every repo?**
 
@@ -88,7 +98,7 @@ One long-standing complaint says yes, in these words: *"having a skill to set up
 ## It's working if
 
 - `docs/agents/issue-tracker.md` and `docs/agents/domain.md` exist, plus `triage-labels.md` if `triage` is installed.
-- An `## Agent skills` section appears in the instruction file your harness reads, with a one-line summary pointing at each of those files.
+- Both `AGENTS.md` and `CLAUDE.md` lead to the configuration pointers, directly or through a bridge or symlink. Your existing instructions and link targets remain intact.
 - The tracker it proposed matches the remote you use, and the label strings match labels that exist in your tracker.
 - Afterwards, `/to-tickets` publishes without asking you where issues live, and `/triage` applies labels rather than inventing them.
 - Nothing in the skill files themselves changed. If setup edited a `SKILL.md`, something went wrong.

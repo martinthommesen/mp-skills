@@ -94,9 +94,21 @@ This is the completion criterion for the whole skill: a config that doesn't fail
 
 Write a `README.md` **in the packages folder** (`<packages-root>/README.md`, next to the packages it governs) covering: the `src/packages/<name>/` layout (entry points at the root, `lib/` for implementation, `tests/` for tests), "import only through a package's entry points (its root files)", and how to run `lint:boundaries`. **Discourage barrel files** explicitly: expose several small entry points instead of re-exporting a whole subtree through one index. Keep it to the copy-me snippet plus the four rules in one paragraph each.
 
-Then add a **context pointer** to it from the repo's agent-instructions file (`CLAUDE.md` if present, else `AGENTS.md`, creating `AGENTS.md` if neither exists). One line is enough, e.g. `Packages are deep modules: see [src/packages/README.md](./src/packages/README.md) before adding or importing one.` This is what makes an agent discover the boundary rule instead of tripping over it.
+Then add a **context pointer** through both root instruction entrypoints. Read existing contents, symlink targets, and explicit bridges first. Apply the shared-file row first; a bridge is not an independent instruction file.
 
-**Done when:** `<packages-root>/README.md` exists and discourages barrels, and the repo's `CLAUDE.md`/`AGENTS.md` links to it.
+| Starting state | Pointer placement |
+| --- | --- |
+| Neither exists | Create `AGENTS.md` with the packages pointer, plus a minimal `CLAUDE.md` containing `@AGENTS.md`. |
+| Only `AGENTS.md` exists | Update its packages pointer; create the minimal Claude bridge. |
+| Only `CLAUDE.md` exists | Update its packages pointer; create `AGENTS.md` telling agents to read and follow `[CLAUDE.md](./CLAUDE.md)` for the repository's instructions, including the packages convention. |
+| Both are independent | Update the packages pointer in each, retaining their distinct instructions. Both point to the same packages README. |
+| Existing symlink or explicit bridge | Update the shared canonical file once; retain the link target or bridge text, in either direction. |
+
+One line is enough, e.g. `Packages are deep modules: see [src/packages/README.md](./src/packages/README.md) before adding or importing one.` Replace an existing packages pointer in place rather than appending another; preserve unrelated prose and other skill pointers. A second run with the same root must leave entrypoint bytes and symlink targets unchanged. Do not convert independent files into links, add reciprocal bridges, or edit global host settings. Resolve broken, cyclic, conflicting, or outside-repo links with the user before dependent edits.
+
+Present the proposed entrypoint changes before writing them. If an eligible native file-opening tool is available, open temporary drafts through its exposed schema; otherwise show them in chat. Opening is presentation, not approval. Wait for the user's approval of these entrypoint changes, then apply them while preserving links and surrounding content. This is what makes an agent discover the boundary rule instead of tripping over it.
+
+**Done when:** `<packages-root>/README.md` exists and discourages barrels, reading both root entrypoints through their bridges or symlinks reaches its pointer, and Step 6's pass/fail/pass evidence is retained.
 
 ## Notes
 

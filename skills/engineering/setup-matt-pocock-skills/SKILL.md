@@ -21,7 +21,7 @@ This is a prompt-driven skill, not a deterministic script. Explore, present what
 Look at the current repo to understand its starting state. Read whatever exists; don't assume:
 
 - `git remote -v` and `.git/config`: which host and repo do they identify? Look for existing tracker docs or repo instructions identifying GitHub, GitLab, or Gitea. An unfamiliar hostname alone doesn't identify a self-hosted forge.
-- `AGENTS.md` and `CLAUDE.md` at the repo root: does either exist? Is there already an `## Agent skills` section in either?
+- `AGENTS.md` and `CLAUDE.md` at the repo root: read their contents, existing `## Agent skills` sections, explicit imports/pointers between them, and symlink targets. Read [INSTRUCTION-FILES.md](./INSTRUCTION-FILES.md) to choose the proposed entrypoint changes.
 - `GLOSSARY.md` and `GLOSSARY-MAP.md` at the repo root
 - `docs/adr/` and any `src/*/docs/adr/` directories
 - `docs/agents/`: does this skill's prior output already exist?
@@ -69,22 +69,16 @@ Offer **multi-context** (a root `GLOSSARY-MAP.md` pointing to per-context `GLOSS
 
 Show the user a draft of:
 
-- The `## Agent skills` block to add to whichever of `CLAUDE.md` / `AGENTS.md` is being edited (see step 4 for selection rules)
+- The proposed changes to every affected instruction file, including any new bridge and the existing content around the `## Agent skills` block (use [INSTRUCTION-FILES.md](./INSTRUCTION-FILES.md))
 - The contents of `docs/agents/issue-tracker.md`, `docs/agents/domain.md`, and `docs/agents/triage-labels.md` (the last only when `triage` is installed)
 
-Let them edit before writing.
+Create temporary draft files outside the repo and, if the current host exposes an eligible native file-opening tool, open them in its panels using that tool's schema. Otherwise show the drafts in chat. Opening a draft is presentation, not approval. Let the user edit and explicitly approve the proposed changes before writing repo files; keep this required review pending if they have not answered.
 
 ### 4. Write
 
-**Pick the file to edit:**
+Apply the approved entrypoint plan from [INSTRUCTION-FILES.md](./INSTRUCTION-FILES.md). It gives both hosts a route to the same canonical docs, preserves existing bridges and symlinks, and updates independent files without replacing their unrelated instructions.
 
-- If `CLAUDE.md` exists, edit it.
-- Else if `AGENTS.md` exists, edit it.
-- If neither exists, ask the user which one to create; don't pick for them.
-
-Never create `AGENTS.md` when `CLAUDE.md` already exists (or vice versa); always edit the one that's already there.
-
-If an `## Agent skills` block already exists in the chosen file, update its contents in-place rather than appending a duplicate. Don't overwrite user edits to the surrounding sections.
+Update existing managed subsections in place rather than appending another `## Agent skills` block. Preserve other sections, custom subsections, and repository-specific additions. With unchanged answers and content, a second run must leave the bytes and symlink targets unchanged.
 
 The block:
 
@@ -121,4 +115,4 @@ For "other" issue trackers, write `docs/agents/issue-tracker.md` from scratch us
 
 ### 5. Done
 
-Report the files written and which engineering skills will read them, plus any outstanding tracker prerequisite or failed label creation. Call setup complete only when the tracker is usable and any required labels are confirmed present. Mention they can edit `docs/agents/*.md` directly later; re-running this skill is only necessary if they want to switch issue trackers or restart from scratch.
+Verify that reading root `AGENTS.md` and root `CLAUDE.md`, following any bridge or symlink, reaches the configured docs. Report the files written and which engineering skills will read them, plus any outstanding tracker prerequisite or failed label creation. Call setup complete only when the tracker is usable and any required labels are confirmed present. Mention they can edit `docs/agents/*.md` directly later; re-running this skill is only necessary if they want to switch issue trackers or restart from scratch.
