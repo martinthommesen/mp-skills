@@ -11,7 +11,7 @@ Date: 2026-10-08. Task 2 baseline: `40eb6d8d5e1e354596b398eed63f8f0418db5c07`. S
 
 Disposable fixtures live under `/private/tmp/mp-skills-task2-probes/`. They are copied skill directories, not a normal profile installation. Neither `HOME` nor `CODEX_HOME` was repurposed. A catalog case cannot borrow another case's prerequisite.
 
-The earlier staged observations in `.superpowers/sdd/2026-10-08-codex-native-skills/baseline-probes.md` found literal-tool failures and underspecification. The fresh baseline evaluator instead adapted correctly in all three composition cases. These findings are recorded separately: the text was brittle, but the fresh baseline agent did not fail. The changes make its successful routes explicit.
+Earlier staged instruction observations found literal-tool failures and underspecification. The fresh baseline evaluator instead adapted correctly in all three composition cases. These findings are recorded separately: the text was brittle, but the fresh baseline agent did not fail. The changes make its successful routes explicit.
 
 ## Composition and questions
 
@@ -67,7 +67,7 @@ No Task 3 probe establishes native draft panel behavior, actual host auto-discov
 
 ## Task 4: owned implementation and research contexts
 
-Task 4 base: `300e2541286c450cfb3c86d8e8db6bc01858b41f`. The independent baseline is recorded in `.superpowers/sdd/2026-10-08-codex-native-skills/task-4-baseline.md` and `/private/tmp/task-4-git-baseline/{commands,results}.json`. Existing baseline integration-base intent, dirty-checkout preservation, cited-note format, and pushed/no-PR/no-integration-merge research retention already pass. Claims, immutable dispatch context, native ownership/recovery and serialization were instruction gaps, not demonstrated live runtime failures.
+Task 4 base: `300e2541286c450cfb3c86d8e8db6bc01858b41f`. The independent baseline command/results captures are at `/private/tmp/task-4-git-baseline/{commands,results}.json`. Existing baseline integration-base intent, dirty-checkout preservation, cited-note format, and pushed/no-PR/no-integration-merge research retention already pass. Claims, immutable dispatch context, native ownership/recovery and serialization were instruction gaps, not demonstrated live runtime failures.
 
 Fresh executed Git fixture: `/private/tmp/task-4-green-git/fixture`, with reproduction script, 59-command log and results in its parent directory. Git commands are real; applying the instructions, ticket owners, tracker state, and research note contents are manually modeled synthetic inputs. No agent dispatch, external tracker, PR, live native managed creation/attachment/archive, or checkout cleanup occurred. All worktrees and required inputs remain retained.
 
@@ -82,7 +82,7 @@ Fresh executed Git fixture: `/private/tmp/task-4-green-git/fixture`, with reprod
 
 `npm run test:plugin` passes 38/38 and both catalog/version guards pass once after operational changes. Skill-creator quick validation passes research; implement-spec and Wayfinder retain its known warning for their pre-existing required `disable-model-invocation` field, while independent YAML policy checks pass. Full per-file source digests are in `/private/tmp/task-4-green-git/source-digests.json`.
 
-The independent evaluator copied complete operational directories and inspected actual exposed schemas. Its report is `.superpowers/sdd/2026-10-08-codex-native-skills/task-4-green-evaluator.md`; frozen manifests, schema metadata, staged native traces and independently authored Git fixture are under `/private/tmp/codex-task4-green-evaluator/`. Native mutation count is zero. After a two-file source clarification it refreshed only those sources and reread affected cases, preserving the original Git evidence.
+The independent evaluator copied complete operational directories and inspected actual exposed schemas. Frozen manifests, schema metadata, staged native traces and its independently authored Git fixture are under `/private/tmp/codex-task4-green-evaluator/`. Native mutation count is zero. After a two-file source clarification it refreshed only those sources and reread affected cases, preserving the original Git evidence.
 
 | ID | Fresh pressure case | Observed outcome | Evidence level |
 | --- | --- | --- | --- |
@@ -93,7 +93,7 @@ The independent evaluator copied complete operational directories and inspected 
 | WT-APPLY-05 | Standalone caller and assigned researcher, distinct from Wayfinder. | Researcher performs supplied task and returns cited note at accessible intended location; no mandatory Wayfinder claim/push/indefinite retention: PASS. | Independent instruction application, not a performed research run. |
 | WT-APPLY-06 | Pending create, failed registration with path, pending attach succeeds; shared/protected reject and eligible cleanup. | Exact schema shapes, returned-path attach without duplicate create, identity from artifacts, preserve ignored inputs, retain protected/rejected checkout without CLI removal: PASS. | Independent schema inspection/staged trace plus actual file preservation; no native archive. |
 
-These executed/staged fixture rows do not prove end-to-end tdd/review, remote assignment atomicity, actual host capacity scheduling, native registration repair or archival, PR attachment, or statistically repeated pressure compliance. Two evaluator assertion errors were fixture-checker mistakes (authorized claim status counted as damage and porcelain whitespace stripping), corrected only in the checker; the final independent Git probe exits 0. The final Wayfinder-only micro-probe report `task-4-missing-tracker-evaluator.md` refreshes that copied SKILL.md at SHA-256 `55257856a405916b85299f8d0872cc8c6284773c7e6af845a62d2702e9c891c5`.
+These executed/staged fixture rows do not prove end-to-end tdd/review, remote assignment atomicity, actual host capacity scheduling, native registration repair or archival, PR attachment, or statistically repeated pressure compliance. Two evaluator assertion errors were fixture-checker mistakes (authorized claim status counted as damage and porcelain whitespace stripping), corrected only in the checker; the final independent Git probe exits 0. The final Wayfinder-only micro-probe refreshes that copied SKILL.md at SHA-256 `55257856a405916b85299f8d0872cc8c6284773c7e6af845a62d2702e9c891c5`.
 
 | ID | Fresh pressure case | Observed outcome | Evidence level |
 | --- | --- | --- | --- |
@@ -101,7 +101,7 @@ These executed/staged fixture rows do not prove end-to-end tdd/review, remote as
 
 ## Task 5: review evidence, chat provenance and terminal handover
 
-Task 5 base: `d52a27c088460d6d42b8e91d55c22bea2d3d2173`. The independent baseline and raw nine repositories are retained in `.superpowers/sdd/2026-10-08-codex-native-skills/task-5-baseline.md` and `/private/tmp/task5-review-baseline-3nft70s_`. The baseline's committed-history recipe missed local WIP; this is actual Git evidence. The native chat/PTY cases were synthetic instruction inputs, not failed live APIs.
+Task 5 base: `d52a27c088460d6d42b8e91d55c22bea2d3d2173`. The independent baseline captures and raw nine repositories are retained in `/private/tmp/task5-review-baseline-3nft70s_`. The baseline's committed-history recipe missed local WIP; this is actual Git evidence. The native chat/PTY cases were synthetic instruction inputs, not failed live APIs.
 
 Own post-change fixtures, copied skill trees, source digests, capture driver, command log and results are under `/private/tmp/task5-green`. `probe.py` executes 142 Git commands across nine copied baseline repos and one additional complete synthetic spec/standards capture. Its two digest readers establish byte-identical bundle inputs, not completed Standards/Spec agent reviews. The original missing-spec fixture remains pending a user source or explicit no-spec acknowledgement. Synthetic sources in the added complete-bundle case are clearly labeled.
 
@@ -121,7 +121,7 @@ The actual CUA messages were `Computer Use is not allowed to use the app 'com.op
 
 The skill-creator quick validator passes code-review, pr, diagnosing-bugs and wizard. Retro retains its known allowlist rejection of existing `disable-model-invocation`; independent YAML parsing/base comparisons pass, preserving its paired user-only policy. No manifest or package membership changed. Packaging suite/guards are intentionally deferred to final Task 9 rather than repeated for these prose/comment changes. No install, publication, PR attachment, external chat mutation/messaging, goal or schedule activation occurred. Live native PR panels/attachments, selected-chat history reads, human terminal input and statistically repeated compliance remain unexecuted.
 
-Independent green report: `.superpowers/sdd/2026-10-08-codex-native-skills/task-5-green-evaluator.md`. Its successful recipe and artifacts are `/private/tmp/task5-green/evaluator_capture.py` and `/private/tmp/task5-green/independent-evaluator-final`; complete evaluated sources and all 14 copied source hashes are retained there. The refreshed code-review entrypoint/reference hashes are `a6d29db0415d441a51d722b8d21521443c59f0a050da2d02c1594fe6efa57b1f` and `9669ac588786092f0bab1cbfbe95bc058babf6280a0474712e655634565bdb17`. An initial capture failed because inherited Git fsmonitor emitted `error: could not read IPC response`; it was abandoned before freeze. The successful driver uses per-command `-c core.fsmonitor=false`, without changing repository configuration. Failed-attempt evidence remains in `independent-evaluator`.
+The independent green evaluation recipe and artifacts are `/private/tmp/task5-green/evaluator_capture.py` and `/private/tmp/task5-green/independent-evaluator-final`; complete evaluated sources and all 14 copied source hashes are retained there. The refreshed code-review entrypoint/reference hashes are `a6d29db0415d441a51d722b8d21521443c59f0a050da2d02c1594fe6efa57b1f` and `9669ac588786092f0bab1cbfbe95bc058babf6280a0474712e655634565bdb17`. An initial capture failed because inherited Git fsmonitor emitted `error: could not read IPC response`; it was abandoned before freeze. The successful driver uses per-command `-c core.fsmonitor=false`, without changing repository configuration. Failed-attempt evidence remains in `independent-evaluator`.
 
 | ID | Fresh evaluator case | Observed outcome | Evidence level |
 | --- | --- | --- | --- |
@@ -146,7 +146,7 @@ The focused recipe and its 68-command log, patch, NUL inventories, corrected bun
 
 ## Task 6: artifact presentation and edit preservation
 
-Task 6 base: `9606945c10e735451c4f891ef61e55eb04cf1a76`. The source/filesystem baseline is `.superpowers/sdd/2026-10-08-codex-native-skills/task-6-baseline.md` and `/private/tmp/task-6-artifact-baseline-20261008`. Existing formats, writing rereads and Visualize ownership were present before this change. Native delivery, actual render checks, questionnaire/general-document rereads and beats' explicit raw-input protection were the identified gaps.
+Task 6 base: `9606945c10e735451c4f891ef61e55eb04cf1a76`. The source/filesystem baseline is retained at `/private/tmp/task-6-artifact-baseline-20261008`. Existing formats, writing rereads and Visualize ownership were present before this change. Native delivery, actual render checks, questionnaire/general-document rereads and beats' explicit raw-input protection were the identified gaps.
 
 Full copied skill directories and 34 file digests are under `/private/tmp/task6-green/copies` and `copied-source-digests.json`. Fresh disposable fixtures retain standalone logic HTML, three structurally different settings layouts, a numbered lesson with shared CSS/quiz assets and reference, CRLF raw writing files, and editable Markdown artifacts. The UI fixture is a static local route, not a production framework or authentication/data-fetching test. The lesson fixture is not evidence of a learner's understanding.
 
@@ -165,7 +165,7 @@ Actual direct `file:` navigation was blocked by the browser URL policy, which al
 
 Skill-creator quick validation passes prototype, domain-modeling and writing-for-agents. The nine existing user-only skills receive the validator's unsupported `disable-model-invocation` allowlist rejection; teach also has its existing unsupported `argument-hint`. Frontmatter and paired Codex metadata are preserved exactly, rather than changed to satisfy that narrower validator. No install, external message, publication, schedule or native goal was activated by validation. Existing question formats, candidate previews, approved-block rhythm, fragment separators, domain recording and tracker publishing behavior remain intact.
 
-Independent report: `.superpowers/sdd/2026-10-08-codex-native-skills/task-6-green-evaluator.md`, with replay recipe `/private/tmp/task6-green/evaluator.py` and raw `evaluator-evidence/`. It read only copied sources and fixtures, matched all 34 file digests and found no copied source defect.
+The independent evaluation has replay recipe `/private/tmp/task6-green/evaluator.py` and raw `evaluator-evidence/`. It read only copied sources and fixtures, matched all 34 file digests and found no copied source defect.
 
 | ID | Fresh independent case | Observed result | Evidence level |
 | --- | --- | --- | --- |
@@ -177,9 +177,9 @@ Coverage limits: the small logic fixture has generic Next step controls rather t
 
 ## Task 7: continuity, owners and requested future work
 
-Task 7 base: `6819c13954afd1603c4f579a9cdcff05802bf202`. The pre-edit independent baseline is `.superpowers/sdd/2026-10-08-codex-native-skills/task-7-baseline.md`, with retained fixtures at `/private/tmp/task-7-baseline-e698h97o`. Baseline resume, owner/goal reconciliation and reminder capability gaps are instruction gaps; the recording CLI additionally observed path quoting and trailing-newline loss. Existing temporary-file, explicit Claude target, user-only invocation, suggestion-only scheduling and spec-only loop boundaries already pass and are preserved.
+Task 7 base: `6819c13954afd1603c4f579a9cdcff05802bf202`. The pre-edit independent baseline fixtures are retained at `/private/tmp/task-7-baseline-e698h97o`. Baseline resume, owner/goal reconciliation and reminder capability gaps are instruction gaps; the recording CLI additionally observed path quoting and trailing-newline loss. Existing temporary-file, explicit Claude target, user-only invocation, suggestion-only scheduling and spec-only loop boundaries already pass and are preserved.
 
-Five complete skill copies and 15 source hashes are at `/private/tmp/task-7-forward-9c1p50fg`. Operational sources stayed unchanged during both fresh evaluations. Their reports are `task-7-auth-evaluator.md` and `task-7-cli-evaluator.md` in the task evidence directory. The authorization evaluation inspected 11 exposed schemas and staged 18 synthetic cases; it invoked no native mutation. Synthetic requests and IDs do not confer actual authorization.
+Five complete skill copies and 15 source hashes are at `/private/tmp/task-7-forward-9c1p50fg`. Operational sources stayed unchanged during both fresh evaluations. Their raw evaluation data and recipes are in `/private/tmp/task-7-auth-evaluation` and `/private/tmp/task-7-cli-evidence`. The authorization evaluation inspected 11 exposed schemas and staged 18 synthetic cases; it invoked no native mutation. Synthetic requests and IDs do not confer actual authorization.
 
 | ID | Fixture and input | Baseline observation | Expected behavior and observed evidence | Evidence level |
 | --- | --- | --- | --- | --- |
@@ -195,3 +195,29 @@ Five complete skill copies and 15 source hashes are at `/private/tmp/task-7-forw
 The CLI evidence is `/private/tmp/task-7-cli-evidence`, including original/executed recipes, exact argv bytes, stdout/stderr and results; `python3 /private/tmp/task-7-cli-evaluator.py` exits 0. The stub is disposable and starts no background process. Authorization fixtures and inspected schema descriptions are under `/private/tmp/task-7-auth-evaluation`. The native heartbeat schema leaves timing/status fields loosely typed and timezone unspecified; staged RRULEs do not prove requested local-time scheduling or an accepted update payload.
 
 Skill-creator quick validation rejects the five existing user-only entrypoints for its unsupported `disable-model-invocation` key, with four also retaining `argument-hint`. Independent parsing and exact baseline metadata comparison pass; required invocation controls are not removed. No normal-profile installation, account change, native goal/fork/chat/automation/send, real Claude process or external publication occurred. Full native resumption, goal lifecycle, automation delivery and statistically repeated compliance remain pending isolated runtime evidence.
+
+
+## Task 8: isolated distribution and documentation
+
+The complete boundary, recipes, versions, native response shapes and limits are preserved in the [permanent results index](./2026-10-08-codex-native-skills-results.md). Runtime source is `90f23524c0dbd09104b05a34ed664c9eacd631ef`; documentation/router commit is `3a841f6da7752356527ba6df4044fb34ebbeaff6`. Raw captures under `/private/tmp/mp-skills-task8-distribution/` may expire.
+
+| ID | Check | Observed result | Evidence level |
+| --- | --- | --- | --- |
+| DIST-CLI-01 | Four supported marketplace/list/install commands from an unrelated cwd in a fresh network-disabled container, with only read-only source/evidence mounts. | All exit successfully; one intended marketplace/plugin, matching version 1.3.1, 27 curated skill paths, all 84 promoted files equal source, icons/onboarding resolve, both catalogs coexist. Container removed. | Isolated native CLI execution; physical cache count 38 alone is not discovery. |
+| DIST-ENUM-01 | Version-matched app-server schemas, initialize/initialized/skills-list only, same fresh boundary. | Exactly 27 enabled plugin-owned names, correct namespace, zero discovery errors, beta/misc absent. Five system skills excluded from count. Container removed. | Isolated native API execution; no workflow invocation or policy enforcement. |
+| DIST-UI-01 | Desktop picker, implicit policy enforcement and orientation with/without repo. | No verified disposable desktop/test-account surface; all remain pending. | Pending native evidence. |
+| DOCS-MAP-01 | Canonical install consumers, root/bucket links, all router targets, promoted docs, dated ADR/history and changeset. | Focused source/docs checks pass; unreleased checkout route and retained upstream/Claude routes remain distinct. No version bump or publication. | Executed static source and byte checks. |
+
+## Task 9: final catalog verification
+
+Verification source: `3a841f6da7752356527ba6df4044fb34ebbeaff6`, plus the completion commit's documentation/evidence changes. No operational skill or package input changed in Task 9. The [results index](./2026-10-08-codex-native-skills-results.md) includes the 38-row spec inventory, all seven acceptance areas, preserved rulings and remaining native limits.
+
+| ID | Check | Observed result | Evidence level |
+| --- | --- | --- | --- |
+| FINAL-PACKAGE-01 | `npm run test:plugin`, version/catalog guards, `git diff --check`. | 38/38 tests, version 1.3.1, exactly 27 promoted skills; all exits 0. Claude strict command cannot start, exit 127 because the CLI is unavailable. | Executed deterministic checks. |
+| FINAL-CATALOG-01 | Spec/filesystem/source inventory, direct YAML policy/resource checks, docs/router/README/source comparisons. | All 38 canonical rows, 23 explicit-only pairs, 27 curated paths, 51 bundled Markdown targets; seven template/consumer paths correctly classified. Frozen misc/linker unchanged, original checkout clean, no added em dashes or unfinished markers. | Executed parsing/static/byte checks. |
+| FINAL-EVAL-01 | Installed Plugin Eval analyzes native root and each of 38 directories; same-name audit comparison. | Individual commands all exit 0 JSON; native root exits 1 with `manifest.skills.replace is not a function`, a string-path evaluator limitation. All observedUsage null. Trigger/template/compatibility warnings are classified rather than removed. | Executed static evaluation; no measured usage or new runtime proof. |
+| FINAL-DOCS-01 | Four required sections across promoted pages and narrow question hunt. | Found baseline `wait-what` FAQ omission; added one question about later-reply pacing, informed by issue #1128 and existing page/skill/changelog. All 27 pages then have required sections in order. | Executed static docs check, not a changed explanation method. |
+| FINAL-REVIEW-01 | Independent whole-branch spec/plan review and final delivery. | Controller review/delivery gate remains pending after this verification commit. | Pending independent review and delivery. |
+
+Final raw command outputs, invariants, hashes and question-hunt capture are under `/private/tmp/mp-skills-task9-completion/`; individual evaluator argv/stdout/stderr/source hashes and audit comparison are under `/private/tmp/mp-skills-task9-eval/`. Both are explicitly expiring evidence locations. Results facts and commands remain here and in the permanent index without a task-report dependency.

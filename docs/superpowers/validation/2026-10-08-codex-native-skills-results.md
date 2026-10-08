@@ -27,8 +27,8 @@ The 38 skill names and bucket memberships stay canonical. The promoted set has 2
 | 5: review/terminal | `9606945c10e735451c4f891ef61e55eb04cf1a76` | Initial commit `9e9a34d86400fbbada2bea2abae06c5189da246f` plus reviewed divergent-base fix. Actual own Git probe records 142 commands; independent frozen captures cover cancellation, names with spaces, rename/mode/deletion, drift and distinct index/working contents. Both serialized axis inputs share exact evidence with separate briefs, not actual LLM reviews. Targeted 68-command regression proves merge-base/head snapshots match the three-dot patch. Live terminal unavailable; existing wizard lint findings retained. |
 | 6: artifacts | `6819c13954afd1603c4f579a9cdcff05802bf202` | Actual served-browser own and independent tests exercise logic state/reset/illegal recovery, three UI structures, mouse/keyboard wrapping, input focus and reload, lesson retry/correct feedback, stylesheet/script and reference navigation. Controlled writing/document replays preserve manual edits, raw CRLF bytes and fragment separators. Native file open is queued; direct-file browser launch rejected. Visualize and consent cases are staged. |
 | 7: continuity | `90f23524c0dbd09104b05a34ed664c9eacd631ef` | Actual disposable Claude recorder receives one unchanged 1,088-byte UTF-8 prompt with mixed line endings, literal shell expressions and correct cwd/argv. Failed exit and uncertain empty output remain failures/uncertainty. Independent 18-case authorization/resume application preserves owners, exact user budgets, explicit goals/forks/future work and inactive suggestions. No real Claude job, goal, automation or learner session. |
-| 8: distribution/docs | Recorded by the commit containing this index | Actual isolated CLI install and read-only native enumeration below. Canonical install consumers, orientation-first router, repo guards, dated ADR and minor changeset are synchronized. No version bump or publication. |
-| 9: final verification | Pending | Final full deterministic checks and review update this index with their exact result and source. |
+| 8: distribution/docs | `3a841f6da7752356527ba6df4044fb34ebbeaff6` | Actual isolated CLI install and read-only native enumeration below. Canonical install consumers, orientation-first router, repo guards, dated ADR and minor changeset are synchronized. No version bump or publication. |
+| 9: final verification | Completion commit containing this record | Final 38/38 tests, both guards, all-catalog/spec/docs checks and 38 individual evaluations at `3a841f6da7752356527ba6df4044fb34ebbeaff6`; no operational inputs changed here. Native aggregate evaluation unavailable; final independent branch review/delivery pending. |
 
 Earlier suites are recorded at their actual source revisions. They are not silently relabeled as final Task 9 verification. Quick skill-creator validation passes supported frontmatter; its allowlist rejects existing Claude `disable-model-invocation` and, where present, `argument-hint`. Independent YAML parsing/base comparisons preserve those required fields; the allowlist warning is not a YAML failure. Locked dependency installation reported 18 existing advisories (2 moderate, 16 high); no dependency update is included.
 
@@ -117,11 +117,12 @@ Extract inside the fresh container's `/tmp`, verify `--version`, create `/tmp/ta
 
 Actual native `create_worktree` from the approved plan SHA completed operation `63a42f59-d9a2-4c99-954a-ccb8fa55d274`. Later `list_artifacts` confirms identityKey `/Users/t979259/.codex/worktrees/codex-native-skills/mp-skills`, attachment `01a11b22-3568-7131-b9b9-a5b9f26542c1`, sourceCwd `/Users/t979259/.local/src/mp-skills`. This is live preparation/attachment evidence, separate from synthetic worker lifecycle/archive cases.
 
-Three rulings from the execution ledger remain preserved here:
+Four rulings from the execution ledger remain preserved here:
 
 1. Use a hyphen in the ledger identity and plain punctuation in rulings. Reason: repo prose prohibits em dashes. Cost if wrong: none; plan identity and recovery markers remain readable.
 2. Task 2 may add the narrow operational-resource caveat to `writing-for-agents/SKILL.md`, also owned by Task 6. Reason: its any-location wording otherwise contradicts the independently copied skill/resource contract. Cost if wrong: one additional small source edit; artifact behavior and approvals stay unchanged.
 3. Preserve the byte-identical wizard template library despite baseline ShellCheck SC2034 and SC1087. Reason: Task 5 explicitly preserves that library and original/current copied bytes/findings match. Cost if wrong: existing lint findings remain in the unchanged template; bash syntax passes. This is not a clean lint claim.
+4. Deliver the reviewed named branch in its managed worktree and retain it for the user. Reason: the approved scope ends with reviewable implementation and evidence; integration is an additional action, and the proportional workflow asks only for a material missing decision. Adapt finishing to preserve the branch without a new integration menu. Cost if wrong: the user requests integration separately; no source work is lost.
 
 ## Task 8 focused source and documentation checks
 
@@ -145,6 +146,90 @@ The unchanged package guard suite was not repeated for this prose-only task. Tas
 | Claude manifest validation | `claude plugin validate . --strict` unavailable on this machine (exit 127, command not found). Existing Claude manifests were unchanged; no passing validator result is claimed. |
 | Wizard ShellCheck | Existing SC2034 unused RED at line 19 and SC1087 `$e[Enter keeps current]` at line 108. Same findings and exact library bytes as baseline. Both templates pass bash syntax; diagnosis/harmless copy pass ShellCheck. |
 | Statistical compliance | Independent applications are bounded cases, not repeated statistical pressure runs or complete end-to-end workflows. |
-| Final checks | Task 9 must record final source, full package/catalog/version checks, resource/docs/routing comparisons and review outcome. |
+| Final independent review and delivery | Task 9 deterministic/catalog/evaluation evidence is recorded below. The controller must finish the whole-branch spec/plan review, any affected fixes and final delivery before these gates close. |
 
 No normal-profile installation, host runtime replacement, publication/push, native goal, automation activation, outbound service message or user-owned chat mutation was performed during validation. Beta and misc skills remain unpromoted and receive no published skill docs page. The sole release instruction added is a minor changeset; generated versions and historical changelog observations remain intact.
+
+
+## Task 9 final static and deterministic evidence
+
+Source: `3a841f6da7752356527ba6df4044fb34ebbeaff6`. Final completion edits only documentation, plan checkboxes and evidence; all 109 analyzed skill input files retain the preflight hashes. Original checkout remains at `7059f047b445a8a628a33b2524315ff2ae56af7a` with empty status. No passed runtime smoke was repeated.
+
+| Command or probe | Outcome | Expiring evidence | Level |
+| --- | --- | --- | --- |
+| `npm run test:plugin` | Exit 0, 38 tests, 38 pass, zero failures/skips/cancellations | `/private/tmp/mp-skills-task9-completion/test-plugin.json` | Executed deterministic fixtures |
+| `npm run check-plugin-version` | Exit 0; both manifests in sync at 1.3.1 | `check-version.json` in the same directory | Executed read-only guard |
+| `npm run check-plugin-catalog` | Exit 0; exactly 27 promoted paths and valid native references | `check-catalog.json` | Executed read-only guard |
+| `git diff --check` | Exit 0 before and after completion edits | `diff-check.json`, final covering checks | Executed Git check |
+| `claude plugin validate . --strict` | Cannot start, exit 127; no Claude CLI installed | `claude-strict.json` | Unavailable validator |
+| `python3 /private/tmp/mp-skills-task9-completion/invariants.py` | Exit 0; all spec rows/buckets, README/router/docs membership, canonical install consumers, historical bytes and frozen resources verified | `invariants-results.json` and exact per-file SHA-256s | Executed static/byte checks |
+| `node /Users/t979259/.codex/plugins/cache/openai-curated-remote/plugin-eval/0.1.2/scripts/plugin-eval.js analyze <path> --format json` for native root and all 38 skills | Root exit 1 tooling limitation; 38 individual exits 0 valid JSON | `/private/tmp/mp-skills-task9-eval/commands.json`, per-directory stdout/stderr/hashes | Executed static analysis |
+| Direct PyYAML 6.0.3 parse/policy/resource check with duplicate-key rejection, same-name audit comparison | All 38 valid pairs, 23 explicit-only controls, stable names/buckets; 51 real bundled Markdown targets resolve, seven unresolved consumer/template links classified; all 38 audit rows comparable | `catalog-check.json`, `resource-classification.json`, `baseline-comparison.json` in evaluator directory | Executed static source checks |
+
+Whole-catalog source checks preserve the AGENTS-to-CLAUDE alias, all four misc trees and linker, existing domain/lesson format resources, wizard library bytes, published skill URLs, canonical install blocks and historical ADR/changelog. Changed prose has no em dashes or unfinished markers. All 27 promoted docs carry required sections in order; Task 9 corrects only the baseline `wait-what` FAQ omission. The question hunt read its existing page, skill and changelog plus [issue #1128](https://github.com/mattpocock/skills/issues/1128), which distinguishes repairing one explanation from setting future conversation pacing. Local wiki/dictionary directories were absent. The FAQ adds that distinction without changing the skill method or router relationship.
+
+Plugin Eval installed package 0.1.2 emits schemaVersion 1 and tool version 0.1.0. All 38 observedUsage values are null, with estimated-static or policy-aware estimates only. Native root stderr is exactly `manifest.skills.replace is not a function`: `src/core/target.js:69` expects a string skills path, while the valid native manifest has an explicit 27-path array. No aggregate score/budget exists, and the manifest was not transformed to obtain one. Entrypoint SHA-256: `6013d9b280e3ca76de00f6269937650867d991ae6455fdd8d853b38c2382c563`.
+
+The individual heuristic findings are 23 weak-trigger warnings for deliberate user-only descriptions, four retained argument-hint compatibility warnings, 38 unavailable-coverage notices and two template/consumer-link findings. Seven unresolved Markdown candidates across all bundled source inspection are generated glossary/instruction/workspace paths or Wayfinder's link placeholder, not missing operational resources. No generated coverage/benchmark scaffolding is added. Existing chief-of-staff short_description remains 73 characters versus skill-creator's 25-64 guidance; it is unchanged baseline metadata, valid YAML and a deferred UI guideline observation.
+
+There are 13 estimated budget failures: six invocation, four trigger and three deferred. Only diagnosing-bugs (2270 to 2597 invocation estimate) and setup-ts-deep-modules (1960 to 2491) newly cross the audit threshold. Six scores decline: ask-matt 81 to 77, code-review 81 to 77, diagnosing-bugs 91 to 81, implement-spec 95 to 91, retro 95 to 91 and setup-ts-deep-modules 77 to 67. Grilling, pr and tdd score 100; wayfinder and setup-ts-deep-modules score 67, including the classified template penalty, and teach scores 72 with static payload pressure. Retained local resources and native/standalone constraints explain added text; these estimates do not establish measured cost, quality or a defect requiring unrelated restructuring. No skill crosses the evaluator's 500-line warning or 800-line failure.
+
+## Approved coverage inventory
+
+Every row below also has final parsed metadata, invocation-pair, contained-resource and membership checks. Rows marked aligned or frozen receive compatibility checks without a behavioral rewrite. Scenario IDs refer to the permanent registry; source-only checks do not establish native invocation.
+
+| Bucket | Skill | Owned evidence and remaining limit |
+| --- | --- | --- |
+| engineering | ask-matt | DOCS-MAP-01, DIST-ENUM-01; onboarding/picker pending. |
+| engineering | code-review | REVIEW-GIT/APPLY/DIVERGENT cases; native panels/anchors pending. |
+| engineering | codebase-design | FINAL-CATALOG-01; aligned method and references preserved. |
+| engineering | diagnosing-bugs | TERMINAL-APPLY/HOST-01, REVIEW-STATIC-01; visible terminal pending. |
+| engineering | domain-modeling | ARTIFACT-EDIT-02, ARTIFACT-STATIC-01; format resources preserved, native delivery pending. |
+| engineering | grill-with-docs | COMP-01 through COMP-05, ARTIFACT-STATIC-01; full composed interview pending. |
+| engineering | implement-spec | WT-GIT/APPLY/NATIVE cases; native lifecycle/PR attachment pending. |
+| engineering | implement | COMP-05, FINAL-CATALOG-01; exact installed review identity checked, workflow invocation pending. |
+| engineering | improve-codebase-architecture | ARTIFACT-VISUALIZE/APPLY-03; inline Visualize runtime pending. |
+| engineering | pr | PR-APPLY-01; actual worked/created PR attachment pending. |
+| engineering | prototype | ARTIFACT-LOGIC/UI/APPLY-01; actual served rendering, direct-file/native route pending. |
+| engineering | research | WT-APPLY-05, FINAL-CATALOG-01; standalone cited-note contract preserved, performed research pending. |
+| engineering | retro | RETRO-APPLY-01; paginated summaries staged, live/full retro pending. |
+| engineering | setup-matt-pocock-skills | SETUP-01 through SETUP-STATIC-01; actual host loading/onboarding pending. |
+| engineering | tdd | FINAL-CATALOG-01; aligned red/green discipline and resources preserved. |
+| engineering | to-spec | ARTIFACT-STATIC/APPLY-03; format preserved, complete synthesis/native delivery pending. |
+| engineering | to-tickets | FINAL-CATALOG-01, ARTIFACT-STATIC-01; tracker routing preserved, live tracker flow pending. |
+| engineering | triage | FINAL-CATALOG-01, WT-APPLY-02; unchanged canonical label/Status contract, actual tracker dispatch pending. |
+| engineering | wayfinder | WT-GIT-03, WT-APPLY-04/07; actual Git retention, native recovery/live research pending. |
+| engineering | wizard | TERMINAL-APPLY-01, REVIEW-STATIC-01; baseline library/lint preserved, human execution pending. |
+| productivity | grill-me | COMP-01 through COMP-03, QUESTION-01/02; question tool/interview pending. |
+| productivity | grilling | COMP-02/03, QUESTION-01/02; method/policy preserved, actual question returns pending. |
+| productivity | handoff | CONT-HANDOFF-01; portable file fixture, actual explicit fork/resume pending. |
+| productivity | teach | ARTIFACT-LESSON/APPLY-01, QUESTION-03, CONT-TEACH-01; served feedback verified, learner/reminder pending. |
+| productivity | to-questionnaire | ARTIFACT-EDIT-02/APPLY-02; controlled edits preserved, native presentation pending. |
+| productivity | wait-what | FINAL-CATALOG/DOCS-01; aligned method and user-only policy preserved, FAQ synchronized. |
+| productivity | writing-for-agents | COMP-04, ARTIFACT-EDIT-02/APPLY-02; local mechanics/candidate output preserved. |
+| in-progress | chief-of-staff | CONT-STATE/SCHEDULE-01; staged owner/goal/automation boundaries, live lifecycle pending. |
+| in-progress | claude-handoff | CONT-CLAUDE-01/02; unchanged argv fixture, real Claude job pending. |
+| in-progress | loop-me | CONT-LOOP-01; unsupported trigger/spec-only boundary staged, full interview pending. |
+| in-progress | setup-ts-deep-modules | TS-ENTRY-01, SETUP-STATIC-01; pointer/idempotence fixtures, actual setup tooling pending. |
+| in-progress | writing-beats | ARTIFACT-EDIT-01/APPLY-02; manual edits/raw bytes and approval formats preserved. |
+| in-progress | writing-fragments | ARTIFACT-EDIT-01/APPLY-02; raw bytes/separators preserved, complete native flow pending. |
+| in-progress | writing-shape | ARTIFACT-EDIT-01/APPLY-02; manual edits/raw bytes and selected format preserved. |
+| misc | git-guardrails-claude-code | FROZEN-01/02; byte-identical and excluded, synthetic hook text executed only. |
+| misc | migrate-to-shoehorn | FROZEN-01, FINAL-CATALOG-01; complete standalone resources unchanged and excluded. |
+| misc | scaffold-exercises | FROZEN-01, FINAL-CATALOG-01; complete standalone resources unchanged and excluded. |
+| misc | setup-pre-commit | FROZEN-01, FINAL-CATALOG-01; complete standalone resources unchanged and excluded. |
+
+
+## Acceptance and final gate
+
+| Spec acceptance area | Recorded check and exact limit |
+| --- | --- |
+| 1. Catalog integrity | Final all-38 parsing/resource/bucket/README/docs/router checks and curated-27 guards pass. Runtime policy enforcement remains pending. |
+| 2. Version/package integrity | Final 38/38 meaningful guard fixtures and read-only version/catalog checks pass; Claude strict validation cannot start. |
+| 3. Native discovery | Isolated CLI/API runtime proves installation, catalog coexistence, resources and curated discovery. Desktop picker/explicit workflow invocation/onboarding and implicit policy remain pending. |
+| 4. Standalone composition | Copied-directory loading, missing prerequisite and user-only boundaries have independent bounded application; every operational bundled resource resolves. Complete host interviews remain pending. |
+| 5. Setup matrix | Actual eight-case setup plus eight TS pointer/idempotence disk fixtures preserve custom bytes/symlinks. Actual host instruction loading and complete setup remain pending. |
+| 6. Execution/review | Actual disposable Git merges/frontiers/research refs and frozen review captures including divergent base pass; native repair/archive/protection/attachments and dispatched full workflow reviews remain staged or pending. |
+| 7. Artifacts/continuation | Actual served-browser fixtures and controlled edit/argv checks pass; owner/fork/goal/scheduling boundaries have staged applications. Native side effects, actual learning and automation timing remain pending. |
+
+Tasks 1-8 are committed and independently reviewed at their recorded revisions. Task 9 final deterministic and catalog/evaluation steps are complete within these limits. The controller's independent whole-branch review against the approved spec/plan, any affected fixes, useful artifact opening and final delivery remain pending. Checked plan steps retain their explicit unavailable/staged limits. The named managed branch is retained for the user, with no integration, push or publication implied.

@@ -24,6 +24,12 @@ The body reuses the leading words already in your global `CLAUDE.md` and your pr
 
 If you have no `GLOSSARY.md` (and no `GLOSSARY-MAP.md` pointing to one for the context at hand), the skill still works. You lose only the domain-vocabulary half.
 
+## Common questions
+
+**Does it make later replies shorter too?**
+
+It re-pitches what lost you in this conversation. It does not set a permanent pace for later replies. Invoke it again when another explanation stops making sense. For recurring domain jargon, [grill-with-docs](https://aihero.dev/skills-grill-with-docs) builds the shared language upfront.
+
 ## It's working if
 
 - The re-pitch is **shorter and clearer**, not shorter and blunter.
