@@ -3,9 +3,15 @@ name: research
 description: Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo. Use when the user wants a topic researched, docs or API facts gathered, or reading legwork delegated to a background agent.
 ---
 
-Spin up a **background agent** to do the research, so you keep working while it reads.
+The caller schedules a **background agent** within available capacity, so it can keep working while the researcher reads. The assigned researcher performs the work in its supplied context and returns the artifact. If no agent slot is available, queue it; if delegation is unavailable, perform it serially.
 
-Its job:
+Pass the question, relevant pointers, notes convention, claim owner where applicable, and an owned workspace. Record its branch, returned path, attachment identity when managed, and cleanup owner. In a Git repo, capture a full immutable starting SHA. Inspect existing worktrees and exposed attachments before reuse; preserve unrelated changes and protected/shared checkouts. Prefer an owned managed worktree created with explicit `ref: <startingSHA>` and use its returned directory; follow pending status and repair failed registration with the returned path through the exposed attach capability. If repair fails, retain the checkout and report the failure. Without those capabilities, use an owned Git worktree from the same SHA. Establish the intended branch in that directory, verify its HEAD and status before work, and supply any required ignored inputs from an authorized source. Inspect or recreate a mismatched workspace without resetting existing work.
+
+When Wayfinder supplies a research dispatch, use its question/tracker pointers, confirmed claim owner, `researchSHA`, branch, returned directory, attachment identity, and retention policy. Return the cited note plus committed and verified pushed branch/SHA/path evidence for its coordinator to resolve the ticket. Keep the evidence branch and checkout, open no research PR, and never merge it into integration.
+
+For standalone research, return the single cited Markdown note in the repo's existing notes convention, with its absolute path and starting revision when relevant. Bring that note into the caller's intended notes location without overwriting other work, so an isolated checkout does not hide the result. Standalone research does not acquire Wayfinder ticket, push, or retention requirements; committing or publishing depends on the caller's authorized scope. Preserve the note and needed local inputs before any owned disposable checkout cleanup. Managed cleanup uses only the eligible owned attachment's archive capability; a rejection retains it. Never remove a protected/shared checkout or treat CLI removal as native archival.
+
+The researcher's job:
 
 1. Investigate the question against **primary sources** (official docs, source code, specs, first-party APIs), not a secondary write-up of them. Follow every claim back to the source that owns it.
 2. Write the findings to a single Markdown file, citing each claim's source.

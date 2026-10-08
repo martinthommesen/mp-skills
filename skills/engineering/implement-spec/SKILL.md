@@ -16,27 +16,18 @@ The tickets are not a list of steps. They are a **task graph** with blocking rel
 
 Communication to and from subagents should be sparse. Communicate primarily through **context pointers**: to the spec, tickets, research notes, and previous commits. Don't duplicate information already available via pointers.
 
-**Implementer subagents** should be run in the background where possible for maximum concurrency.
+Run implementers in the background up to the host's actual available capacity; queue the remaining frontier. If delegation is unavailable, execute the same owned-worktree lifecycle serially. Internal agents are not user-owned chats.
+
+Read [WORKTREES.md](WORKTREES.md) before creating, dispatching, integrating, or cleaning up a worktree. It defines the ownership record and managed-first procedure.
 
 ## Steps
 
-1. Read the spec and tickets to understand the task graph.
-
-2. (optional) Use an **exploration subagent** to conduct any exploration required by the tickets - relevant codebase files or external documentation. Ensure the exploration subagent can save files - it should save its markdown notes in a directory outside the repo, accessible by all future subagents. This lets **implementer subagents** focus on implementation rather than exploration.
-
-3. Create the integration branch. If the issue tracker closes work through PRs, or the user asks for one, open a draft PR after the first merge in step 5 (a branch with no commits ahead of main can't open one), marked as closing the spec and tickets.
-
-4. Use **implementer subagents** to implement each ticket, each in its own worktree on its own branch. Each implementer subagent:
-   - confirms its worktree is based on the integration branch before starting, and resets onto it if not;
-   - loads `tdd` to build the ticket;
-   - merges the integration branch tip into its own branch before reporting done
-
-5. Once an **implementer subagent** completes, merge its work to the integration branch with a **merger subagent**.
-
-6. If this changes the **frontier** of available tickets, kick off more **implementer subagents** to work on the new tickets. This allows for maximum concurrency.
-
-7. Once all tickets are complete, load `code-review` on the integration branch. Fix all issues raised by the code review in a single **implementer subagent**.
-
-8. If a draft PR exists, mark it ready for review. Otherwise, resolve each ticket the way the issue tracker closes work, and report the integration branch.
-
-9. Clean up all **implementer subagent** worktrees.
+1. Read the spec, tracker configuration, tickets, and blocking edges. Identify the authoritative tracker location, including the shared absolute path for a local tracker; worker worktree copies are not the claim source.
+2. Optionally delegate exploration and save shared notes outside the repo, accessible to later implementers. Respect available capacity.
+3. Establish an owned integration branch/workspace without disturbing existing work. Record its immutable starting SHA and keep a landed-ticket ledger alongside the shared tracker.
+4. Recompute the **frontier** from tickets whose blockers are closed or verified landed in this integration branch, excluding landed and claimed tickets. Claim each selected ticket before dispatch using the tracker's implementation-claim convention. Confirm the claim and record its owner. Dispatch only as many tickets as capacity permits, each with its own owned worktree and branch created from the captured integration SHA. Each implementer loads `tdd`, implements its ticket, runs relevant checks, and returns its commit SHA and verification evidence through the completion contract in WORKTREES.md.
+5. Use one integration writer. Queue completions and serialize each merge, including any merger subagent, with fresh tip checks and appropriate verification. Record a ticket as landed only after its reported commit is an ancestor of the integration tip. Recompute the frontier after every landing and claim newly ready tickets as capacity opens.
+6. If the tracker closes work through PRs, or the user asks for one, open a draft PR after the first landing and mark it as closing the spec and tickets. Attach every created PR when the host exposes that capability. Keep locally landed tickets out of the frontier while PR closure is deferred. Otherwise resolve each landed ticket by the tracker's normal closure convention.
+7. Once all tickets are landed, load `code-review` on the integration branch. Send all findings to one implementer under the same claim/worktree contract, integrate its fixes serially, and run focused verification of the fixes.
+8. Mark an existing draft PR ready for review. Otherwise report the integration branch and resolved tickets. Report remaining claim, verification, or closure failures accurately.
+9. Clean up only owned disposable implementation worktrees under WORKTREES.md. Retain the integration workspace and all needed evidence.

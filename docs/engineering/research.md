@@ -24,7 +24,7 @@ The line between `research` and `grill-with-docs` is the **shelf life of what co
 
 The reading runs as a **background agent**. You keep working while it follows each claim to its primary source, writes one Markdown file, and reports back. Research is legwork you delegate, not thinking you outsource. You get a document to grill, plan, or design against, and you still make the decision.
 
-Nothing stops the background agent from spawning another background agent of its own. This is the skill's best-documented problem.
+The caller schedules the work within available capacity, while the assigned researcher performs the reading in the supplied owned workspace. An unavailable slot queues the work. If the host cannot delegate, the same research can run serially. In Git repos, the recorded starting revision and owned checkout keep unrelated local work intact.
 
 The repo decides where the file goes, not the skill. It follows whatever convention already exists for notes. If there is none, it picks a sensible place and tells you where. It writes one file per run.
 
@@ -32,13 +32,13 @@ The repo decides where the file goes, not the skill. It follows whatever convent
 
 **It spawned a second research agent. Is that meant to happen?**
 
-No. This is an open bug, [issue #530](https://github.com/mattpocock/skills/issues/530). The skill tells its caller to spin up a background agent but does not restrict the agent type. So the caller spawns a `general-purpose` agent, which has the `Agent` tool and the same instructions, and follows them again. One reporter measured a single research task costing roughly 450k [tokens](https://www.aihero.dev/ai-coding-dictionary/token) across three overlapping runs, and the duplicate finished half an hour later where the user could not see it. It also happens outside Claude Code. Users confirmed the same nesting in Codex with GPT-5.6-sol. There is no shipped fix. Users have patched their own installed copy with a line telling an agent that is already a [subagent](https://www.aihero.dev/ai-coding-dictionary/subagent) to do the work itself, That helps, but it is only an instruction, not a structural fix. After you invoke the skill, watch your background task list and stop the duplicate.
-
-The opposite failure also happens. If your own global instructions forbid an agent from re-delegating work, the background agent declines the task, and the skill does nothing without telling you.
+The caller and researcher now have separate jobs: the caller schedules one research task, and the assigned researcher performs it and returns the note. A Wayfinder researcher uses the supplied claim, branch, and workspace. This addresses the repeated delegation reported in [issue #530](https://github.com/mattpocock/skills/issues/530); actual task lists remain the observable check that only the intended worker is running.
 
 **Where should the file live, and should I commit it?**
 
-The skill puts the file where the repo already keeps notes and has no further opinion. The community view is mostly settled: keep ADRs, not research files. One Discord thread on this question put it most clearly: "ADRs yes. Everything else archive or delete after done. It otherwise becomes cruft of work and can poison future repo reads if you've drifted away from the spec/research." A research file records what was true on the day it was written, so a stale one is worse than none. On balance, these files don't belong in git, and there is no standard home for them. People use Obsidian, a separate knowledge repo, or the issue tracker instead.
+The note follows the repo's convention and is returned at an accessible path. Standalone research leaves committing or publishing to your authorized scope. A note records facts at a particular revision or time; feed it into a decision or archive it when it stops being useful.
+
+Wayfinder has a different evidence contract: each ticket retains a committed and verified pushed note on a `research/<name>` branch, with a context pointer pinned to the commit. That branch and its checkout stay available, without a research PR or integration merge.
 
 **What counts as a "high-trust" primary source, and who decides?**
 
@@ -58,13 +58,13 @@ The skill has no stopping criterion. This shows up as two complaints that look o
 
 **`/wayfinder` created research tickets. Do I resolve those myself?**
 
-No, it now fires them for you. In the unreleased changes since v1.1, a charting session spawns one `/research` subagent per research ticket and runs them in parallel. Each one records its findings on a throwaway `research/<name>` branch, with a [context pointer](https://www.aihero.dev/ai-coding-dictionary/context-pointer) from the ticket. Research tickets are the one exception to wayfinder's one-ticket-per-session rule, because they are [AFK](https://www.aihero.dev/ai-coding-dictionary/afk): nothing waits on you. One known problem: deleting the branch later breaks the context pointers in the tickets.
+Wayfinder claims open, unblocked research tickets before dispatch and runs them up to available capacity. Excess tickets wait in a queue. Each worker returns a cited note on a retained pushed `research/<name>` branch, with a [context pointer](https://www.aihero.dev/ai-coding-dictionary/context-pointer) pinned to its commit. A failed push keeps the ticket unresolved. These ticket and retention requirements apply to Wayfinder research, not an ordinary standalone note.
 
 ## It's working if
 
-- Your own session keeps going. If you are sitting watching it read, the delegation didn't happen.
-- Exactly one new background task appears. A second one with a near-identical name is the nesting bug.
-- One new Markdown file shows up, in the folder the repo already uses for notes, and the agent tells you the path.
+- When the host can delegate, your own session keeps going while the researcher reads.
+- An assigned researcher performs its task in the supplied workspace; queued work starts when capacity becomes available.
+- One cited Markdown note is available at the reported path in the repo's notes convention.
 - Every claim in it carries a link, and following two at random lands you on an official doc, a spec, or the source file itself, not on someone's write-up of it.
 - You can make the decision you were stuck on from the file alone, without going back to the sources yourself.
 

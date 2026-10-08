@@ -46,6 +46,12 @@ Create a Gitea issue.
 
 Read the issue and all comments as above.
 
+## Implementation claims
+
+Before dispatch, read the current ticket and skip work already assigned to another owner. Get the authenticated login with `tea api --include user`, use `tea issues edit --add-assignees <username> <n>`, then re-read the issue and HTTP status to confirm the claim. The assignee is the implementation claim, separate from triage labels. Keep the unique session/agent owner and worktree context in the shared execution record; serialize claim writes and reconcile ownership before transfers. Release only your own claim after verified closure, or record retained ownership while PR closure is deferred.
+
+Keep a shared landed-ticket ledger with each ticket's verified integration commit. A ticket is locally complete only when that commit is an ancestor of the integration tip. Exclude it from redispatch and treat it as satisfying implementation blockers even if its remote issue stays open until the PR merges. Preserve the tracker's triage roles and normal closure policy.
+
 ## Wayfinding operations
 
 Used by `/wayfinder`. The **map** is a single issue with **child** issues as tickets.

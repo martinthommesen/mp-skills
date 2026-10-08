@@ -2,7 +2,7 @@
 
 `implement-spec` takes a [spec](https://www.aihero.dev/ai-coding-dictionary/spec) and its [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) and lands the whole thing in one run. The orchestrating [agent](https://www.aihero.dev/ai-coding-dictionary/agent) hands each ticket to an implementer [subagent](https://www.aihero.dev/ai-coding-dictionary/subagent) working in its own git worktree, merges each finished branch into a single **integration branch**, runs [code-review](https://aihero.dev/skills-code-review) over the result, and resolves the tickets.
 
-It reads the tickets as a **task graph**, not a list. Blocking edges decide what can start, so at any moment there is a **frontier** of tickets whose blockers have all landed, and every ticket on the frontier runs at once. That is the difference from working the tickets one by one. The graph's shape sets the pace, not the tickets' order on the tracker.
+It reads the tickets as a **task graph**, not a list. Blocking edges decide what can start, so at any moment there is a **frontier** of tickets whose blockers have all landed, and frontier tickets run up to the available agent capacity, with the rest queued. That is the difference from working the tickets one by one. The graph's shape sets the pace, not the tickets' order on the tracker.
 
 ## When to reach for it
 
@@ -18,18 +18,18 @@ You invoke this by typing `/implement-spec`, and the agent won't reach for it on
 ## Prerequisites
 
 - **An issue tracker.** The skill reads the tickets from, and resolves them on, the tracker [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) configured. If none has been configured, it stops and tells you to run that first rather than guessing.
-- **Tickets with blocking edges**, as [to-tickets](https://aihero.dev/skills-to-tickets) writes them. Without edges the graph is flat and every ticket starts at once.
-- **A [harness](https://www.aihero.dev/ai-coding-dictionary/harness) that runs subagents in the background and gives each one a git worktree.** The skill exists to run tickets at the same time, so on a harness that runs subagents one at a time, it is only a slower `implement`.
+- **Tickets with blocking edges**, as [to-tickets](https://aihero.dev/skills-to-tickets) writes them. Without edges the graph is flat, so capacity is the only limit on concurrent dispatch.
+- **Git worktrees and, for parallel work, a [harness](https://www.aihero.dev/ai-coding-dictionary/harness) with available subagent slots.** Codex managed worktrees are preferred when exposed; ordinary Git worktrees support other hosts. Limited capacity queues tickets, and a host without delegation can execute the graph serially.
 
 Implementers load [tdd](https://aihero.dev/skills-tdd), and the final review loads [code-review](https://aihero.dev/skills-code-review). Both must be installed. An eligible skill mechanism or installed-file read can load them; a missing prerequisite stops the dependent step and is reported by name.
 
 ## The integration branch
 
-Everything lands on one branch. Each implementer:
+Everything lands on one branch. Each ticket is claimed before dispatch and starts from a recorded immutable integration commit in its own owned worktree. The returned workspace path and intended branch are checked before the implementer loads [tdd](https://aihero.dev/skills-tdd).
 
-1. confirms its worktree is based on the integration branch before it starts,
-2. builds its ticket with [tdd](https://aihero.dev/skills-tdd), red-green one slice at a time,
-3. merges the integration branch tip into its own branch before reporting done, so landing it is a fast-forward.
+One integration writer lands finished branches in sequence. It refreshes the integration tip, synchronizes work when needed, and verifies affected checks. A fast-forward is possible when the current tip is an ancestor of the completed branch; parallel work can still require conflict resolution. The landed-ticket record drives the frontier even while a tracker waits for PR closure.
+
+Managed checkouts can be reused when they belong to the effort. Failed registration is repaired through the returned path. Cleanup preserves required ignored files and archives only owned disposable implementation checkouts; the integration workspace and protected or shared work remain available.
 
 The tracker decides whether a pull request exists at all. If your tracker closes work through PRs, or you ask for one, the skill opens a draft PR after the first merge and marks it ready at the end. Otherwise the run stops on the integration branch with every ticket resolved the way your tracker closes work, which works fully offline against a local markdown tracker.
 
@@ -59,7 +59,7 @@ Worktrees don't remove collisions; they postpone them to merge time. A blocking 
 
 **Blocked tickets never start, even after their blocker has merged.**
 
-This is a known problem on GitHub. The tracker's blocked-by count only drops when a blocker *closes*, and tickets typically close when the PR merges, which is the end of the run. The tracker is the right source for the starting graph but a stale one mid-run. Tell the orchestrator to track which tickets have merged into the integration branch itself and compute the frontier from that.
+The tracker's blocked-by count can stay positive until a blocker *closes*, which may wait for the final PR merge. The orchestrator now records verified landed commits and computes the frontier from that record. A dependent can start as soon as its blockers land, and completed tickets are not dispatched again.
 
 **Does this replace Sandcastle or an AFK script?**
 
@@ -67,15 +67,16 @@ No. People ask because the skills now reach into implementation: "is Sandcastle 
 
 **A ticket's key test was skipped inside its worktree, and it reported green.**
 
-A worktree holds only what git tracks. Tests that read gitignored fixtures, local databases, or credentials can silently skip there. For a ticket whose verification depends on untracked material, tell the orchestrator to run it in the main checkout instead.
+A worktree holds only what git tracks. Tests that read gitignored fixtures, local databases, or credentials can silently skip there. The orchestrator must supply required inputs from an authorized source to the owned workspace, or report the affected verification as unavailable. A skipped key test is not a pass. Verification in an existing dirty checkout requires its owner's authorization and preservation of their work.
 
 ## It's working if
 
-- Several implementers are running at once whenever the graph allows, not one after another.
+- Tickets are visibly claimed before work; available agent slots are used and excess work is queued.
 - A ticket starts as soon as its last blocker lands on the integration branch, not when the whole run ends.
 - Every ticket's trace shows `tdd` running, with a failing test before the code.
-- Merges into the integration branch are fast-forwards, not conflict resolutions.
-- The run ends on one branch with every ticket resolved, and a PR only if your tracker wanted one.
+- Integration merges happen one at a time, with current-tip checks and verification after any synchronization.
+- The run ends on one branch with landed commit evidence and resolved tickets, with a PR only if your tracker wanted one or you requested one.
+- Unrelated local changes and needed ignored fixtures survive checkout setup and cleanup.
 
 ## Where it fits
 

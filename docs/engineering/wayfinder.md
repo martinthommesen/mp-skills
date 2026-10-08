@@ -39,7 +39,7 @@ The map has four sections:
 - **Not yet specified.** This is the **fog of war**: decisions you can tell are coming but cannot yet phrase sharply. The test for fog versus ticket is whether you can state the question precisely *now*, not whether you can answer it. When you resolve a ticket, the fog ahead of it clears, and anything you can now specify graduates into a new ticket.
 - **Out of scope.** Work beyond the destination. Fog only gathers *toward* the destination, so out-of-scope work stays closed and never graduates.
 
-The **frontier** is the set of open, unblocked, unclaimed tickets (the edge of the known). A session claims a ticket by assigning it to itself before it does any work. The assignee *is* the claim, so concurrent sessions skip that ticket. Sessions refer to tickets by name, never by a bare `#42`, because a wall of issue numbers is hard to read in narration.
+The **frontier** is the set of open, unblocked, unclaimed tickets (the edge of the known). A session claims a ticket before it does any work and confirms the saved owner. Remote trackers use the driving dev's assignee; local Markdown uses `Claimed by:` alongside Wayfinding status. Concurrent sessions skip the claimed ticket. Sessions refer to tickets by name, never by a bare `#42`, because a wall of issue numbers is hard to read in narration.
 
 ## The four decision-ticket types
 
@@ -51,12 +51,14 @@ Live decisions use an available question tool when it supports the request, one 
 | --- | --- | --- | --- |
 | `grilling` | HITL | The default. The question can be settled by talking it through. | [grilling](https://aihero.dev/skills-grilling) plus [domain-modeling](https://aihero.dev/skills-domain-modeling), in a fresh session |
 | `prototype` | HITL | "How should this look" or "how should this behave": a question talking cannot settle. | [prototype](https://aihero.dev/skills-prototype), with a link from the ticket to the built artifact |
-| `research` | AFK | A fact outside the working directory is blocking a decision. | A [research](https://aihero.dev/skills-research) [subagent](https://www.aihero.dev/ai-coding-dictionary/subagent), started when you chart the map and run in parallel on a `research/<name>` branch |
+| `research` | AFK | A fact outside the working directory is blocking a decision. | A [research](https://aihero.dev/skills-research) [subagent](https://www.aihero.dev/ai-coding-dictionary/subagent), claimed when unblocked, queued to available capacity, and run on a retained `research/<name>` branch |
 | `task` | Either | Nothing to decide, but manual work blocks a decision, such as provisioning access, signing up for a service, or moving data so you can see its shape. | The agent alone where it can, otherwise a precise checklist for the human |
 
 `task` is the only type that *does* rather than decides. It belongs on the map only because it unblocks a decision, never because it delivers part of the destination. This type goes wrong most often in practice. Agents read it as an implementation step and start to write product code inside the map.
 
 Research is the only exception to *one ticket per session*.
+
+Research tickets share a recorded starting revision within each dispatch batch. Each researcher works in an owned checkout and returns a cited note with a verified pushed commit. The ticket links the note at that commit, so advancing the default branch does not change the evidence. Research branches and checkouts stay available, with no research PR or integration merge.
 
 ## Common questions
 
@@ -98,6 +100,7 @@ It is this skill. v1.1 renamed it to `wayfinder`, and you invoke it as `/wayfind
 - A session resolves one ticket, posts the answer as a resolution comment, closes it, and adds one line to the map's *Decisions so far*. Then it stops.
 - **Not yet specified** shrinks over time. When fog graduates into a ticket, it leaves that section and does not appear in both places.
 - When the opening breadth-first grill finds no fog at all, the skill stops and tells you the effort is small enough to skip the map.
+- Research tickets have an owner before work starts and link a retained pushed commit and cited note.
 - The session that finishes the map points you toward a spec, not a pull request.
 
 ## Where it fits

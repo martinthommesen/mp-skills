@@ -53,6 +53,8 @@ The Gitea template uses native `tea` commands, keeps map-to-child relationships 
 
 "Other" is a full option too. It is how Jira, Linear, Azure DevOps and Beads all work. You describe the workflow, the skill records your prose in `docs/agents/issue-tracker.md`, and the downstream skills follow the prose. Users have already built this: a Jira-over-[MCP](https://www.aihero.dev/ai-coding-dictionary/mcp) variant and a hand-built local dashboard.
 
+The tracker templates also define implementation claims. Remote trackers use assignees; local Markdown uses `Claimed by:` while keeping triage `Status:` unchanged. A shared record of verified landed commits lets implementation continue when ticket closure waits for a PR. Wayfinding keeps its own decision-ticket status and records an owner before research dispatch.
+
 ## Common questions
 
 **Do I have to use GitHub?**
@@ -101,6 +103,7 @@ One long-standing complaint says yes, in these words: *"having a skill to set up
 - Both `AGENTS.md` and `CLAUDE.md` lead to the configuration pointers, directly or through a bridge or symlink. Your existing instructions and link targets remain intact.
 - The tracker it proposed matches the remote you use, and the label strings match labels that exist in your tracker.
 - Afterwards, `/to-tickets` publishes without asking you where issues live, and `/triage` applies labels rather than inventing them.
+- Local implementation claims show an owner without replacing triage roles; remote claims appear as assignees.
 - Nothing in the skill files themselves changed. If setup edited a `SKILL.md`, something went wrong.
 
 ## Where it fits
